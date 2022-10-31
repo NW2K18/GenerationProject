@@ -1,9 +1,8 @@
-# Author
+# Author: Nathan
+# This is the main program of the cafe program.
 
 import time
 #import filesystem
-
-#String.isdigit(
 
 # Initialise the product list, has values already in.
 products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
@@ -91,7 +90,7 @@ def list_orders():
 def load_products():
     productstring = ''
     try:
-        with open('GenerationProject\productdata.txt', 'r') as file:
+        with open('productdata.txt', 'r') as file:
             productstring = file.read()
             print('LOADED PRODUCTS SUCCESSFULLY')
     except Exception as e:
@@ -108,7 +107,7 @@ def load_products():
 def load_orders():
     fullorderstring = ''
     try:
-        with open('GenerationProject\orderdata.txt', 'r') as file:
+        with open('orderdata.txt', 'r') as file:
             fullorderstring = file.read()
             print('LOADED ORDERS SUCCESSFULLY')
     except Exception as e:
@@ -129,7 +128,7 @@ def load_orders():
 # Save products
 def save_products():
     try:
-        with open('GenerationProject\productdata.txt', 'w') as file:
+        with open('productdata.txt', 'w') as file:
             for product in products:
                 file.write(f'{product}\n')
     except Exception as e:
@@ -140,7 +139,7 @@ def save_products():
 # Save orders
 def save_orders():
     try:
-        with open('GenerationProject\orderdata.txt', 'w') as file:
+        with open('orderdata.txt', 'w') as file:
             for order in orders:               
                 for key in order:
                     file.write(f'{key} {order[key]}\n')
