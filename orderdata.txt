@@ -1,0 +1,15 @@
+customer_name John
+customer_address Planet Earth
+customer_phone 1439280432
+status Preparing
+
+customer_name Jimmy
+customer_address Bermuda Triangle
+customer_phone 0800001066
+status Preparing
+
+customer_name Nathan
+customer_address Leeds
+customer_phone 121233234232234
+status Preparing
+
