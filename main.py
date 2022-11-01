@@ -2,10 +2,11 @@
 # This is the main program of the cafe program.
 
 import time
-#import filesystem
 
 # Initialise the product list, has values already in.
 products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
+# Right now couriers are basically the same as products but I don't 
+# update the code as much so there will be redundancies.
 couriers = ['Larry', 'Curly', 'Moe']
 # List of orders
 orders = []
@@ -20,8 +21,8 @@ orders.append({
 
 
 # Gets user input, returns user input as int if it is valid
-def get_input_index(option, action):
-    while True:
+def get_input_index(option: str, action: str):
+    while True:  # Doesn't break from loop until valid input.
         index = (input(f'Type the index of the'
                 f' {option} you wish to {action}: '))
         if check_index(option, index):
@@ -31,7 +32,7 @@ def get_input_index(option, action):
 
 
 # Validates index, returns an appropriate boolean.
-def check_index(option, input):
+def check_index(option: str, input: str):
     try:
         index = int(input)
         index -= 1
@@ -44,7 +45,7 @@ def check_index(option, input):
                 orders[index]
             case _:
                 raise Exception('Error in the check_index function:'
-                ' no option selected.')
+                ' no option selected.')  # Raise exception for debugging.
     except IndexError:
         print('This order does not exist.')
         return False
@@ -61,6 +62,7 @@ def list_products():
         print(f'Product No.{i} {product}')
         time.sleep(0.3)
         i += 1
+    return True
 
 
 # Prints out courier list.
@@ -70,6 +72,7 @@ def list_couriers():
         print(f'Courier No.{i} {courier}')
         time.sleep(0.3)
         i += 1
+    return True
 
 
 # Prints out orders.
@@ -84,6 +87,7 @@ def list_orders():
         ''')
         time.sleep(0.5)
         i += 1
+    return True
 
 
 # Load products
@@ -95,12 +99,13 @@ def load_products():
             print('LOADED PRODUCTS SUCCESSFULLY')
     except Exception as e:
         print(f'THERE WAS AN ISSUE: {e}')
-        raise Exception
+        raise Exception  # Raise exception for debugging.
 
     products.clear()
     for product in productstring.split('\n'):
-        if product == '': continue
+        if product == '': continue  # Does not add whitespace.
         products.append(product)
+    return True
 
 
 # Load orders
@@ -112,7 +117,7 @@ def load_orders():
             print('LOADED ORDERS SUCCESSFULLY')
     except Exception as e:
         print(f'THERE WAS AN ISSUE: {e}')
-        raise Exception
+        raise Exception  # Raise exception for debugging.
     orders.clear()
     index = 0
     for orderstring in fullorderstring.split('\n\n'):
@@ -123,6 +128,7 @@ def load_orders():
             suborder = order.split(' ', 1)
             orders[index][suborder[0]] = suborder[1]
         index += 1
+    return True
 
 
 # Save products
@@ -133,7 +139,8 @@ def save_products():
                 file.write(f'{product}\n')
     except Exception as e:
         print(f'there was a problem at writing to file. {e}')
-        raise Exception
+        raise Exception  # Raise exception for debugging.
+    return True
 
 
 # Save orders
@@ -146,11 +153,13 @@ def save_orders():
                 file.write('\n')
     except Exception as e:
         print(f'there was a problem at writing to file. {e}')
-        raise Exception
+        raise Exception  # Raise exception for debugging.
+    return True
 
 
 # Create an order
 def set_order_create():
+    # If input is blank, stop function.
     userinput_name = input('Input customer name: ')
     if userinput_name.strip() == '': return False
     userinput_address = input('Input customer address: ')
@@ -168,7 +177,8 @@ def set_order_create():
 
 
 # Update an order
-def set_order_update(index):
+def set_order_update(index: int):
+    # If input is blank, continue but don't update the order.
     userinput = input('Input customer name: ')
     if userinput.strip() != '':
         orders[index]['customer_name'] = userinput
@@ -182,7 +192,7 @@ def set_order_update(index):
 
 
 # Update an order's status
-def set_order_update_status(index):
+def set_order_update_status(index: int):
     print('''
         0. Preparing
         1. Awaiting pickup
@@ -379,7 +389,7 @@ def exit_program():
 
 # Main menu
 def main():
-    # Debug stuff.
+    # Debug stuff to check if it has loaded properly.
     print(products)
     load_products()
     print(products)
