@@ -2,7 +2,6 @@
 # This is the main program of the cafe program.
 
 import time
-import input_checker
 import productmenu
 import couriermenu
 import ordermenu
