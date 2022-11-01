@@ -2,6 +2,8 @@
 # This is the main program of the cafe program.
 
 import time
+import productmenu
+import ordermenu
 
 # Initialise the product list, has values already in.
 products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
@@ -21,7 +23,7 @@ orders.append({
 
 
 # Gets user input, returns user input as int if it is valid
-def get_input_index(option: str, action: str):
+def get_input_index(option: str, action: str) -> str:
     while True:  # Doesn't break from loop until valid input.
         index = (input(f'Type the index of the'
                 f' {option} you wish to {action}: '))
@@ -32,7 +34,7 @@ def get_input_index(option: str, action: str):
 
 
 # Validates index, returns an appropriate boolean.
-def check_index(option: str, input: str):
+def check_index(option: str, input: str) -> bool:
     try:
         index = int(input)
         index -= 1
@@ -56,7 +58,7 @@ def check_index(option: str, input: str):
 
 
 # Prints out product list.
-def list_products():
+def list_products() -> bool:
     i = 1
     for product in products:
         print(f'Product No.{i} {product}')
@@ -66,7 +68,7 @@ def list_products():
 
 
 # Prints out courier list.
-def list_couriers():
+def list_couriers() -> bool:
     i = 1
     for courier in couriers:
         print(f'Courier No.{i} {courier}')
@@ -76,7 +78,7 @@ def list_couriers():
 
 
 # Prints out orders.
-def list_orders():
+def list_orders() -> bool:
     i = 1
     for order in orders:
         print(f'''Order No.{i}:
@@ -91,7 +93,7 @@ def list_orders():
 
 
 # Load products
-def load_products():
+def load_products() -> bool:
     productstring = ''
     try:
         with open('productdata.txt', 'r') as file:
@@ -109,7 +111,7 @@ def load_products():
 
 
 # Load orders
-def load_orders():
+def load_orders() -> bool:
     fullorderstring = ''
     try:
         with open('orderdata.txt', 'r') as file:
@@ -132,7 +134,7 @@ def load_orders():
 
 
 # Save products
-def save_products():
+def save_products() -> bool:
     try:
         with open('productdata.txt', 'w') as file:
             for product in products:
@@ -144,7 +146,7 @@ def save_products():
 
 
 # Save orders
-def save_orders():
+def save_orders() -> bool:
     try:
         with open('orderdata.txt', 'w') as file:
             for order in orders:               
@@ -158,7 +160,7 @@ def save_orders():
 
 
 # Create an order
-def set_order_create():
+def set_order_create() -> bool:
     # If input is blank, stop function.
     userinput_name = input('Input customer name: ')
     if userinput_name.strip() == '': return False
@@ -177,7 +179,7 @@ def set_order_create():
 
 
 # Update an order
-def set_order_update(index: int):
+def set_order_update(index: int) -> bool:
     # If input is blank, continue but don't update the order.
     userinput = input('Input customer name: ')
     if userinput.strip() != '':
@@ -192,7 +194,7 @@ def set_order_update(index: int):
 
 
 # Update an order's status
-def set_order_update_status(index: int):
+def set_order_update_status(index: int) -> bool:
     print('''
         0. Preparing
         1. Awaiting pickup
@@ -215,7 +217,7 @@ def set_order_update_status(index: int):
 
 
 # This is the products menu
-def view_products_menu():
+def view_products_menu() -> None:
     while True:
         print('''-----PRODUCTS-----
     0. Exit
@@ -271,7 +273,7 @@ def view_products_menu():
 
 
 # This is the couriers menu
-def view_couriers_menu():
+def view_couriers_menu() -> None:
     while True:
         print('''-----COURIERS-----
     0. Exit
@@ -320,7 +322,7 @@ def view_couriers_menu():
 
 
 # This is the orders menu
-def view_orders_menu():
+def view_orders_menu() -> None:
     while True:
         print('''-----ORDERS-----
         0. Exit
@@ -380,7 +382,7 @@ def view_orders_menu():
 
 
 # Exit program, making sure to save.
-def exit_program():
+def exit_program() -> None:
     save_products()
     save_orders()
     print('Exitted!')
@@ -388,7 +390,7 @@ def exit_program():
 
 
 # Main menu
-def main():
+def main() -> None:
     # Debug stuff to check if it has loaded properly.
     print(products)
     load_products()
