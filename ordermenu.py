@@ -3,7 +3,9 @@
 
 import time
 import csv
+import json
 import input_checker
+
 
 class Order_menu():
 
@@ -36,7 +38,6 @@ class Order_menu():
             i += 1
         return True
 
-
     # Load orders
     def load_orders(self) -> bool:
         fullorderstring = ''
@@ -50,7 +51,8 @@ class Order_menu():
         self.orders.clear()
         index = 0
         for orderstring in fullorderstring.split('\n\n'):
-            if orderstring == '' or orderstring == '\n': continue  # If blank, do not add this to orders.
+            # If blank, do not add this to orders.
+            if orderstring == '' or orderstring == '\n': continue
             self.orders.append({})
             for order in orderstring.split('\n'):
                 if order == '': continue
@@ -59,25 +61,24 @@ class Order_menu():
             index += 1
         return True
 
-    
     # Load a csv file.
     def load_orders_csv(self) -> None:
         try:
             with open('data/orderdata.csv', 'r') as file:
                 self.orders.clear()
                 reader = csv.DictReader(file, delimiter=',')
-                for row in reader:       
+                for row in reader:
                     self.orders.append(row)
             print('LOADED ORDERS SUCCESSFULLY')
         except Exception as e:
             print(f'THERE WAS AN ISSUE: {e}')
-            raise Exception  # Raise exception for debugging.        
+            raise Exception  # Raise exception for debugging.
 
     # Save orders
     def save_orders(self) -> bool:
         try:
             with open('data/orderdata.txt', 'w') as file:
-                for order in self.orders:               
+                for order in self.orders:
                     for key in order:
                         file.write(f'{key} {order[key]}\n')
                     file.write('\n')
@@ -86,20 +87,19 @@ class Order_menu():
             raise Exception  # Raise exception for debugging.
         return True
 
-
     # Save a csv file for orders
     def save_order_csv(self):
-        try:         
+        try:
             with open('data/orderdata.csv', 'w', newline='') as file:
                 fieldnames = ['customer_name', 'customer_address',
-                 'customer_phone', 'status']
+                              'customer_phone', 'status']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for order in self.orders:
-                    writer.writerow(order)                    
+                    writer.writerow(order)
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
-            raise Exception  # Raise exception for debugging. 
+            raise Exception  # Raise exception for debugging.
         pass
 
     # Create an order
@@ -120,7 +120,6 @@ class Order_menu():
         self.orders[index]['status'] = 'Preparing'
         return True
 
-
     # Update an order
     def set_order_update(self, index: int) -> bool:
         # If input is blank, continue but don't update the order.
@@ -134,7 +133,6 @@ class Order_menu():
         if userinput.strip() != '':
             self.orders[index]['customer_phone'] = userinput
         return True
-
 
     # Update an order's status
     def set_order_update_status(self, index: int) -> bool:
@@ -157,7 +155,6 @@ class Order_menu():
                 print('Invalid update status entered, status unchanged.')
                 return False
         return True
-
 
     # This is the orders menu
     def view_orders_menu(self):
@@ -216,5 +213,4 @@ class Order_menu():
                     time.sleep(1)
                     print(f"You have removed: {self.orders.pop(index)}.")
                 case _:  # Default
-                        print("No option selected.")
-                        
+                    print("No option selected.")

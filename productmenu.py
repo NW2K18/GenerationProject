@@ -4,8 +4,9 @@
 import time
 import input_checker
 
+
 class Product_menu():
-    
+
     def __init__(self):
         # Initialise the product list, has values already in.
         self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
@@ -15,7 +16,6 @@ class Product_menu():
         self.load_products()
         print(self.products)
 
-
     # Prints out product list.
     def list_products(self) -> bool:
         i = 1
@@ -24,7 +24,6 @@ class Product_menu():
             time.sleep(0.3)
             i += 1
         return True
-
 
     # Load products
     def load_products(self) -> bool:
@@ -43,7 +42,6 @@ class Product_menu():
             self.products.append(product)
         return True
 
-
     # Save products
     def save_products(self) -> bool:
         try:
@@ -54,7 +52,6 @@ class Product_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
         return True
-
 
     # This is the products menu
     def view_products_menu(self) -> None:
@@ -75,7 +72,7 @@ class Product_menu():
                     break
                 case '1':  # Create
                     product = input('Type in your product name: ')
-                    if product.strip() != '': 
+                    if product.strip() != '':
                         self.products.append(product)
                     else:
                         print('No product name entered.')
@@ -90,8 +87,8 @@ class Product_menu():
                     if (index + 1) == 0:
                         print('Selected 0, moving back to products menu.')
                         break
-                    newname = input(f'Type what you wish'
-                    f' to replace {self.products[index]} with: ')
+                    newname = input(f'Type what you wish to replace '
+                                    f'{self.products[index]} with: ')
                     if newname.strip() != '':
                         print('Updating product...')
                         time.sleep(1)
