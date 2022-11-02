@@ -11,6 +11,8 @@ class Courier_menu():
         self.couriers = ['Larry', 'Curly', 'Moe']
 
         # Debug stuff to check if it has loaded properly.
+        pass
+
 
     # Prints out courier list.
     def list_couriers(self) -> bool:
@@ -20,6 +22,7 @@ class Courier_menu():
             time.sleep(0.3)
             i += 1
         return True
+
 
     # Load courier
     def load_couriers(self) -> bool:
@@ -38,6 +41,7 @@ class Courier_menu():
             self.couriers.append(courier)
         return True
 
+
     # Save couriers
     def save_couriers(self) -> bool:
         try:
@@ -50,7 +54,7 @@ class Courier_menu():
         return True
 
 
-        # This is the couriers menu
+    # This is the couriers menu
     def view_couriers_menu(self) -> None:
         while True:
             print('''-----COURIERS-----
@@ -97,3 +101,4 @@ class Courier_menu():
                     print(f"You have removed: {self.couriers.pop(index)}.")
                 case _:  # Default case
                     print('No option selected.')
+                    

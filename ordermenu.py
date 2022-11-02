@@ -21,7 +21,7 @@ class Order_menu():
         self.load_orders()
         print(self.orders)
 
-        # Prints out orders.
+    # Prints out orders.
     def list_orders(self) -> bool:
         i = 1
         for order in self.orders:
@@ -35,7 +35,8 @@ class Order_menu():
             i += 1
         return True
 
-        # Load orders
+
+    # Load orders
     def load_orders(self) -> bool:
         fullorderstring = ''
         try:
@@ -57,8 +58,7 @@ class Order_menu():
             index += 1
         return True
 
-
-        
+ 
     # Save orders
     def save_orders(self) -> bool:
         try:
@@ -129,6 +129,7 @@ class Order_menu():
                 return False
         return True
 
+
     # This is the orders menu
     def view_orders_menu(self):
         while True:
@@ -187,3 +188,4 @@ class Order_menu():
                     print(f"You have removed: {self.orders.pop(index)}.")
                 case _:  # Default
                         print("No option selected.")
+                        

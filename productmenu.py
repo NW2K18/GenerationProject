@@ -43,6 +43,7 @@ class Product_menu():
             self.products.append(product)
         return True
 
+
     # Save products
     def save_products(self) -> bool:
         try:
@@ -53,6 +54,7 @@ class Product_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
         return True
+
 
     # This is the products menu
     def view_products_menu(self) -> None:

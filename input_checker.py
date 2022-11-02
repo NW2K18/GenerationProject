@@ -18,6 +18,7 @@ def check_index(list_to_check: List, input: str) -> bool:
         return False
     return True
 
+
 # Gets user input, returns user input as int if it is valid
 def get_input_index(option: str, action: str) -> str:
     while True:  # Doesn't break from loop until valid input.
@@ -27,5 +28,3 @@ def get_input_index(option: str, action: str) -> str:
             return int(index) - 1
         else:
             continue
-
-
