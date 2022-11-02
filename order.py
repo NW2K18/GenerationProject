@@ -15,22 +15,34 @@ class Order:
 
     # Set customer's name with input string
     def set_order_name(self, name) -> None:
-        pass
+        self._name = name
 
     
     # Set customer's address with input string
     def set_order_address(self, address) -> None:
-        pass
+        self._address = address
 
 
     # Set customer's phone with input string
     def set_order_phone(self, phone) -> None:
-        pass
+        self._phone = phone
 
 
     # Set order's status from a list of options.
-    def set_order_status(self, index) -> None:
-        pass
+    def set_order_status(self, index) -> bool:
+        match index:
+            case '0':  # Preparing
+                self._status = 'Preparing'
+            case '1':  # Awaiting pickup
+                self._status = 'Awaiting pickup'
+            case '2':  # Out for delivery
+                self._status = 'Out for delivery'
+            case '3':  # Delivered
+                self._status = 'Delivered'
+            case _:  # Invalid input
+                print('Invalid update status entered, status unchanged.')
+                return False
+        return True
 
 
     def get_order(self) -> Dict:

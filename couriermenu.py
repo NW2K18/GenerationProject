@@ -11,7 +11,9 @@ class Courier_menu():
         self.couriers = ['Larry', 'Curly', 'Moe']
 
         # Debug stuff to check if it has loaded properly.
-        pass
+        print(self.couriers)
+        self.load_couriers()
+        print(self.couriers)
 
 
     # Prints out courier list.
@@ -101,4 +103,3 @@ class Courier_menu():
                     print(f"You have removed: {self.couriers.pop(index)}.")
                 case _:  # Default case
                     print('No option selected.')
-                    

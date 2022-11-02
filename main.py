@@ -43,6 +43,7 @@ def main() -> None:
     # End of loop.
     products.save_products()
     orders.save_orders()
+    orders.save_order_csv()
     couriers.save_couriers()
     print('Exitted!')
     exit()

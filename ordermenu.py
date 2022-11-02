@@ -2,6 +2,7 @@
 # This is the order menu for the cafe application.
 
 import time
+import csv
 import input_checker
 
 class Order_menu():
@@ -18,7 +19,7 @@ class Order_menu():
         })
         # Debug stuff to check if it has loaded properly.
         print(self.orders)
-        self.load_orders()
+        self.load_orders_csv()
         print(self.orders)
 
     # Prints out orders.
@@ -58,7 +59,20 @@ class Order_menu():
             index += 1
         return True
 
- 
+    
+    # Load a csv file.
+    def load_orders_csv(self) -> None:
+        try:
+            with open('orderdata.csv', 'r') as file:
+                self.orders.clear()
+                reader = csv.DictReader(file, delimiter=',')
+                for row in reader:       
+                    self.orders.append(row)
+            print('LOADED ORDERS SUCCESSFULLY')
+        except Exception as e:
+            print(f'THERE WAS AN ISSUE: {e}')
+            raise Exception  # Raise exception for debugging.        
+
     # Save orders
     def save_orders(self) -> bool:
         try:
@@ -72,6 +86,21 @@ class Order_menu():
             raise Exception  # Raise exception for debugging.
         return True
 
+
+    # Save a csv file for orders
+    def save_order_csv(self):
+        try:         
+            with open('orderdata.csv', 'w', newline='') as file:
+                fieldnames = ['customer_name', 'customer_address',
+                 'customer_phone', 'status']
+                writer = csv.DictWriter(file, fieldnames)
+                writer.writeheader()
+                for order in self.orders:
+                    writer.writerow(order)                    
+        except Exception as e:
+            print(f'there was a problem at writing to file. {e}')
+            raise Exception  # Raise exception for debugging. 
+        pass
 
     # Create an order
     def set_order_create(self) -> bool:
