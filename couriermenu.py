@@ -30,7 +30,7 @@ class Courier_menu():
     def load_couriers(self) -> bool:
         courierstring = ''
         try:
-            with open('courierdata.txt', 'r') as file:
+            with open('data/courierdata.txt', 'r') as file:
                 courierstring = file.read()
                 print('LOADED COURIERS SUCCESSFULLY')
         except Exception as e:
@@ -47,7 +47,7 @@ class Courier_menu():
     # Save couriers
     def save_couriers(self) -> bool:
         try:
-            with open('courierdata.txt', 'w') as file:
+            with open('data/courierdata.txt', 'w') as file:
                 for courier in self.couriers:
                     file.write(f'{courier}\n')
         except Exception as e:

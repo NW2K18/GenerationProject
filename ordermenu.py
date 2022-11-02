@@ -41,7 +41,7 @@ class Order_menu():
     def load_orders(self) -> bool:
         fullorderstring = ''
         try:
-            with open('orderdata.txt', 'r') as file:
+            with open('data/orderdata.txt', 'r') as file:
                 fullorderstring = file.read()
                 print('LOADED ORDERS SUCCESSFULLY')
         except Exception as e:
@@ -63,7 +63,7 @@ class Order_menu():
     # Load a csv file.
     def load_orders_csv(self) -> None:
         try:
-            with open('orderdata.csv', 'r') as file:
+            with open('data/orderdata.csv', 'r') as file:
                 self.orders.clear()
                 reader = csv.DictReader(file, delimiter=',')
                 for row in reader:       
@@ -76,7 +76,7 @@ class Order_menu():
     # Save orders
     def save_orders(self) -> bool:
         try:
-            with open('orderdata.txt', 'w') as file:
+            with open('data/orderdata.txt', 'w') as file:
                 for order in self.orders:               
                     for key in order:
                         file.write(f'{key} {order[key]}\n')
@@ -90,7 +90,7 @@ class Order_menu():
     # Save a csv file for orders
     def save_order_csv(self):
         try:         
-            with open('orderdata.csv', 'w', newline='') as file:
+            with open('data/orderdata.csv', 'w', newline='') as file:
                 fieldnames = ['customer_name', 'customer_address',
                  'customer_phone', 'status']
                 writer = csv.DictWriter(file, fieldnames)

@@ -30,7 +30,7 @@ class Product_menu():
     def load_products(self) -> bool:
         productstring = ''
         try:
-            with open('productdata.txt', 'r') as file:
+            with open('data/productdata.txt', 'r') as file:
                 productstring = file.read()
                 print('LOADED PRODUCTS SUCCESSFULLY')
         except Exception as e:
@@ -47,7 +47,7 @@ class Product_menu():
     # Save products
     def save_products(self) -> bool:
         try:
-            with open('productdata.txt', 'w') as file:
+            with open('data/productdata.txt', 'w') as file:
                 for product in self.products:
                     file.write(f'{product}\n')
         except Exception as e:
