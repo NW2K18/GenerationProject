@@ -42,7 +42,7 @@ def main() -> None:
                 print('No option selected.')
     # End of loop, save data.
     products.save_products()
-    orders.save_order_csv()
+    orders.save_orders_csv()
     couriers.save_couriers()
     print('Exitted!')
     exit()

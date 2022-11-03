@@ -4,6 +4,7 @@
 import time
 import csv
 import json
+
 import input_checker
 
 
@@ -52,10 +53,12 @@ class Order_menu():
         index = 0
         for orderstring in fullorderstring.split('\n\n'):
             # If blank, do not add this to orders.
-            if orderstring == '' or orderstring == '\n': continue
+            if orderstring == '' or orderstring == '\n':
+                continue
             self.orders.append({})
             for order in orderstring.split('\n'):
-                if order == '': continue
+                if order == '':
+                    continue
                 suborder = order.split(' ', 1)
                 self.orders[index][suborder[0]] = suborder[1]
             index += 1
@@ -88,7 +91,7 @@ class Order_menu():
         return True
 
     # Save a csv file for orders
-    def save_order_csv(self):
+    def save_orders_csv(self):
         try:
             with open('data/orderdata.csv', 'w', newline='') as file:
                 fieldnames = ['customer_name', 'customer_address',
@@ -106,11 +109,14 @@ class Order_menu():
     def set_order_create(self) -> bool:
         # If input is blank, stop function.
         userinput_name = input('Input customer name: ')
-        if userinput_name.strip() == '': return False
+        if userinput_name.strip() == '':
+            return False
         userinput_address = input('Input customer address: ')
-        if userinput_address.strip() == '': return False
+        if userinput_address.strip() == '':
+            return False
         userinput_phone = input('Input customer phone number: ')
-        if userinput_phone.strip() == '': return False
+        if userinput_phone.strip() == '':
+            return False
         # If the inputs are valid, add a new entry.
         index = len(self.orders)  # Index of the new dictionary object
         self.orders.append({})  # Add the new dictionary

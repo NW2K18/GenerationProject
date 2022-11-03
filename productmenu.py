@@ -2,6 +2,7 @@
 # This is the product menu for the cafe application.
 
 import time
+
 import input_checker
 
 
@@ -38,7 +39,8 @@ class Product_menu():
 
         self.products.clear()
         for product in productstring.split('\n'):
-            if product == '': continue  # Does not add whitespace.
+            if product == '':
+                continue  # Does not add whitespace.
             self.products.append(product)
         return True
 

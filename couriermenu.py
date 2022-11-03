@@ -2,7 +2,9 @@
 # This is the courier menu for the cafe application.
 
 import time
+
 import input_checker
+
 
 class Courier_menu():
 
@@ -15,7 +17,6 @@ class Courier_menu():
         self.load_couriers()
         print(self.couriers)
 
-
     # Prints out courier list.
     def list_couriers(self) -> bool:
         i = 1
@@ -24,7 +25,6 @@ class Courier_menu():
             time.sleep(0.3)
             i += 1
         return True
-
 
     # Load courier
     def load_couriers(self) -> bool:
@@ -39,10 +39,10 @@ class Courier_menu():
 
         self.couriers.clear()
         for courier in courierstring.split('\n'):
-            if courier == '': continue  # Does not add whitespace.
+            if courier == '':
+                continue  # Does not add whitespace.
             self.couriers.append(courier)
         return True
-
 
     # Save couriers
     def save_couriers(self) -> bool:
@@ -54,7 +54,6 @@ class Courier_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
         return True
-
 
     # This is the couriers menu
     def view_couriers_menu(self) -> None:
@@ -86,8 +85,8 @@ class Courier_menu():
                     if (index + 1) == 0:
                         print('Selected 0, moving back to couriers menu.')
                         break
-                    newname = input(f'Type what you wish'
-                    f' to replace {self.couriers[index]} with: ')
+                    newname = input(f'Type what you wish to replace '
+                                    f'{self.couriers[index]} with: ')
                     print('Updating courier...')
                     time.sleep(1)
                     self.couriers[index] = newname
