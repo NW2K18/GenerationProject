@@ -7,9 +7,10 @@ import input_checker
 
 
 class Product_menu():
-
+    """Class used as the interface for handling products.
+    """
     def __init__(self) -> None:
-        """Initialise product menu object.
+        """Initialise product menu object and loads data.
         """
         # Initialise some generic products.
         self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']

@@ -7,9 +7,10 @@ import input_checker
 
 
 class Courier_menu():
-
+    """Class used as the interface for handling couriers.
+    """
     def __init__(self) -> None:
-        """Initialise courier menu object.
+        """Initialise courier menu object and loads data.
         """
         # Initialise some generic couriers.
         self.couriers = ['Larry', 'Curly', 'Moe']

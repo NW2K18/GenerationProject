@@ -9,8 +9,11 @@ import input_checker
 
 
 class Order_menu():
-
-    def __init__(self):
+    """Class used as the interface for handling orders.
+    """
+    def __init__(self) -> None:
+        """Initialise order menu object and loads data.
+        """
         # List of orders
         self.orders = []
         # Sample order
@@ -25,8 +28,9 @@ class Order_menu():
         self.load_orders_csv()
         print(self.orders)
 
-    # Prints out orders.
-    def list_orders(self) -> bool:
+    def list_orders(self) -> None:
+        """Prints out order list.
+        """
         i = 1
         for order in self.orders:
             print(f"""Order No.{i}:
@@ -37,10 +41,13 @@ class Order_menu():
             """)
             sleep(0.5)
             i += 1
-        return True
 
-    # Load orders
-    def load_orders(self) -> bool:
+    def load_orders(self) -> None:
+        """Loads orders from a text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         fullorderstring = ''
         try:
             with open('data/orderdata.txt', 'r') as file:
@@ -62,10 +69,13 @@ class Order_menu():
                 suborder = order.split(' ', 1)
                 self.orders[index][suborder[0]] = suborder[1]
             index += 1
-        return True
 
-    # Load a csv file.
     def load_orders_csv(self) -> None:
+        """Loads orders from a csv file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """        
         try:
             with open('data/orderdata.csv', 'r') as file:
                 self.orders.clear()
@@ -78,7 +88,12 @@ class Order_menu():
             raise Exception  # Raise exception for debugging.
 
     # Save orders
-    def save_orders(self) -> bool:
+    def save_orders(self) -> None:
+        """Saves order data to a text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         try:
             with open('data/orderdata.txt', 'w') as file:
                 for order in self.orders:
@@ -88,10 +103,14 @@ class Order_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
-        return True
 
     # Save a csv file for orders
-    def save_orders_csv(self):
+    def save_orders_csv(self) -> None:
+        """Saves order data to a csv file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         try:
             with open('data/orderdata.csv', 'w', newline='') as file:
                 fieldnames = ['customer_name', 'customer_address',
