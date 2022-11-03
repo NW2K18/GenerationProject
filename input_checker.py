@@ -4,7 +4,7 @@
 
 from typing import List
 
-# Validates index, returns an appropriate boolean.
+"""Validates index, returns an appropriate boolean."""
 def check_index(list_to_check: List, input: str) -> bool:
     try:
         index = int(input)
@@ -19,11 +19,11 @@ def check_index(list_to_check: List, input: str) -> bool:
     return True
 
 
-# Gets user input, returns user input as int if it is valid
+"""Gets user input, returns user input as int if it is valid"""
 def get_input_index(option: str, action: str) -> str:
     while True:  # Doesn't break from loop until valid input.
         index = (input(f'Type the index of the'
-                f' {option} you wish to {action}: '))
+                       f' {option} you wish to {action}: '))
         if check_index(option, index):
             return int(index) - 1
         else:

@@ -1,7 +1,7 @@
 # Author: Nathan
 # This is the courier menu for the cafe application.
 
-import time
+from time import sleep
 
 import input_checker
 
@@ -22,7 +22,7 @@ class Courier_menu():
         i = 1
         for courier in self.couriers:
             print(f'Courier No.{i} {courier}')
-            time.sleep(0.3)
+            sleep(0.3)
             i += 1
         return True
 
@@ -58,27 +58,27 @@ class Courier_menu():
     # This is the couriers menu
     def view_couriers_menu(self) -> None:
         while True:
-            print('''-----COURIERS-----
+            print("""-----COURIERS-----
 0. Exit
 1. Add Courier
 2. View Courier List
 3. Update Courier
 4. Remove Courier
----------------------''')
+---------------------""")
             option = input('Choose command: ')
 
             match option:
                 case '0':  # Exit
                     print('Exiting couriers menu...')
-                    time.sleep(1)
+                    sleep(1)
                     break
                 case '1':  # Create Courier
-                    self.couriers.append(input("Type in your courier name: "))
+                    self.couriers.append(input('Type in your courier name: '))
                 case '2':  # View Courier List
                     print('Printing courier list...')
-                    time.sleep(1)
+                    sleep(1)
                     self.list_couriers()
-                    time.sleep(1)
+                    sleep(1)
                 case '3':  # Update Courier
                     self.list_couriers()
                     index = input_checker.get_input_index('courier', 'update')
@@ -88,17 +88,17 @@ class Courier_menu():
                     newname = input(f'Type what you wish to replace '
                                     f'{self.couriers[index]} with: ')
                     print('Updating courier...')
-                    time.sleep(1)
+                    sleep(1)
                     self.couriers[index] = newname
                     print('Updated courier.')
                 case '4':  # Remove Courier
                     self.list_couriers()
                     index = input_checker.get_input_index('courier', 'remove')
                     if (index + 1) == 0:
-                        print("Selected 0, moving back to couriers menu.")
+                        print('Selected 0, moving back to couriers menu.')
                         break
-                    print("Removing courier...")
-                    time.sleep(1)
-                    print(f"You have removed: {self.couriers.pop(index)}.")
+                    print('Removing courier...')
+                    sleep(1)
+                    print(f'You have removed: {self.couriers.pop(index)}.')
                 case _:  # Default case
                     print('No option selected.')

@@ -1,7 +1,7 @@
 # Author: Nathan
 # This is the product menu for the cafe application.
 
-import time
+from time import sleep
 
 import input_checker
 
@@ -22,7 +22,7 @@ class Product_menu():
         i = 1
         for product in self.products:
             print(f'Product No.{i} {product}')
-            time.sleep(0.3)
+            sleep(0.3)
             i += 1
         return True
 
@@ -58,19 +58,19 @@ class Product_menu():
     # This is the products menu
     def view_products_menu(self) -> None:
         while True:
-            print('''-----PRODUCTS-----
+            print("""-----PRODUCTS-----
         0. Exit
         1. Create Product
         2. View Product List
         3. Update Product
         4. Remove Product
-    ---------------------''')
+    ---------------------""")
             option = input('Choose command: ')
 
             match option:
                 case '0':  # Exit
                     print('Exiting products menu...')
-                    time.sleep(1)
+                    sleep(1)
                     break
                 case '1':  # Create
                     product = input('Type in your product name: ')
@@ -80,9 +80,9 @@ class Product_menu():
                         print('No product name entered.')
                 case '2':  # View
                     print('Printing product list...')
-                    time.sleep(1)
+                    sleep(1)
                     self.list_products()
-                    time.sleep(1)
+                    sleep(1)
                 case '3':  # Update
                     self.list_products()
                     index = input_checker.get_input_index('product', 'update')
@@ -93,7 +93,7 @@ class Product_menu():
                                     f'{self.products[index]} with: ')
                     if newname.strip() != '':
                         print('Updating product...')
-                        time.sleep(1)
+                        sleep(1)
                         self.products[index] = newname
                         print('Updated product.')
                     else:
@@ -105,7 +105,7 @@ class Product_menu():
                         print('Selected 0, moving back to products menu.')
                         break
                     print('Removing product...')
-                    time.sleep(1)
+                    sleep(1)
                     print(f'You have removed: {self.products.pop(index)}.')
                 case _:  # Default
                     print('No option selected.')

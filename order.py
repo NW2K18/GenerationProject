@@ -7,41 +7,41 @@ from typing import Dict
 
 class Order:
     def __init__(self, name, address, phone) -> None:
-        self._name = name
-        self._address = address
-        self._phone = phone
-        self._status = 'Preparing'
+        self.name = name
+        self.address = address
+        self.phone = phone
+        self.status = 'Preparing'
 
     # Set customer's name with input string
     def set_order_name(self, name) -> None:
-        self._name = name
+        self.name = name
 
     # Set customer's address with input string
     def set_order_address(self, address) -> None:
-        self._address = address
+        self.address = address
 
     # Set customer's phone with input string
     def set_order_phone(self, phone) -> None:
-        self._phone = phone
+        self.phone = phone
 
     # Set order's status from a list of options.
     def set_order_status(self, index: str) -> bool:
         match index:
             case '0':  # Preparing
-                self._status = 'Preparing'
+                self.status = 'Preparing'
             case '1':  # Awaiting pickup
-                self._status = 'Awaiting pickup'
+                self.status = 'Awaiting pickup'
             case '2':  # Out for delivery
-                self._status = 'Out for delivery'
+                self.status = 'Out for delivery'
             case '3':  # Delivered
-                self._status = 'Delivered'
+                self.status = 'Delivered'
             case _:  # Invalid input
                 print('Invalid update status entered, status unchanged.')
                 return False
         return True
 
     def get_order(self) -> Dict:
-        return {'customer_name': self._name,
-                'customer_address': self._address,
-                'customer_phone': self._phone,
-                'status': self._status}
+        return {'customer_name': self.name,
+                'customer_address': self.address,
+                'customer_phone': self.phone,
+                'status': self.status}

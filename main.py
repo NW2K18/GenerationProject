@@ -1,13 +1,13 @@
 # Author: Nathan
 # This is the main program of the cafe program.
 
-import time
+from time import sleep
 import productmenu
 import couriermenu
 import ordermenu
 
 
-# Main menu
+# This contains the main menu loop.
 def main() -> None:
 
     products = productmenu.Product_menu()
@@ -28,15 +28,15 @@ def main() -> None:
                 break
             case '1':  # Products
                 print('Entering products menu...')
-                time.sleep(1)
+                sleep(1)
                 products.view_products_menu()
             case '2':  # Couriers
                 print('Entering couriers menu...')
-                time.sleep(1)
+                sleep(1)
                 couriers.view_couriers_menu()
             case '3':  # Orders
                 print('Entering orders menu...')
-                time.sleep(1)
+                sleep(1)
                 orders.view_orders_menu()
             case _:  # Default
                 print('No option selected.')
