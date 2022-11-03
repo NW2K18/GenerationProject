@@ -8,8 +8,10 @@ import input_checker
 
 class Product_menu():
 
-    def __init__(self):
-        # Initialise the product list, has values already in.
+    def __init__(self) -> None:
+        """Initialise product menu object.
+        """
+        # Initialise some generic products.
         self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
 
         # Debug stuff to check if it has loaded properly.
@@ -17,17 +19,21 @@ class Product_menu():
         self.load_products()
         print(self.products)
 
-    # Prints out product list.
-    def list_products(self) -> bool:
+    def list_products(self) -> None:
+        """Prints out product list.
+        """
         i = 1
         for product in self.products:
             print(f'Product No.{i} {product}')
             sleep(0.3)
             i += 1
-        return True
 
-    # Load products
-    def load_products(self) -> bool:
+    def load_products(self) -> None:
+        """Loads product data from text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         productstring = ''
         try:
             with open('data/productdata.txt', 'r') as file:
@@ -42,10 +48,13 @@ class Product_menu():
             if product == '':
                 continue  # Does not add whitespace.
             self.products.append(product)
-        return True
 
-    # Save products
-    def save_products(self) -> bool:
+    def save_products(self) -> None:
+        """Saves product data to a text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         try:
             with open('data/productdata.txt', 'w') as file:
                 for product in self.products:
@@ -53,10 +62,10 @@ class Product_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
-        return True
 
-    # This is the products menu
     def view_products_menu(self) -> None:
+        """This contains the product menu loop.
+        """
         while True:
             print("""-----PRODUCTS-----
         0. Exit
