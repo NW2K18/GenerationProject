@@ -4,8 +4,17 @@
 
 from typing import List
 
-"""Validates index, returns an appropriate boolean."""
+
 def check_index(list_to_check: List, input: str) -> bool:
+    """Validates the input as an index and returns an appropriate boolean
+
+    Args:
+        list_to_check (List): The list to check the index against.
+        input (str): The index to be checked.
+
+    Returns:
+        bool: True if the index is valid, False if not.
+    """
     try:
         index = int(input)
         index -= 1
@@ -19,8 +28,17 @@ def check_index(list_to_check: List, input: str) -> bool:
     return True
 
 
-"""Gets user input, returns user input as int if it is valid"""
-def get_input_index(option: str, action: str) -> str:
+def get_input_index(option: str, action: str) -> int:
+    """Contains a while loop with an input function that asks for user input,
+    and returns an index once you input a valid index.
+
+    Args:
+        option (str): The object type that the user wants to modify.
+        action (str): What the user wants to do to the object.
+
+    Returns:
+        int: The index
+    """
     while True:  # Doesn't break from loop until valid input.
         index = (input(f'Type the index of the'
                        f' {option} you wish to {action}: '))
