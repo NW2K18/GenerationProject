@@ -21,9 +21,9 @@ class Order_menu():
         self.orders.append(orderclass.Order('John', 'Planet Earth',
                                             '1439280432'))
         # Debug stuff to check if it has loaded properly.
-        print(self.orders)
-        # self.load_orders_csv()
-        print(self.orders)
+        self.list_orders()
+        self.load_orders_csv()
+        self.list_orders()
 
     def list_orders(self) -> None:
         """Prints out order list.
@@ -50,7 +50,11 @@ class Order_menu():
                 self.orders.clear()
                 reader = csv.DictReader(file, delimiter=',')
                 for row in reader:
-                    self.orders.append(row)
+                    neworder = orderclass.Order(row['customer_name'],
+                                                row['customer_address'],
+                                                row['customer_phone'])
+                    neworder.status = row['status']
+                    self.orders.append(neworder)
             print('LOADED ORDERS SUCCESSFULLY')
         except Exception as e:
             print(f'THERE WAS AN ISSUE: {e}')
@@ -69,7 +73,7 @@ class Order_menu():
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for order in self.orders:
-                    writer.writerow(order)
+                    writer.writerow(order.get_order())
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
