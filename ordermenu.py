@@ -6,6 +6,7 @@ import csv
 # import json
 
 import input_checker
+import orderclass
 
 
 class Order_menu():
@@ -17,15 +18,11 @@ class Order_menu():
         # List of orders
         self.orders = []
         # Sample order
-        self.orders.append({
-            'customer_name': 'John',
-            'customer_address': 'Planet Earth',
-            'customer_phone': '1439280432',
-            'status': 'Preparing'
-        })
+        self.orders.append(orderclass.Order('John', 'Planet Earth',
+                                            '1439280432'))
         # Debug stuff to check if it has loaded properly.
         print(self.orders)
-        self.load_orders_csv()
+        # self.load_orders_csv()
         print(self.orders)
 
     def list_orders(self) -> None:
@@ -34,48 +31,20 @@ class Order_menu():
         i = 1
         for order in self.orders:
             print(f"""Order No.{i}:
-            Customer name: {order['customer_name']}
-            Customer address: {order['customer_address']}
-            Customer phone number: {order['customer_phone']}
-            Order status: {order['status']}
+            Customer name: {order.name}
+            Customer address: {order.address}
+            Customer phone number: {order.phone}
+            Order status: {order.status}
             """)
             sleep(0.5)
             i += 1
-
-    def load_orders(self) -> None:
-        """Loads orders from a text file.
-
-        Raises:
-            Exception: Exception related to not finding a file.
-        """
-        fullorderstring = ''
-        try:
-            with open('data/orderdata.txt', 'r') as file:
-                fullorderstring = file.read()
-                print('LOADED ORDERS SUCCESSFULLY')
-        except Exception as e:
-            print(f'THERE WAS AN ISSUE: {e}')
-            raise Exception  # Raise exception for debugging.
-        self.orders.clear()
-        index = 0
-        for orderstring in fullorderstring.split('\n\n'):
-            # If blank, do not add this to orders.
-            if orderstring == '' or orderstring == '\n':
-                continue
-            self.orders.append({})
-            for order in orderstring.split('\n'):
-                if order == '':
-                    continue
-                suborder = order.split(' ', 1)
-                self.orders[index][suborder[0]] = suborder[1]
-            index += 1
 
     def load_orders_csv(self) -> None:
         """Loads orders from a csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
-        """        
+        """
         try:
             with open('data/orderdata.csv', 'r') as file:
                 self.orders.clear()
@@ -87,24 +56,6 @@ class Order_menu():
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-    # Save orders
-    def save_orders(self) -> None:
-        """Saves order data to a text file.
-
-        Raises:
-            Exception: Exception related to not finding a file.
-        """
-        try:
-            with open('data/orderdata.txt', 'w') as file:
-                for order in self.orders:
-                    for key in order:
-                        file.write(f'{key} {order[key]}\n')
-                    file.write('\n')
-        except Exception as e:
-            print(f'there was a problem at writing to file. {e}')
-            raise Exception  # Raise exception for debugging.
-
-    # Save a csv file for orders
     def save_orders_csv(self) -> None:
         """Saves order data to a csv file.
 
@@ -136,12 +87,9 @@ class Order_menu():
         if userinput_phone.strip() == '':
             return False
         # If the inputs are valid, add a new entry.
-        index = len(self.orders)  # Index of the new dictionary object
-        self.orders.append({})  # Add the new dictionary
-        self.orders[index]['customer_name'] = userinput_name
-        self.orders[index]['customer_address'] = userinput_address
-        self.orders[index]['customer_phone'] = userinput_phone
-        self.orders[index]['status'] = 'Preparing'
+        new_order = orderclass.Order(userinput_name, userinput_address,
+                                     userinput_phone)
+        self.orders.append(new_order)
         return True
 
     # Update an order
@@ -149,13 +97,13 @@ class Order_menu():
         # If input is blank, continue but don't update the order.
         userinput = input('Input customer name: ')
         if userinput.strip() != '':
-            self.orders[index]['customer_name'] = userinput
+            self.orders[index].name = userinput
         userinput = input('Input customer address: ')
         if userinput.strip() != '':
-            self.orders[index]['customer_address'] = userinput
+            self.orders[index].address = userinput
         userinput = input('Input customer phone number: ')
         if userinput.strip() != '':
-            self.orders[index]['customer_phone'] = userinput
+            self.orders[index].phone = userinput
         return True
 
     # Update an order's status
@@ -166,19 +114,8 @@ class Order_menu():
             2. Out for delivery
             3. Delivered
     """)
-        match input('Input number for order status: '):
-            case '0':  # Preparing
-                self.orders[index]['status'] = 'Preparing'
-            case '1':  # Awaiting pickup
-                self.orders[index]['status'] = 'Awaiting pickup'
-            case '2':  # Out for delivery
-                self.orders[index]['status'] = 'Out for delivery'
-            case '3':  # Delivered
-                self.orders[index]['status'] = 'Delivered'
-            case _:  # Invalid input
-                print('Invalid update status entered, status unchanged.')
-                return False
-        return True
+        new_status = input('Input number for order status: ')
+        self.orders[index].set_order_status(new_status)
 
     # This is the orders menu
     def view_orders_menu(self):
