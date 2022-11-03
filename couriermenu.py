@@ -8,8 +8,10 @@ import input_checker
 
 class Courier_menu():
 
-    def __init__(self):
-        # Initialise couriers
+    def __init__(self) -> None:
+        """Initialise courier menu object.
+        """
+        # Initialise some generic couriers.
         self.couriers = ['Larry', 'Curly', 'Moe']
 
         # Debug stuff to check if it has loaded properly.
@@ -17,17 +19,21 @@ class Courier_menu():
         self.load_couriers()
         print(self.couriers)
 
-    # Prints out courier list.
-    def list_couriers(self) -> bool:
+    def list_couriers(self) -> None:
+        """Prints out courier list.
+        """
         i = 1
         for courier in self.couriers:
             print(f'Courier No.{i} {courier}')
             sleep(0.3)
             i += 1
-        return True
 
-    # Load courier
-    def load_couriers(self) -> bool:
+    def load_couriers(self) -> None:
+        """Loads courier data from text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         courierstring = ''
         try:
             with open('data/courierdata.txt', 'r') as file:
@@ -42,10 +48,13 @@ class Courier_menu():
             if courier == '':
                 continue  # Does not add whitespace.
             self.couriers.append(courier)
-        return True
 
-    # Save couriers
-    def save_couriers(self) -> bool:
+    def save_couriers(self) -> None:
+        """Saves courier data to a text file.
+
+        Raises:
+            Exception: Exception related to not finding a file.
+        """
         try:
             with open('data/courierdata.txt', 'w') as file:
                 for courier in self.couriers:
@@ -53,10 +62,10 @@ class Courier_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
-        return True
 
-    # This is the couriers menu
     def view_couriers_menu(self) -> None:
+        """This contains the courier menu loop.
+        """
         while True:
             print("""-----COURIERS-----
 0. Exit

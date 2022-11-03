@@ -7,20 +7,20 @@ import couriermenu
 import ordermenu
 
 
-# This contains the main menu loop.
 def main() -> None:
-
+    """This contains the main menu loop.
+    """
     products = productmenu.Product_menu()
     orders = ordermenu.Order_menu()
     couriers = couriermenu.Courier_menu()
 
     while True:
-        print('''-----MAIN MENU-----
+        print("""-----MAIN MENU-----
         0. Exit
         1. Products
         2. Couriers
         3. Orders
--------------------''')
+-------------------""")
         option = input('Choose command: ')
         match option:
             case '0':  # Exit
