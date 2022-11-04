@@ -2,6 +2,7 @@
 
 import unittest
 
+
 class TestOrderAttributes(unittest.TestCase):
 
     def test_name(self):
@@ -18,6 +19,7 @@ class TestOrderAttributes(unittest.TestCase):
 
     def test_get_order(self):
         self.assertEqual('foo'.upper(), 'FOO')
+
 
 if __name__ == '__main__':
     unittest.main()

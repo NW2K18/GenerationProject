@@ -78,8 +78,12 @@ class Order_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
 
-    # Create an order
     def set_order_create(self) -> bool:
+        """Asks for user input to create an order.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
         # If input is blank, stop function.
         userinput_name = input('Input customer name: ')
         if userinput_name.strip() == '':
@@ -96,8 +100,15 @@ class Order_menu():
         self.orders.append(new_order)
         return True
 
-    # Update an order
     def set_order_update(self, index: int) -> bool:
+        """Asks for user input to update an order.
+
+        Args:
+            index (int): List index of the order to be updated.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
         # If input is blank, continue but don't update the order.
         userinput = input('Input customer name: ')
         if userinput.strip() != '':
@@ -110,8 +121,15 @@ class Order_menu():
             self.orders[index].phone = userinput
         return True
 
-    # Update an order's status
     def set_order_update_status(self, index: int) -> bool:
+        """Asks for user input to update an order's status.
+
+        Args:
+            index (int): List index of the order to be updated.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
         print("""
             0. Preparing
             1. Awaiting pickup
@@ -123,6 +141,8 @@ class Order_menu():
 
     # This is the orders menu
     def view_orders_menu(self):
+        """This contains the order menu loop.
+        """
         while True:
             print("""-----ORDERS-----
 0. Exit
