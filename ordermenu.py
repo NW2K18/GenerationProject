@@ -10,11 +10,9 @@ import orderclass
 
 
 class Order_menu():
-    """Class used as the interface for handling orders.
-    """
+    """Class used as the interface for handling orders."""
     def __init__(self) -> None:
-        """Initialise order menu object and loads data.
-        """
+        """Initialise order menu object and loads data."""
         # List of orders
         self.orders = []
         # Sample order
@@ -26,8 +24,7 @@ class Order_menu():
         self.list_orders()
 
     def list_orders(self) -> None:
-        """Prints out order list.
-        """
+        """Prints out order list."""
         i = 1
         for order in self.orders:
             print(f"""Order No.{i}:
@@ -141,8 +138,7 @@ class Order_menu():
 
     # This is the orders menu
     def view_orders_menu(self):
-        """This contains the order menu loop.
-        """
+        """This contains the order menu loop."""
         while True:
             print("""-----ORDERS-----
 0. Exit

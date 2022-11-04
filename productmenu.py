@@ -7,11 +7,9 @@ import input_checker
 
 
 class Product_menu():
-    """Class used as the interface for handling products.
-    """
+    """Class used as the interface for handling products."""
     def __init__(self) -> None:
-        """Initialise product menu object and loads data.
-        """
+        """Initialise product menu object and loads data."""
         # Initialise some generic products.
         self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
 
@@ -21,8 +19,7 @@ class Product_menu():
         print(self.products)
 
     def list_products(self) -> None:
-        """Prints out product list.
-        """
+        """Prints out product list."""
         i = 1
         for product in self.products:
             print(f'Product No.{i} {product}')
@@ -65,8 +62,7 @@ class Product_menu():
             raise Exception  # Raise exception for debugging.
 
     def view_products_menu(self) -> None:
-        """This contains the product menu loop.
-        """
+        """This contains the product menu loop."""
         while True:
             print("""-----PRODUCTS-----
         0. Exit

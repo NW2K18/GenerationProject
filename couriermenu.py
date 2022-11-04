@@ -7,11 +7,9 @@ import input_checker
 
 
 class Courier_menu():
-    """Class used as the interface for handling couriers.
-    """
+    """Class used as the interface for handling couriers."""
     def __init__(self) -> None:
-        """Initialise courier menu object and loads data.
-        """
+        """Initialise courier menu object and loads data."""
         # Initialise some generic couriers.
         self.couriers = ['Larry', 'Curly', 'Moe']
 
@@ -21,8 +19,7 @@ class Courier_menu():
         print(self.couriers)
 
     def list_couriers(self) -> None:
-        """Prints out courier list.
-        """
+        """Prints out courier list."""
         i = 1
         for courier in self.couriers:
             print(f'Courier No.{i} {courier}')
@@ -65,8 +62,7 @@ class Courier_menu():
             raise Exception  # Raise exception for debugging.
 
     def view_couriers_menu(self) -> None:
-        """This contains the courier menu loop.
-        """
+        """This contains the courier menu loop."""
         while True:
             print("""-----COURIERS-----
 0. Exit

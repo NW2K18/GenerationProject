@@ -44,16 +44,20 @@ class Order:
         """
         self.phone = phone
 
-    def set_order_status(self, index: str) -> bool:
+    def set_order_status(self, option: str) -> bool:
         """Set order's status from a list of options.
+        0 = Preparing
+        1 = Awaiting pickup
+        2 = Out for delivery
+        3 = Delivered
 
         Args:
-            index (str): The index for the replacement status.
+            option (str): The index for the replacement status.
 
         Returns:
             bool: True if function successful, False if not.
         """
-        match index:
+        match option:
             case '0':  # Preparing
                 self.status = 'Preparing'
             case '1':  # Awaiting pickup
