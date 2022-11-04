@@ -65,12 +65,12 @@ class Product_menu():
         """This contains the product menu loop."""
         while True:
             print("""-----PRODUCTS-----
-        0. Exit
-        1. Create Product
-        2. View Product List
-        3. Update Product
-        4. Remove Product
-    ---------------------""")
+0. Exit
+1. Create Product
+2. View Product List
+3. Update Product
+4. Remove Product
+---------------------""")
             option = input('Choose command: ')
 
             match option:
@@ -91,7 +91,7 @@ class Product_menu():
                     sleep(1)
                 case '3':  # Update
                     self.list_products()
-                    index = input_checker.get_input_index('product', 'remove',
+                    index = input_checker.get_input_index('product', 'update',
                                                           self.products)
                     if index is None:
                         print('Selected 0, moving back to order menu.')

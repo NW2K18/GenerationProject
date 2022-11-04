@@ -78,32 +78,39 @@ class Courier_menu():
                     print('Exiting couriers menu...')
                     sleep(1)
                     break
-                case '1':  # Create Courier
-                    self.couriers.append(input('Type in your courier name: '))
-                case '2':  # View Courier List
+                case '1':  # Create
+                    courier = input('Type in your courier name: ')
+                    if courier.strip() != '':
+                        self.couriers.append(courier)
+                    else:
+                        print('No courier name entered.')
+                case '2':  # View
                     print('Printing courier list...')
                     sleep(1)
                     self.list_couriers()
                     sleep(1)
-                case '3':  # Update Courier
+                case '3':  # Update
                     self.list_couriers()
-                    index = input_checker.get_input_index('product', 'remove',
+                    index = input_checker.get_input_index('courier', 'update',
                                                           self.couriers)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to courier menu.')
                         break
                     newname = input(f'Type what you wish to replace '
                                     f'{self.couriers[index]} with: ')
-                    print('Updating courier...')
-                    sleep(1)
-                    self.couriers[index] = newname
-                    print('Updated courier.')
-                case '4':  # Remove Courier
+                    if newname.strip() != '':
+                        print('Updating courier...')
+                        sleep(1)
+                        self.couriers[index] = newname
+                        print('Updated courier.')
+                    else:
+                        print('No courier name entered.')
+                case '4':  # Remove
                     self.list_couriers()
-                    index = input_checker.get_input_index('product', 'remove',
+                    index = input_checker.get_input_index('courier', 'remove',
                                                           self.couriers)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to courier menu.')
                         break
                     print('Removing courier...')
                     sleep(1)
