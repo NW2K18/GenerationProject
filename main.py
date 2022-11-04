@@ -10,8 +10,7 @@ import ordermenu
 
 
 def main() -> None:
-    """This contains the main menu loop.
-    """
+    """This contains the main menu loop."""
     products = productmenu.Product_menu()
     orders = ordermenu.Order_menu()
     couriers = couriermenu.Courier_menu()

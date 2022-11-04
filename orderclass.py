@@ -21,7 +21,7 @@ class Order:
         self.status = 'Preparing'
 
     def set_order_name(self, name: str) -> None:
-        """Set customer's name with input string
+        """Set customer's name with input string.
 
         Args:
             name (str): The replacement customer name.
@@ -29,7 +29,7 @@ class Order:
         self.name = name
 
     def set_order_address(self, address: str) -> None:
-        """Set customer's address with input string
+        """Set customer's address with input string.
 
         Args:
             address (str): The replacement customer address.
@@ -37,7 +37,7 @@ class Order:
         self.address = address
 
     def set_order_phone(self, phone: str) -> None:
-        """Set customer's phone with input string
+        """Set customer's phone with input string.
 
         Args:
             phone (str): The replacement customer phone number.

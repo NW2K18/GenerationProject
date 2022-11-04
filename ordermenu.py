@@ -13,11 +13,9 @@ class Order_menu():
     """Class used as the interface for handling orders."""
     def __init__(self) -> None:
         """Initialise order menu object and loads data."""
-        # List of orders
-        self.orders = []
-        # Sample order
-        self.orders.append(orderclass.Order('John', 'Planet Earth',
-                                            '1439280432'))
+        # List of orders with a sample order.
+        self.orders = [orderclass.Order('John', 'Planet Earth',
+                                        '1439280432')]
         # Debug stuff to check if it has loaded properly.
         self.list_orders()
         self.load_orders_csv()
@@ -192,6 +190,6 @@ class Order_menu():
                         break
                     print('Removing order...')
                     sleep(1)
-                    print(f'You have removed: {self.orders.pop(index)}.')
+                    print(f'You have removed: {self.orders.pop(index).name}.')
                 case _:  # Default
                     print('No option selected.')
