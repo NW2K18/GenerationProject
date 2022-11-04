@@ -165,8 +165,9 @@ class Order_menu():
                     sleep(1)
                 case '3':  # Update status
                     self.list_orders()
-                    index = input_checker.get_input_index('order', 'update')
-                    if (index + 1) == 0:
+                    index = input_checker.get_input_index('order', 'update',
+                                                          self.orders)
+                    if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
                     self.set_order_update_status(index)
@@ -175,8 +176,9 @@ class Order_menu():
                     print('Updated order.')
                 case '4':  # Update
                     self.list_orders()
-                    index = input_checker.get_input_index('order', 'update')
-                    if (index + 1) == 0:
+                    index = input_checker.get_input_index('order', 'update',
+                                                          self.orders)
+                    if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
                     self.set_order_update(index)
@@ -184,8 +186,9 @@ class Order_menu():
                     print('Updated order.')
                 case '5':  # Remove
                     self.list_orders()
-                    index = input_checker.get_input_index('order', 'remove')
-                    if (index + 1) == 0:
+                    index = input_checker.get_input_index('order', 'remove',
+                                                          self.orders)
+                    if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
                     print('Removing order...')

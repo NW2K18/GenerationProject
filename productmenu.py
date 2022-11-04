@@ -91,9 +91,10 @@ class Product_menu():
                     sleep(1)
                 case '3':  # Update
                     self.list_products()
-                    index = input_checker.get_input_index('product', 'update')
-                    if (index + 1) == 0:
-                        print('Selected 0, moving back to products menu.')
+                    index = input_checker.get_input_index('product', 'remove',
+                                                          self.products)
+                    if index is None:
+                        print('Selected 0, moving back to order menu.')
                         break
                     newname = input(f'Type what you wish to replace '
                                     f'{self.products[index]} with: ')
@@ -106,9 +107,10 @@ class Product_menu():
                         print('No product name entered.')
                 case '4':  # Remove
                     self.list_products()
-                    index = input_checker.get_input_index('product', 'remove')
-                    if (index + 1) == 0:
-                        print('Selected 0, moving back to products menu.')
+                    index = input_checker.get_input_index('product', 'remove',
+                                                          self.products)
+                    if index is None:
+                        print('Selected 0, moving back to order menu.')
                         break
                     print('Removing product...')
                     sleep(1)

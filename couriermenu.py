@@ -87,9 +87,10 @@ class Courier_menu():
                     sleep(1)
                 case '3':  # Update Courier
                     self.list_couriers()
-                    index = input_checker.get_input_index('courier', 'update')
-                    if (index + 1) == 0:
-                        print('Selected 0, moving back to couriers menu.')
+                    index = input_checker.get_input_index('product', 'remove',
+                                                          self.couriers)
+                    if index is None:
+                        print('Selected 0, moving back to order menu.')
                         break
                     newname = input(f'Type what you wish to replace '
                                     f'{self.couriers[index]} with: ')
@@ -99,9 +100,10 @@ class Courier_menu():
                     print('Updated courier.')
                 case '4':  # Remove Courier
                     self.list_couriers()
-                    index = input_checker.get_input_index('courier', 'remove')
-                    if (index + 1) == 0:
-                        print('Selected 0, moving back to couriers menu.')
+                    index = input_checker.get_input_index('product', 'remove',
+                                                          self.couriers)
+                    if index is None:
+                        print('Selected 0, moving back to order menu.')
                         break
                     print('Removing courier...')
                     sleep(1)
