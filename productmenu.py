@@ -2,16 +2,18 @@
 # This is the product menu for the cafe application.
 
 from time import sleep
+import csv
 
 import input_checker
+import productclass
 
 
 class Product_menu():
     """Class used as the interface for handling products."""
     def __init__(self) -> None:
         """Initialise product menu object and loads data."""
-        # Initialise some generic products.
-        self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
+        # Initialise product list.
+        self.products = [productclass.Product('Pepsi', 1.00)]
 
         # Debug stuff to check if it has loaded properly.
         print(self.products)
@@ -22,44 +24,91 @@ class Product_menu():
         """Prints out product list."""
         i = 1
         for product in self.products:
-            print(f'Product No.{i} {product}')
+            print(f"""Product No.{i}:
+            Product name: {product.name}
+            Product price: {product.price}
+            """)
             sleep(0.3)
             i += 1
 
     def load_products(self) -> None:
-        """Loads product data from text file.
+        """Loads product data from csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
-        productstring = ''
         try:
-            with open('data/productdata.txt', 'r') as file:
-                productstring = file.read()
-                print('LOADED PRODUCTS SUCCESSFULLY')
+            with open('data/productdata.csv', 'r') as file:
+                self.products.clear()
+                reader = csv.DictReader(file, delimiter=',')
+                for row in reader:
+                    newproduct = productclass.Product(row['name'],
+                                                      row['price'])
+                    self.products.append(newproduct)
+            print('LOADED PRODUCTS SUCCESSFULLY')
         except Exception as e:
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-        self.products.clear()
-        for product in productstring.split('\n'):
-            if product == '':
-                continue  # Does not add whitespace.
-            self.products.append(product)
-
     def save_products(self) -> None:
-        """Saves product data to a text file.
+        """Saves product data to a csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
         try:
-            with open('data/productdata.txt', 'w') as file:
+            with open('data/productdata.csv', 'w', newline='') as file:
+                fieldnames = ['name', 'price']
+                writer = csv.DictWriter(file, fieldnames)
+                writer.writeheader()
                 for product in self.products:
-                    file.write(f'{product}\n')
+                    writer.writerow(product.get_product())
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    def set_product_create(self) -> bool:
+        """Asks for user input to create an product.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, stop function.
+        userinput_name = input('Input product name: ')
+        if userinput_name.strip() == '':
+            return False
+        try:
+            userinput_price = float(input('Input product price: '))
+            if userinput_price.strip() == '':
+                return False
+        except ValueError:
+            print('Input cannot be converted into a floating point number.')
+            return False
+        # If the inputs are valid, add a new entry.
+        new_product = productclass.Product(userinput_name, userinput_price)
+        self.products.append(new_product)
+        return True
+
+    def set_product_update(self, index: int) -> bool:
+        """Asks for user input to update an product.
+
+        Args:
+            index (int): List index of the product to be updated.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, continue but don't update the product.
+        userinput = input('Input product name: ')
+        if userinput.strip() != '':
+            self.products[index].name = userinput
+        try:
+            userinput = float(input('Input product price: '))
+            if userinput.strip() != '':
+                self.products[index].price = userinput
+        except ValueError:
+            print('Input cannot be converted into a floating point number.')
+        return True
 
     def view_products_menu(self) -> None:
         """This contains the product menu loop."""
@@ -79,11 +128,12 @@ class Product_menu():
                     sleep(1)
                     break
                 case '1':  # Create
-                    product = input('Type in your product name: ')
-                    if product.strip() != '':
-                        self.products.append(product)
+                    if self.set_product_create():
+                        sleep(1)
+                        print('Created a new product.')
                     else:
-                        print('No product name entered.')
+                        sleep(1)
+                        print('Did not create a new product.')
                 case '2':  # View
                     print('Printing product list...')
                     sleep(1)
@@ -94,23 +144,17 @@ class Product_menu():
                     index = input_checker.get_input_index('product', 'update',
                                                           self.products)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to product menu.')
                         break
-                    newname = input(f'Type what you wish to replace '
-                                    f'{self.products[index]} with: ')
-                    if newname.strip() != '':
-                        print('Updating product...')
-                        sleep(1)
-                        self.products[index] = newname
-                        print('Updated product.')
-                    else:
-                        print('No product name entered.')
+                    self.set_product_update(index)
+                    sleep(1)
+                    print('Updated product.')
                 case '4':  # Remove
                     self.list_products()
                     index = input_checker.get_input_index('product', 'remove',
                                                           self.products)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to product menu.')
                         break
                     print('Removing product...')
                     sleep(1)
