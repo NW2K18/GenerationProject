@@ -67,6 +67,49 @@ class Product_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
 
+    def set_product_create(self) -> bool:
+        """Asks for user input to create an product.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, stop function.
+        userinput_name = input('Input product name: ')
+        if userinput_name.strip() == '':
+            return False
+        try:
+            userinput_price = float(input('Input product price: '))
+            if userinput_price.strip() == '':
+                return False
+        except ValueError:
+            print('Input cannot be converted into a floating point number.')
+            return False
+        # If the inputs are valid, add a new entry.
+        new_product = productclass.Product(userinput_name, userinput_price)
+        self.products.append(new_product)
+        return True
+
+    def set_product_update(self, index: int) -> bool:
+        """Asks for user input to update an product.
+
+        Args:
+            index (int): List index of the product to be updated.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, continue but don't update the product.
+        userinput = input('Input product name: ')
+        if userinput.strip() != '':
+            self.products[index].name = userinput
+        try:
+            userinput = float(input('Input product price: '))
+            if userinput.strip() != '':
+                self.products[index].price = userinput
+        except ValueError:
+            print('Input cannot be converted into a floating point number.')
+        return True
+
     def view_products_menu(self) -> None:
         """This contains the product menu loop."""
         while True:
@@ -85,11 +128,12 @@ class Product_menu():
                     sleep(1)
                     break
                 case '1':  # Create
-                    product = input('Type in your product name: ')
-                    if product.strip() != '':
-                        self.products.append(product)
+                    if self.set_product_create():
+                        sleep(1)
+                        print('Created a new product.')
                     else:
-                        print('No product name entered.')
+                        sleep(1)
+                        print('Did not create a new product.')
                 case '2':  # View
                     print('Printing product list...')
                     sleep(1)
@@ -100,23 +144,17 @@ class Product_menu():
                     index = input_checker.get_input_index('product', 'update',
                                                           self.products)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to product menu.')
                         break
-                    newname = input(f'Type what you wish to replace '
-                                    f'{self.products[index]} with: ')
-                    if newname.strip() != '':
-                        print('Updating product...')
-                        sleep(1)
-                        self.products[index] = newname
-                        print('Updated product.')
-                    else:
-                        print('No product name entered.')
+                    self.set_product_update(index)
+                    sleep(1)
+                    print('Updated product.')
                 case '4':  # Remove
                     self.list_products()
                     index = input_checker.get_input_index('product', 'remove',
                                                           self.products)
                     if index is None:
-                        print('Selected 0, moving back to order menu.')
+                        print('Selected 0, moving back to product menu.')
                         break
                     print('Removing product...')
                     sleep(1)

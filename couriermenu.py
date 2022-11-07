@@ -24,7 +24,10 @@ class Courier_menu():
         """Prints out courier list."""
         i = 1
         for courier in self.couriers:
-            print(f'Courier No.{i} {courier}')
+            print(f"""Courier No.{i}:
+            Courier name: {courier.name}
+            Courier phone: {courier.phone}
+            """)
             sleep(0.3)
             i += 1
 
@@ -39,7 +42,7 @@ class Courier_menu():
                 self.couriers.clear()
                 reader = csv.DictReader(file, delimiter=',')
                 for row in reader:
-                    newcourier = courierclass.Product(row['name'],
+                    newcourier = courierclass.Courier(row['name'],
                                                       row['phone'])
                     self.couriers.append(newcourier)
             print('LOADED COURIERS SUCCESSFULLY')
@@ -64,6 +67,42 @@ class Courier_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
 
+    def set_courier_create(self) -> bool:
+        """Asks for user input to create an courier.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, stop function.
+        userinput_name = input('Input courier name: ')
+        if userinput_name.strip() == '':
+            return False
+        userinput_phone = input('Input courier phone number: ')
+        if userinput_phone.strip() == '':
+            return False
+        # If the inputs are valid, add a new entry.
+        new_courier = courierclass.Courier(userinput_name, userinput_phone)
+        self.couriers.append(new_courier)
+        return True
+
+    def set_courier_update(self, index: int) -> bool:
+        """Asks for user input to update an courier.
+
+        Args:
+            index (int): List index of the courier to be updated.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        # If input is blank, continue but don't update the courier.
+        userinput = input('Input courier name: ')
+        if userinput.strip() != '':
+            self.couriers[index].name = userinput
+        userinput = input('Input courier phone number: ')
+        if userinput.strip() != '':
+            self.couriers[index].phone = userinput
+        return True
+
     def view_couriers_menu(self) -> None:
         """This contains the courier menu loop."""
         while True:
@@ -82,11 +121,12 @@ class Courier_menu():
                     sleep(1)
                     break
                 case '1':  # Create
-                    courier = input('Type in your courier name: ')
-                    if courier.strip() != '':
-                        self.couriers.append(courier)
+                    if self.set_courier_create():
+                        sleep(1)
+                        print('Created a new courier.')
                     else:
-                        print('No courier name entered.')
+                        sleep(1)
+                        print('Did not create a new courier.')
                 case '2':  # View
                     print('Printing courier list...')
                     sleep(1)
@@ -99,15 +139,9 @@ class Courier_menu():
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
-                    newname = input(f'Type what you wish to replace '
-                                    f'{self.couriers[index]} with: ')
-                    if newname.strip() != '':
-                        print('Updating courier...')
-                        sleep(1)
-                        self.couriers[index] = newname
-                        print('Updated courier.')
-                    else:
-                        print('No courier name entered.')
+                    self.set_courier_update(index)
+                    sleep(1)
+                    print('Updated courier.')
                 case '4':  # Remove
                     self.list_couriers()
                     index = input_checker.get_input_index('courier', 'remove',
