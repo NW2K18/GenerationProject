@@ -2,16 +2,18 @@
 # This is the product menu for the cafe application.
 
 from time import sleep
+import csv
 
 import input_checker
+import productclass
 
 
 class Product_menu():
     """Class used as the interface for handling products."""
     def __init__(self) -> None:
         """Initialise product menu object and loads data."""
-        # Initialise some generic products.
-        self.products = ['Pepsi', 'Coca Cola', 'Dr Pepper']
+        # Initialise product list.
+        self.products = [productclass.Product('Pepsi', 1.00)]
 
         # Debug stuff to check if it has loaded properly.
         print(self.products)
@@ -22,41 +24,45 @@ class Product_menu():
         """Prints out product list."""
         i = 1
         for product in self.products:
-            print(f'Product No.{i} {product}')
+            print(f"""Product No.{i}:
+            Product name: {product.name}
+            Product price: {product.price}
+            """)
             sleep(0.3)
             i += 1
 
     def load_products(self) -> None:
-        """Loads product data from text file.
+        """Loads product data from csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
-        productstring = ''
         try:
-            with open('data/productdata.txt', 'r') as file:
-                productstring = file.read()
-                print('LOADED PRODUCTS SUCCESSFULLY')
+            with open('data/productdata.csv', 'r') as file:
+                self.products.clear()
+                reader = csv.DictReader(file, delimiter=',')
+                for row in reader:
+                    newproduct = productclass.Product(row['name'],
+                                                      row['price'])
+                    self.products.append(newproduct)
+            print('LOADED PRODUCTS SUCCESSFULLY')
         except Exception as e:
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-        self.products.clear()
-        for product in productstring.split('\n'):
-            if product == '':
-                continue  # Does not add whitespace.
-            self.products.append(product)
-
     def save_products(self) -> None:
-        """Saves product data to a text file.
+        """Saves product data to a csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
         try:
-            with open('data/productdata.txt', 'w') as file:
+            with open('data/productdata.csv', 'w', newline='') as file:
+                fieldnames = ['name', 'price']
+                writer = csv.DictWriter(file, fieldnames)
+                writer.writeheader()
                 for product in self.products:
-                    file.write(f'{product}\n')
+                    writer.writerow(product.get_product())
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.

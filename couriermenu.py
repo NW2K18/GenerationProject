@@ -2,16 +2,18 @@
 # This is the courier menu for the cafe application.
 
 from time import sleep
+import csv
 
 import input_checker
+import courierclass
 
 
 class Courier_menu():
     """Class used as the interface for handling couriers."""
     def __init__(self) -> None:
         """Initialise courier menu object and loads data."""
-        # Initialise some generic couriers.
-        self.couriers = ['Larry', 'Curly', 'Moe']
+        # Initialise courier list.
+        self.couriers = [courierclass.Courier('Larry', '9812734656')]
 
         # Debug stuff to check if it has loaded properly.
         print(self.couriers)
@@ -27,36 +29,37 @@ class Courier_menu():
             i += 1
 
     def load_couriers(self) -> None:
-        """Loads courier data from text file.
+        """Loads courier data from csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
-        courierstring = ''
         try:
-            with open('data/courierdata.txt', 'r') as file:
-                courierstring = file.read()
-                print('LOADED COURIERS SUCCESSFULLY')
+            with open('data/courierdata.csv', 'r') as file:
+                self.couriers.clear()
+                reader = csv.DictReader(file, delimiter=',')
+                for row in reader:
+                    newcourier = courierclass.Product(row['name'],
+                                                      row['phone'])
+                    self.couriers.append(newcourier)
+            print('LOADED COURIERS SUCCESSFULLY')
         except Exception as e:
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-        self.couriers.clear()
-        for courier in courierstring.split('\n'):
-            if courier == '':
-                continue  # Does not add whitespace.
-            self.couriers.append(courier)
-
     def save_couriers(self) -> None:
-        """Saves courier data to a text file.
+        """Saves courier data to a csv file.
 
         Raises:
             Exception: Exception related to not finding a file.
         """
         try:
-            with open('data/courierdata.txt', 'w') as file:
+            with open('data/courierdata.csv', 'w', newline='') as file:
+                fieldnames = ['name', 'phone']
+                writer = csv.DictWriter(file, fieldnames)
+                writer.writeheader()
                 for courier in self.couriers:
-                    file.write(f'{courier}\n')
+                    writer.writerow(courier.get_courier())
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
