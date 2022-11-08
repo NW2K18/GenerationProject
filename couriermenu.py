@@ -107,11 +107,11 @@ class Courier_menu():
         """This contains the courier menu loop."""
         while True:
             print("""-----COURIERS-----
-0. Exit
-1. Add Courier
-2. View Courier List
-3. Update Courier
-4. Remove Courier
+        0. Exit
+        1. Add Courier
+        2. View Courier List
+        3. Update Courier
+        4. Remove Courier
 ---------------------""")
             option = input('Choose command: ')
 

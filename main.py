@@ -50,4 +50,5 @@ def main() -> None:
 
 
 # Call main function
-main()
+if __name__ == '__main__':
+    main()

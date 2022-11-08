@@ -114,11 +114,11 @@ class Product_menu():
         """This contains the product menu loop."""
         while True:
             print("""-----PRODUCTS-----
-0. Exit
-1. Create Product
-2. View Product List
-3. Update Product
-4. Remove Product
+        0. Exit
+        1. Create Product
+        2. View Product List
+        3. Update Product
+        4. Remove Product
 ---------------------""")
             option = input('Choose command: ')
 
