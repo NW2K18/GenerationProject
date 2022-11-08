@@ -2,7 +2,7 @@
 # This is an order object for the cafe menu application, contains various
 # information about the order.
 
-from typing import Dict
+from typing import Dict, List
 
 
 class Order:
@@ -15,10 +15,12 @@ class Order:
             address (str): Initial customer address.
             phone (str): Initial customer phone number.
         """
-        self.name = name
-        self.address = address
-        self.phone = phone
+        self.customer_name = name
+        self.customer_address = address
+        self.customer_phone = phone
+        self.courier = None
         self.status = 'Preparing'
+        self.items = []
 
     def set_order_name(self, name: str) -> None:
         """Set customer's name with input string.
@@ -26,7 +28,7 @@ class Order:
         Args:
             name (str): The replacement customer name.
         """
-        self.name = name
+        self.customer_name = name
 
     def set_order_address(self, address: str) -> None:
         """Set customer's address with input string.
@@ -34,7 +36,7 @@ class Order:
         Args:
             address (str): The replacement customer address.
         """
-        self.address = address
+        self.customer_address = address
 
     def set_order_phone(self, phone: str) -> None:
         """Set customer's phone with input string.
@@ -42,7 +44,15 @@ class Order:
         Args:
             phone (str): The replacement customer phone number.
         """
-        self.phone = phone
+        self.customer_phone = phone
+
+    def set_courier(self, courier: str) -> None:
+        """Set order's courier index with input string
+
+        Args:
+            courier (str): courier
+        """
+        self.courier = courier
 
     def set_order_status(self, option: str) -> bool:
         """Set order's status from a list of options.
@@ -71,13 +81,19 @@ class Order:
                 return False
         return True
 
+    def set_items(self, items: List):
+        """Set order's products from input List.
+
+        Args:
+            items (List): List of products assigned to order.
+        """
+        for item in items:
+            self.items.append(item)
+
     def get_order(self) -> Dict:
         """Returns the order as a dictionary.
 
         Returns:
             Dict: The order.
         """
-        return {'customer_name': self.name,
-                'customer_address': self.address,
-                'customer_phone': self.phone,
-                'status': self.status}
+        return vars(self)

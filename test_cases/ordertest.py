@@ -12,9 +12,9 @@ class TestOrderAttributes(unittest.TestCase):
 
     def test_create_order(self):
         test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
-        self.assertEqual(test_order.name, 'Johnny')
-        self.assertEqual(test_order.address, 'Everytown')
-        self.assertEqual(test_order.phone, '0800001066')
+        self.assertEqual(test_order.customer_name, 'Johnny')
+        self.assertEqual(test_order.customer_address, 'Everytown')
+        self.assertEqual(test_order.customer_phone, '0800001066')
         self.assertEqual(test_order.status, 'Preparing')
 
     def test_status_update(self):

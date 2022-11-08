@@ -18,7 +18,7 @@ class Order_menu():
                                         '1439280432')]
         # Debug stuff to check if it has loaded properly.
         self.list_orders()
-        self.load_orders_csv()
+        self.load_orders()
         self.list_orders()
 
     def list_orders(self) -> None:
@@ -26,15 +26,15 @@ class Order_menu():
         i = 1
         for order in self.orders:
             print(f"""Order No.{i}:
-            Customer name: {order.name}
-            Customer address: {order.address}
-            Customer phone number: {order.phone}
+            Customer name: {order.customer_name}
+            Customer address: {order.customer_address}
+            Customer phone number: {order.customer_phone}
             Order status: {order.status}
             """)
             sleep(0.5)
             i += 1
 
-    def load_orders_csv(self) -> None:
+    def load_orders(self) -> None:
         """Loads orders from a csv file.
 
         Raises:
@@ -55,7 +55,7 @@ class Order_menu():
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-    def save_orders_csv(self) -> None:
+    def save_orders(self) -> None:
         """Saves order data to a csv file.
 
         Raises:
@@ -107,13 +107,13 @@ class Order_menu():
         # If input is blank, continue but don't update the order.
         userinput = input('Input customer name: ')
         if userinput.strip() != '':
-            self.orders[index].name = userinput
+            self.orders[index].customer_name = userinput
         userinput = input('Input customer address: ')
         if userinput.strip() != '':
-            self.orders[index].address = userinput
+            self.orders[index].customer_address = userinput
         userinput = input('Input customer phone number: ')
         if userinput.strip() != '':
-            self.orders[index].phone = userinput
+            self.orders[index].customer_phone = userinput
         return True
 
     def set_order_update_status(self, index: int) -> bool:
@@ -134,7 +134,6 @@ class Order_menu():
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
 
-    # This is the orders menu
     def view_orders_menu(self):
         """This contains the order menu loop."""
         while True:
@@ -193,6 +192,7 @@ class Order_menu():
                         break
                     print('Removing order...')
                     sleep(1)
-                    print(f'You have removed: {self.orders.pop(index).name}.')
+                    print(f'You have removed: \
+                    {self.orders.pop(index).customer_name}.')
                 case _:  # Default
                     print('No option selected.')
