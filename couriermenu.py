@@ -4,7 +4,6 @@
 from time import sleep
 import csv
 
-import input_checker
 import courierclass
 
 
@@ -102,55 +101,3 @@ class Courier_menu():
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
         return True
-
-    def view_couriers_menu(self) -> None:
-        """This contains the courier menu loop."""
-        while True:
-            print("""-----COURIERS-----
-        0. Exit
-        1. Add Courier
-        2. View Courier List
-        3. Update Courier
-        4. Remove Courier
----------------------""")
-            option = input('Choose command: ')
-
-            match option:
-                case '0':  # Exit
-                    print('Exiting couriers menu...')
-                    sleep(1)
-                    break
-                case '1':  # Create
-                    if self.set_courier_create():
-                        sleep(1)
-                        print('Created a new courier.')
-                    else:
-                        sleep(1)
-                        print('Did not create a new courier.')
-                case '2':  # View
-                    print('Printing courier list...')
-                    sleep(1)
-                    self.list_couriers()
-                    sleep(1)
-                case '3':  # Update
-                    self.list_couriers()
-                    index = input_checker.get_input_index('courier', 'update',
-                                                          self.couriers)
-                    if index is None:
-                        print('Selected 0, moving back to courier menu.')
-                        break
-                    self.set_courier_update(index)
-                    sleep(1)
-                    print('Updated courier.')
-                case '4':  # Remove
-                    self.list_couriers()
-                    index = input_checker.get_input_index('courier', 'remove',
-                                                          self.couriers)
-                    if index is None:
-                        print('Selected 0, moving back to courier menu.')
-                        break
-                    print('Removing courier...')
-                    sleep(1)
-                    print(f'You have removed: {self.couriers.pop(index)}.')
-                case _:  # Default case
-                    print('No option selected.')

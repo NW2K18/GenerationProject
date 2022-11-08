@@ -5,7 +5,6 @@ from time import sleep
 import csv
 # import json
 
-import input_checker
 import orderclass
 
 
@@ -133,66 +132,3 @@ class Order_menu():
     """)
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
-
-    def view_orders_menu(self):
-        """This contains the order menu loop."""
-        while True:
-            print("""-----ORDERS-----
-        0. Exit
-        1. Create an order
-        2. View Order List
-        3. Update an order's status
-        4. Update an order
-        5. Remove an order
----------------------""")
-            option = input('Choose command: ')
-            match option:
-                case '0':  # Exit
-                    print('Exiting orders menu...')
-                    sleep(1)
-                    break
-                case '1':  # Create
-                    if self.set_order_create():
-                        sleep(1)
-                        print('Created a new order.')
-                    else:
-                        sleep(1)
-                        print('Did not create a new order.')
-                case "2":  # View
-                    print('Printing order list...')
-                    self.list_orders()
-                    sleep(1)
-                case '3':  # Update status
-                    self.list_orders()
-                    index = input_checker.get_input_index('order', 'update',
-                                                          self.orders)
-                    if index is None:
-                        print('Selected 0, moving back to order menu.')
-                        break
-                    self.set_order_update_status(index)
-                    print('Updating order...')
-                    sleep(1)
-                    print('Updated order.')
-                case '4':  # Update
-                    self.list_orders()
-                    index = input_checker.get_input_index('order', 'update',
-                                                          self.orders)
-                    if index is None:
-                        print('Selected 0, moving back to order menu.')
-                        break
-                    self.set_order_update(index)
-                    sleep(1)
-                    print('Updated order.')
-                case '5':  # Remove
-                    self.list_orders()
-                    index = input_checker.get_input_index('order', 'remove',
-                                                          self.orders)
-                    if index is None:
-                        print('Selected 0, moving back to order menu.')
-                        break
-                    print('Removing order...')
-                    sleep(1)
-                    print(f'You have removed: \
-                    {self.orders.pop(index).customer_name}.')
-                case _:  # Default
-                    print('No option selected.')

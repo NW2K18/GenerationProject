@@ -4,7 +4,6 @@
 from time import sleep
 import csv
 
-import input_checker
 import productclass
 
 
@@ -109,55 +108,3 @@ class Product_menu():
         except ValueError:
             print('Input cannot be converted into a floating point number.')
         return True
-
-    def view_products_menu(self) -> None:
-        """This contains the product menu loop."""
-        while True:
-            print("""-----PRODUCTS-----
-        0. Exit
-        1. Create Product
-        2. View Product List
-        3. Update Product
-        4. Remove Product
----------------------""")
-            option = input('Choose command: ')
-
-            match option:
-                case '0':  # Exit
-                    print('Exiting products menu...')
-                    sleep(1)
-                    break
-                case '1':  # Create
-                    if self.set_product_create():
-                        sleep(1)
-                        print('Created a new product.')
-                    else:
-                        sleep(1)
-                        print('Did not create a new product.')
-                case '2':  # View
-                    print('Printing product list...')
-                    sleep(1)
-                    self.list_products()
-                    sleep(1)
-                case '3':  # Update
-                    self.list_products()
-                    index = input_checker.get_input_index('product', 'update',
-                                                          self.products)
-                    if index is None:
-                        print('Selected 0, moving back to product menu.')
-                        break
-                    self.set_product_update(index)
-                    sleep(1)
-                    print('Updated product.')
-                case '4':  # Remove
-                    self.list_products()
-                    index = input_checker.get_input_index('product', 'remove',
-                                                          self.products)
-                    if index is None:
-                        print('Selected 0, moving back to product menu.')
-                        break
-                    print('Removing product...')
-                    sleep(1)
-                    print(f'You have removed: {self.products.pop(index)}.')
-                case _:  # Default
-                    print('No option selected.')
