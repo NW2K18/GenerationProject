@@ -33,6 +33,9 @@ class Product:
         """
         self.price = price
 
+    def get_product_price(self) -> str:
+        return '£{:,.2f}'.format(self.price)
+
     def get_product(self) -> Dict:
         """Returns the product as a dictionary.
 
