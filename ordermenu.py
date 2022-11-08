@@ -9,6 +9,7 @@ import orderclass
 
 
 class Order_menu():
+
     """Class used as the interface for handling orders."""
     def __init__(self) -> None:
         """Initialise order menu object and loads data."""
@@ -16,7 +17,6 @@ class Order_menu():
         self.orders = [orderclass.Order('John', 'Planet Earth',
                                         '1439280432')]
         # Debug stuff to check if it has loaded properly.
-        self.list_orders()
         self.load_orders()
         self.list_orders()
 
@@ -28,7 +28,9 @@ class Order_menu():
             Customer name: {order.customer_name}
             Customer address: {order.customer_address}
             Customer phone number: {order.customer_phone}
+            Courier: {order.get_courier()}
             Order status: {order.status}
+            Items: {order.get_items()}
             """)
             sleep(0.5)
             i += 1
@@ -48,6 +50,8 @@ class Order_menu():
                                                 row['customer_address'],
                                                 row['customer_phone'])
                     neworder.status = row['status']
+                    neworder.set_courier(row['courier'])
+                    neworder.set_items(row['items'])
                     self.orders.append(neworder)
             print('LOADED ORDERS SUCCESSFULLY')
         except Exception as e:
@@ -63,7 +67,8 @@ class Order_menu():
         try:
             with open('data/orderdata.csv', 'w', newline='') as file:
                 fieldnames = ['customer_name', 'customer_address',
-                              'customer_phone', 'status']
+                              'customer_phone', 'courier',
+                              'status', 'items']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for order in self.orders:
@@ -113,7 +118,30 @@ class Order_menu():
         userinput = input('Input customer phone number: ')
         if userinput.strip() != '':
             self.orders[index].customer_phone = userinput
+        # TODO items
+        pass
+        # TODO courier
+        pass
         return True
+
+    def set_order_update_items(self, index: int, list_products) -> None:
+        itemstring = ''
+        while True:
+            list_products()
+            userinput = input('Input index of product to assign to order \
+(Blank input to exit): ')
+            if userinput.strip() != '':
+                itemstring += f'{userinput},'
+            else:
+                itemstring = itemstring[:-1]
+                break
+        self.orders[index].set_items(itemstring)
+
+    def set_order_update_courier(self, index: int, list_couriers) -> None:
+        list_couriers()
+        userinput = input('Input index of courier to assign to order: ')
+        if userinput.strip() != '':
+            self.orders[index].set_courier(userinput)
 
     def set_order_update_status(self, index: int) -> bool:
         """Asks for user input to update an order's status.

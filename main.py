@@ -82,8 +82,8 @@ class Menu():
                     sleep(1)
                 case '3':  # Update
                     self.products.list_products()
-                    index = input_checker.get_input_index('product', 'update',
-                                                          self.products.products)
+                    index = input_checker.get_input_index(
+                        'product', 'update', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
                         break
@@ -92,8 +92,8 @@ class Menu():
                     print('Updated product.')
                 case '4':  # Remove
                     self.products.list_products()
-                    index = input_checker.get_input_index('product', 'remove',
-                                                        self.products.products)
+                    index = input_checker.get_input_index(
+                        'product', 'remove', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
                         break
@@ -135,8 +135,8 @@ class Menu():
                     sleep(1)
                 case '3':  # Update
                     self.couriers.list_couriers()
-                    index = input_checker.get_input_index('courier', 'update',
-                                                          self.couriers.couriers)
+                    index = input_checker.get_input_index(
+                        'courier', 'update', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
@@ -145,8 +145,8 @@ class Menu():
                     print('Updated courier.')
                 case '4':  # Remove
                     self.couriers.list_couriers()
-                    index = input_checker.get_input_index('courier', 'remove',
-                                                          self.couriers.couriers)
+                    index = input_checker.get_input_index(
+                        'courier', 'remove', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
@@ -187,29 +187,32 @@ class Menu():
                     sleep(1)
                 case '3':  # Update status
                     self.orders.list_orders()
-                    index = input_checker.get_input_index('order', 'update',
-                                                        self.orders.orders)
+                    index = input_checker.get_input_index(
+                        'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
                     self.orders.set_order_update_status(index)
-                    print('Updating order...')
                     sleep(1)
                     print('Updated order.')
                 case '4':  # Update
                     self.orders.list_orders()
-                    index = input_checker.get_input_index('order', 'update',
-                                                        self.orders.orders)
+                    index = input_checker.get_input_index(
+                        'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
                     self.orders.set_order_update(index)
+                    self.orders.set_order_update_courier(
+                        index, self.couriers.list_couriers)
+                    self.orders.set_order_update_items(
+                        index, self.products.list_products)
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove
                     self.orders.list_orders()
-                    index = input_checker.get_input_index('order', 'remove',
-                                                        self.orders.orders)
+                    index = input_checker.get_input_index(
+                        'order', 'remove', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break

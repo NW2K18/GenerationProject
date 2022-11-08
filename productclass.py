@@ -38,7 +38,7 @@ class Product:
 
         Returns:
             str: The currency.
-        """        
+        """
         return '£{:,.2f}'.format(self.price)
 
     def get_product(self) -> Dict:
@@ -47,5 +47,4 @@ class Product:
         Returns:
             Dict: The product.
         """
-        return {'name': self.name,
-                'price': self.price}
+        return vars(self)

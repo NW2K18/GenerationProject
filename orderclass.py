@@ -2,7 +2,7 @@
 # This is an order object for the cafe menu application, contains various
 # information about the order.
 
-from typing import Dict, List
+from typing import Dict
 
 
 class Order:
@@ -18,9 +18,9 @@ class Order:
         self.customer_name = name
         self.customer_address = address
         self.customer_phone = phone
-        self.courier = None
+        self.courier = ''
         self.status = 'Preparing'
-        self.items = []
+        self.items = ''
 
     def set_order_name(self, name: str) -> None:
         """Set customer's name with input string.
@@ -54,6 +54,17 @@ class Order:
         """
         self.courier = courier
 
+    def get_courier(self) -> str:
+        """Returns the assigned courier index.
+
+        Returns:
+            str: The courier index, None if courier is blank.
+        """
+        if self.courier != '':
+            return self.courier
+        else:
+            return 'None'
+
     def set_order_status(self, option: str) -> bool:
         """Set order's status from a list of options.
         0 = Preparing
@@ -81,14 +92,28 @@ class Order:
                 return False
         return True
 
-    def set_items(self, items: List):
-        """Set order's products from input List.
+    def set_items(self, item_string: str):
+        """Set order's products from input string.
 
         Args:
-            items (List): List of products assigned to order.
+            item_string (str): Concatenated string of products assigned to
+            order.
         """
-        for item in items:
-            self.items.append(item)
+        if item_string != '':
+            self.items = item_string
+        else:
+            return
+
+    def get_items(self) -> str:
+        """Returns the item indices as a comma-seperated string.
+
+        Returns:
+            str: The item indices as a comma-seperated string.
+        """
+        if self.items != '':
+            return self.items
+        else:
+            return 'None'
 
     def get_order(self) -> Dict:
         """Returns the order as a dictionary.

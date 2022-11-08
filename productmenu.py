@@ -14,10 +14,7 @@ class Product_menu():
         # Initialise product list.
         self.products = [productclass.Product('Pepsi', 1.00)]
 
-        # Debug stuff to check if it has loaded properly.
-        self.list_products()
         self.load_products()
-        self.list_products()
 
     def list_products(self) -> None:
         """Prints out product list."""

@@ -39,5 +39,4 @@ class Courier:
         Returns:
             Dict: The courier.
         """
-        return {'name': self.name,
-                'phone': self.phone}
+        return vars(self)

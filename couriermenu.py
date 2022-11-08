@@ -14,10 +14,7 @@ class Courier_menu():
         # Initialise courier list.
         self.couriers = [courierclass.Courier('Larry', '9812734656')]
 
-        # Debug stuff to check if it has loaded properly.
-        print(self.couriers)
         self.load_couriers()
-        print(self.couriers)
 
     def list_couriers(self) -> None:
         """Prints out courier list."""
