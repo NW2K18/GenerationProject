@@ -16,9 +16,9 @@ class Product_menu():
         self.products = [productclass.Product('Pepsi', 1.00)]
 
         # Debug stuff to check if it has loaded properly.
-        print(self.products)
+        self.list_products()
         self.load_products()
-        print(self.products)
+        self.list_products()
 
     def list_products(self) -> None:
         """Prints out product list."""
@@ -26,7 +26,7 @@ class Product_menu():
         for product in self.products:
             print(f"""Product No.{i}:
             Product name: {product.name}
-            Product price: {product.price}
+            Product price: {product.get_product_price()}
             """)
             sleep(0.3)
             i += 1
@@ -43,7 +43,7 @@ class Product_menu():
                 reader = csv.DictReader(file, delimiter=',')
                 for row in reader:
                     newproduct = productclass.Product(row['name'],
-                                                      row['price'])
+                                                      float(row['price']))
                     self.products.append(newproduct)
             print('LOADED PRODUCTS SUCCESSFULLY')
         except Exception as e:
@@ -114,11 +114,11 @@ class Product_menu():
         """This contains the product menu loop."""
         while True:
             print("""-----PRODUCTS-----
-0. Exit
-1. Create Product
-2. View Product List
-3. Update Product
-4. Remove Product
+        0. Exit
+        1. Create Product
+        2. View Product List
+        3. Update Product
+        4. Remove Product
 ---------------------""")
             option = input('Choose command: ')
 

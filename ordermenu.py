@@ -139,12 +139,12 @@ class Order_menu():
         """This contains the order menu loop."""
         while True:
             print("""-----ORDERS-----
-0. Exit
-1. Create an order
-2. View Order List
-3. Update an order's status
-4. Update an order
-5. Remove an order
+        0. Exit
+        1. Create an order
+        2. View Order List
+        3. Update an order's status
+        4. Update an order
+        5. Remove an order
 ---------------------""")
             option = input('Choose command: ')
             match option:

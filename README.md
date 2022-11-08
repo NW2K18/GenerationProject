@@ -10,4 +10,10 @@ couriermenu.py: Courier menu
 
 ordermenu.py: Order menu
 
+productclass.py: Product class
+
+courierclass.py: Courier class
+
+orderclass.py: Order class
+
 input_checker.py: Validates list indices

@@ -41,7 +41,7 @@ def get_input_index(option: str, action: str,
 
     Returns:
         int: The index of the list object, e.g Item No.1 = Index 0
-        None: If the index is zero.
+        None: If the input is zero.
     """
     while True:  # Doesn't break from loop until valid input.
         index = (input(f'Type the index of the'
