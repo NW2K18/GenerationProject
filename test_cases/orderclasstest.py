@@ -3,7 +3,7 @@
 
 import unittest
 
-import orderclass
+import orderclass as orderclass
 
 
 class TestOrderAttributes(unittest.TestCase):

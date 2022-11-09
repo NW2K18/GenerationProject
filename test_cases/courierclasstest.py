@@ -1,12 +1,12 @@
 # Author: Nathan
-# Unit tests for productclass.py
+# Unit tests for courierclass.py
 
 import unittest
 
-import courierclass
+import courierclass as courierclass
 
 
-class TestProductAttributes(unittest.TestCase):
+class TestCourierAttributes(unittest.TestCase):
     def test_create_product(self):
         test_courier = courierclass.Courier('Nate', '0800001066')
         self.assertEqual(test_courier.name, 'Nate')

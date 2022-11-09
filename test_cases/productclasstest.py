@@ -3,7 +3,7 @@
 
 import unittest
 
-import productclass
+import productclass as productclass
 
 
 class TestProductAttributes(unittest.TestCase):
