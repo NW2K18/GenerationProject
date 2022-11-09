@@ -16,8 +16,12 @@ class Product_menu():
 
         self.load_products()
 
-    def list_products(self) -> None:
-        """Prints out product list."""
+    def list_products(self) -> int:
+        """Prints out product list.
+
+        Returns:
+            int: Size of product list
+        """
         i = 1
         for product in self.products:
             print(f"""Product No.{i}:
@@ -26,6 +30,7 @@ class Product_menu():
             """)
             sleep(0.3)
             i += 1
+        return len(self.products)
 
     def load_products(self) -> None:
         """Loads product data from csv file.
@@ -75,7 +80,7 @@ class Product_menu():
             return False
         try:
             userinput_price = float(input('Input product price: '))
-            if userinput_price.strip() == '':
+            if userinput_price == 0:
                 return False
         except ValueError:
             print('Input cannot be converted into a floating point number.')

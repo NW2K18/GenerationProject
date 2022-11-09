@@ -16,8 +16,12 @@ class Courier_menu():
 
         self.load_couriers()
 
-    def list_couriers(self) -> None:
-        """Prints out courier list."""
+    def list_couriers(self) -> int:
+        """Prints out courier list.
+
+        Returns:
+            int: Size of courier list
+        """
         i = 1
         for courier in self.couriers:
             print(f"""Courier No.{i}:
@@ -26,6 +30,7 @@ class Courier_menu():
             """)
             sleep(0.3)
             i += 1
+        return len(self.couriers)
 
     def load_couriers(self) -> None:
         """Loads courier data from csv file.

@@ -6,6 +6,7 @@ import csv
 # import json
 
 import orderclass
+import input_checker
 
 
 class Order_menu():
@@ -20,8 +21,12 @@ class Order_menu():
         self.load_orders()
         self.list_orders()
 
-    def list_orders(self) -> None:
-        """Prints out order list."""
+    def list_orders(self) -> int:
+        """Prints out order list.
+
+        Returns:
+            int: Size of order list
+        """
         i = 1
         for order in self.orders:
             print(f"""Order No.{i}:
@@ -34,6 +39,7 @@ class Order_menu():
             """)
             sleep(0.5)
             i += 1
+        return len(self.orders)
 
     def load_orders(self) -> None:
         """Loads orders from a csv file.
@@ -124,24 +130,30 @@ class Order_menu():
         pass
         return True
 
+    def set_order_update_courier(self, index: int, list_couriers) -> None:
+        list_length = list_couriers()
+        while True:
+            userinput = input('Input index of courier to assign to order: ')
+            if userinput.strip() != '':
+                if input_checker.check_index(list_length, userinput):
+                    self.orders[index].set_courier(int(userinput))
+            else:
+                break
+
     def set_order_update_items(self, index: int, list_products) -> None:
         itemstring = ''
+        list_length = list_products()
         while True:
-            list_products()
             userinput = input('Input index of product to assign to order \
 (Blank input to exit): ')
             if userinput.strip() != '':
-                itemstring += f'{userinput},'
+                if input_checker.check_index(list_length, userinput):
+                    itemstring += f'{userinput},'
+                list_products()
             else:
                 itemstring = itemstring[:-1]
                 break
         self.orders[index].set_items(itemstring)
-
-    def set_order_update_courier(self, index: int, list_couriers) -> None:
-        list_couriers()
-        userinput = input('Input index of courier to assign to order: ')
-        if userinput.strip() != '':
-            self.orders[index].set_courier(userinput)
 
     def set_order_update_status(self, index: int) -> bool:
         """Asks for user input to update an order's status.
