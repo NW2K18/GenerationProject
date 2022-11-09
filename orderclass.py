@@ -3,6 +3,7 @@
 # information about the order.
 
 from typing import Dict
+from typing import Union
 
 
 class Order:
@@ -18,7 +19,7 @@ class Order:
         self.customer_name = name
         self.customer_address = address
         self.customer_phone = phone
-        self.courier = ''
+        self.courier = None
         self.status = 'Preparing'
         self.items = ''
 
@@ -46,7 +47,7 @@ class Order:
         """
         self.customer_phone = phone
 
-    def set_courier(self, courier: str) -> None:
+    def set_courier(self, courier) -> None:
         """Set order's courier index with input string
 
         Args:
@@ -54,13 +55,13 @@ class Order:
         """
         self.courier = courier
 
-    def get_courier(self) -> str:
+    def get_courier(self) -> Union[int, str]:
         """Returns the assigned courier index.
 
         Returns:
             str: The courier index, None if courier is blank.
         """
-        if self.courier != '':
+        if self.courier is not None:
             return self.courier
         else:
             return 'None'
