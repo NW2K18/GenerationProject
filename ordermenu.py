@@ -137,6 +137,7 @@ class Order_menu():
             if userinput.strip() != '':
                 if input_checker.check_index(list_length, userinput):
                     self.orders[index].set_courier(int(userinput))
+                    break
             else:
                 break
 
