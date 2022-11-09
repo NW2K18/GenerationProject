@@ -181,8 +181,21 @@ class Menu():
                         sleep(1)
                         print('Did not create a new order.')
                 case "2":  # View
-                    print('Printing order list...')
-                    self.orders.list_orders()
+                    print("""
+            0. Normal
+            1. Sort by courier
+            2. Sort by status
+""")
+                    option = input('Input number for order status: ')
+                    match option:
+                        case '0':  # Normal
+                            self.orders.list_orders()
+                        case '1':  # Courier sort
+                            self.orders.list_sorted_orders('courier')
+                        case '2':  # Status sort
+                            self.orders.list_sorted_orders('status')
+                        case _:
+                            print('Invalid input.')
                     sleep(1)
                 case '3':  # Update status
                     self.orders.list_orders()

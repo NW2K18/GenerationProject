@@ -9,6 +9,8 @@ import main
 class TestMainMenu(unittest.TestCase):
 
     def test_true(self):
+        testmenu = main.Menu()
+        # testmenu.main()
         assert True
 
 

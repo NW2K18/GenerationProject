@@ -41,6 +41,36 @@ class Order_menu():
             i += 1
         return len(self.orders)
 
+    def list_sorted_orders(self, option: str) -> int:
+        """Prints out order list.
+
+        Returns:
+            int: Size of order list
+        """
+        custom_list = []
+        match option:
+            case 'courier':
+                custom_list = sorted(
+                    self.orders, key=lambda order: order.courier)
+            case 'status':
+                custom_list = sorted(
+                    self.orders, key=lambda order: order.status)
+            case _:
+                raise Exception('Invalid option passed to list_orders_custom')
+        i = 1
+        for order in custom_list:
+            print(f"""Order No.{i}:
+            Customer name: {order.customer_name}
+            Customer address: {order.customer_address}
+            Customer phone number: {order.customer_phone}
+            Courier: {order.get_courier()}
+            Order status: {order.status}
+            Items: {order.get_items()}
+            """)
+            sleep(0.5)
+            i += 1
+        return len(self.orders)
+
     def load_orders(self) -> None:
         """Loads orders from a csv file.
 
@@ -170,6 +200,6 @@ class Order_menu():
             1. Awaiting pickup
             2. Out for delivery
             3. Delivered
-    """)
+""")
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
