@@ -23,7 +23,7 @@ class TestInputChecker(unittest.TestCase):
 
     @patch('builtins.input')
     def test_get_input_index(self, mock_input):
-        def foobar():
+        def foobarbranch():
             return 0
         self.assertEqual(input('input'), '0')
         self.assertEqual(
