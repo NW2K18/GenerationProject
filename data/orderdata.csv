@@ -1,4 +1,4 @@
 customer_name,customer_address,customer_phone,courier,status,items
-John,Planet Earth,1439280432,1,Preparing,
+John,Planet Earth,1439280432,,Preparing,
 Jimmy,Bermuda Triangle,0800001066,2,Preparing,"2,3,1"
-Nathan,Leeds,121233234232234,1,Delivered,
+Nathan,Leeds,121233234232234,,Delivered,

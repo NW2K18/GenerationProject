@@ -174,7 +174,10 @@ class Menu():
                     sleep(1)
                     break
                 case '1':  # Create
-                    if self.orders.set_order_create():
+                    if self.orders.set_order_create(
+                        self.couriers.list_couriers,
+                        self.products.list_products
+                    ):
                         sleep(1)
                         print('Created a new order.')
                     else:

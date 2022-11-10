@@ -42,7 +42,13 @@ class Order_menu():
         return len(self.orders)
 
     def list_sorted_orders(self, option: str) -> int:
-        """Prints out order list.
+        """Prints a list sorted through the specified option
+
+        Args:
+            option (str): courier, status
+
+        Raises:
+            Exception: When an invalid option has been passed in.
 
         Returns:
             int: Size of order list
@@ -113,7 +119,7 @@ class Order_menu():
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
 
-    def set_order_create(self) -> bool:
+    def set_order_create(self, list_couriers, list_products) -> bool:
         """Asks for user input to create an order.
 
         Returns:
@@ -132,6 +138,34 @@ class Order_menu():
         # If the inputs are valid, add a new entry.
         new_order = orderclass.Order(userinput_name, userinput_address,
                                      userinput_phone)
+        # Adding courier
+        list_length = list_couriers()
+        userinput_courier = input(
+            'Input index of courier to assign to order: ')
+        if userinput_courier.strip() != '':
+            if input_checker.check_index(list_length, userinput_courier):
+                new_order.set_courier()
+            else:
+                return False
+        # Adding items
+        list_length = list_products()
+        itemstring = ''
+        while True:
+            userinput_items = input(
+                'Input index of product to assign to order \
+(Valid input needs at least one product, blank input to exit): ')
+            if userinput_items.strip() != '':
+                if input_checker.check_index(list_length, userinput_items):
+                    itemstring += f'{userinput_items},'
+                list_products()
+            else:
+                itemstring = itemstring[:-1]
+                break
+        if itemstring.strip() != '':
+            new_order.set_items(itemstring)
+        else:
+            return False
+        # If all inputs are valid, append the new entry.
         self.orders.append(new_order)
         return True
 
