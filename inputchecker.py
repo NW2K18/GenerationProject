@@ -41,8 +41,8 @@ def get_input_index(option: str, action: str,
         None: If the input is zero.
     """
     while True:  # Doesn't break from loop until valid input.
-        index = (input(f'Type the index of the'
-                       f' {option} you wish to {action}: '))
+        index = (input(f'Type the index of the \
+{option} you wish to {action}: '))
         if index == '0':
             return None
         elif check_index(list_length, index):

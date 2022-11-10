@@ -6,7 +6,7 @@ import csv
 # import json
 
 import orderclass
-import input_checker
+import inputchecker
 
 
 class Order_menu():
@@ -143,7 +143,7 @@ class Order_menu():
         userinput_courier = input(
             'Input index of courier to assign to order: ')
         if userinput_courier.strip() != '':
-            if input_checker.check_index(list_length, userinput_courier):
+            if inputchecker.check_index(list_length, userinput_courier):
                 new_order.set_courier()
             else:
                 return False
@@ -155,7 +155,7 @@ class Order_menu():
                 'Input index of product to assign to order \
 (Valid input needs at least one product, blank input to exit): ')
             if userinput_items.strip() != '':
-                if input_checker.check_index(list_length, userinput_items):
+                if inputchecker.check_index(list_length, userinput_items):
                     itemstring += f'{userinput_items},'
                 list_products()
             else:
@@ -199,7 +199,7 @@ class Order_menu():
         while True:
             userinput = input('Input index of courier to assign to order: ')
             if userinput.strip() != '':
-                if input_checker.check_index(list_length, userinput):
+                if inputchecker.check_index(list_length, userinput):
                     self.orders[index].set_courier(int(userinput))
                     break
             else:
@@ -212,7 +212,7 @@ class Order_menu():
             userinput = input('Input index of product to assign to order \
 (Blank input to exit): ')
             if userinput.strip() != '':
-                if input_checker.check_index(list_length, userinput):
+                if inputchecker.check_index(list_length, userinput):
                     itemstring += f'{userinput},'
                 list_products()
             else:
