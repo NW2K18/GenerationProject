@@ -53,18 +53,18 @@ class Order_menu():
         Returns:
             int: Size of order list
         """
-        custom_list = []
+        sorted_list = []
         match option:
             case 'courier':
-                custom_list = sorted(
+                sorted_list = sorted(
                     self.orders, key=lambda order: order.courier)
             case 'status':
-                custom_list = sorted(
-                    self.orders, key=lambda order: order.status)
+                sorted_list = sorted(
+                    self.orders, key=lambda order: order.statuscode)
             case _:
                 raise Exception('Invalid option passed to list_orders_custom')
         i = 1
-        for order in custom_list:
+        for order in sorted_list:
             print(f"""Order No.{i}:
             Customer name: {order.customer_name}
             Customer address: {order.customer_address}

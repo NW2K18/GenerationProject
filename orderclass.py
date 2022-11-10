@@ -20,6 +20,7 @@ class Order:
         self.customer_address = address
         self.customer_phone = phone
         self.courier = None
+        self.statuscode = 0
         self.status = 'Preparing'
         self.items = ''
 
@@ -81,12 +82,16 @@ class Order:
         """
         match option:
             case '0':  # Preparing
+                self.statuscode = 0
                 self.status = 'Preparing'
             case '1':  # Awaiting pickup
+                self.statuscode = 1
                 self.status = 'Awaiting pickup'
             case '2':  # Out for delivery
+                self.statuscode = 2
                 self.status = 'Out for delivery'
             case '3':  # Delivered
+                self.statuscode = 3
                 self.status = 'Delivered'
             case _:  # Invalid input
                 print('Invalid update status entered, status unchanged.')
@@ -122,4 +127,9 @@ class Order:
         Returns:
             Dict: The order.
         """
-        return vars(self)
+        return {'customer_name': self.customer_name,
+                'customer_address': self.customer_address,
+                'customer_phone': self.customer_phone,
+                'courier': self.courier,
+                'status': self.status,
+                'items': self.items}
