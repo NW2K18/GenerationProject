@@ -48,13 +48,13 @@ class Order:
         """
         self.customer_phone = phone
 
-    def set_courier(self, courier) -> None:
+    def set_courier(self, courier: str) -> None:
         """Set order's courier index with input string
 
         Args:
             courier (str): courier
         """
-        self.courier = courier
+        self.courier = int(courier)
 
     def get_courier(self) -> Union[int, str]:
         """Returns the assigned courier index.

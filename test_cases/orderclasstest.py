@@ -14,6 +14,7 @@ class TestOrderAttributes(unittest.TestCase):
         self.assertEqual(test_order.customer_address, 'Everytown')
         self.assertEqual(test_order.customer_phone, '0800001066')
         self.assertEqual(test_order.courier, None)
+        self.assertEqual(test_order.statuscode, 0)
         self.assertEqual(test_order.status, 'Preparing')
         self.assertEqual(test_order.items, '')
 
@@ -30,6 +31,9 @@ class TestOrderAttributes(unittest.TestCase):
 
     def test_set_courier(self):
         test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
+
+        test_order.set_courier('5')
+        self.assertEqual(test_order.courier, 5)
 
         test_order.set_courier(5)
         self.assertEqual(test_order.courier, 5)
@@ -52,9 +56,13 @@ class TestOrderAttributes(unittest.TestCase):
         test_order2.set_order_status('2')
         test_order3.set_order_status('3')
 
+        self.assertEqual(test_order0.statuscode, 0)
         self.assertEqual(test_order0.status, 'Preparing')
+        self.assertEqual(test_order1.statuscode, 1)
         self.assertEqual(test_order1.status, 'Awaiting pickup')
+        self.assertEqual(test_order2.statuscode, 2)
         self.assertEqual(test_order2.status, 'Out for delivery')
+        self.assertEqual(test_order3.statuscode, 3)
         self.assertEqual(test_order3.status, 'Delivered')
 
     def test_set_items(self):
