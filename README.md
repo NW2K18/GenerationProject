@@ -16,4 +16,4 @@ courierclass.py: Courier class
 
 orderclass.py: Order class
 
-input_checker.py: Validates list indices
+inputchecker.py: Validates list indices

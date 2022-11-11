@@ -48,7 +48,6 @@ class Menu():
         self.orders.save_orders()
         self.couriers.save_couriers()
         print('Exitted!')
-        exit()
 
     def view_products_menu(self) -> None:
         """This contains the product menu loop."""
@@ -64,7 +63,7 @@ class Menu():
 
             match option:
                 case '0':  # Exit
-                    print('Exiting products menu...')
+                    print('Exitting products menu...')
                     sleep(1)
                     break
                 case '1':  # Create
@@ -117,7 +116,7 @@ class Menu():
 
             match option:
                 case '0':  # Exit
-                    print('Exiting couriers menu...')
+                    print('Exitting couriers menu...')
                     sleep(1)
                     break
                 case '1':  # Create
@@ -170,7 +169,7 @@ class Menu():
             option = input('Choose command: ')
             match option:
                 case '0':  # Exit
-                    print('Exiting orders menu...')
+                    print('Exitting orders menu...')
                     sleep(1)
                     break
                 case '1':  # Create
