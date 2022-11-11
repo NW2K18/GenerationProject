@@ -17,9 +17,9 @@ class Order_menu():
         # List of orders with a sample order.
         self.orders = [orderclass.Order('John', 'Planet Earth',
                                         '1439280432')]
-        # Debug stuff to check if it has loaded properly.
         self.load_orders()
-        self.list_orders()
+        # Debug stuff to check if it has loaded properly.
+        # self.list_orders()
 
     def list_orders(self) -> int:
         """Prints out order list.
@@ -122,6 +122,10 @@ class Order_menu():
     def set_order_create(self, list_couriers, list_products) -> bool:
         """Asks for user input to create an order.
 
+        Args:
+            list_couriers (function): List couriers function
+            list_products (function): List products function
+
         Returns:
             bool: True if function successful, False if not.
         """
@@ -195,6 +199,12 @@ class Order_menu():
         return True
 
     def set_order_update_courier(self, index: int, list_couriers) -> None:
+        """Updates the assigned courier on an order.
+
+        Args:
+            index (int): Index of the order.
+            list_couriers (function): List couriers function.
+        """
         list_length = list_couriers()
         while True:
             userinput = input('Input index of courier to assign to order: ')
@@ -206,6 +216,12 @@ class Order_menu():
                 break
 
     def set_order_update_items(self, index: int, list_products) -> None:
+        """Updates the assigned items on an order.
+
+        Args:
+            index (int): Index of the order.
+            list_products (function): List products function.
+        """
         itemstring = ''
         list_length = list_products()
         while True:

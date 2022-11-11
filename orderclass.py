@@ -48,13 +48,22 @@ class Order:
         """
         self.customer_phone = phone
 
-    def set_courier(self, courier: str) -> None:
-        """Set order's courier index with input string
+    def set_courier(self, courier: Union[int, str]) -> bool:
+        """Set order's courier index with input string or integer
 
         Args:
             courier (str): courier
         """
-        self.courier = int(courier)
+        if isinstance(courier, int):
+            self.courier = courier
+        elif isinstance(courier, str):
+            if courier.strip() != '':
+                self.courier = int(courier)
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def get_courier(self) -> Union[int, str]:
         """Returns the assigned courier index.

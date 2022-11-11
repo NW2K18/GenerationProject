@@ -2,7 +2,7 @@
 # This is an courier object for the cafe menu application, contains various
 # information about the courier.
 
-from typing import Dict
+from typing import Dict, Union
 
 
 class Courier:

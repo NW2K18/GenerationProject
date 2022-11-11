@@ -32,6 +32,9 @@ class TestOrderAttributes(unittest.TestCase):
     def test_set_courier(self):
         test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
 
+        test_order.set_courier('')
+        self.assertEqual(test_order.courier, None)
+
         test_order.set_courier('5')
         self.assertEqual(test_order.courier, 5)
 
@@ -42,7 +45,7 @@ class TestOrderAttributes(unittest.TestCase):
         test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
         self.assertEqual(test_order.get_courier(), 'None')
 
-        test_order.set_courier(5)
+        test_order.set_courier('5')
         self.assertEqual(test_order.get_courier(), 5)
 
     def test_status_update(self):

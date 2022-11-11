@@ -11,11 +11,14 @@ import inputchecker
 
 class Menu():
 
-    def main(self) -> None:
-        """This contains the main menu loop."""
+    def __init__(self) -> None:
+        """Initialise main menu."""
         self.products = productmenu.Product_menu()
         self.orders = ordermenu.Order_menu()
         self.couriers = couriermenu.Courier_menu()
+
+    def main(self) -> None:
+        """This contains the main menu loop."""
 
         while True:
             print("""-----MAIN MENU-----
