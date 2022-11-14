@@ -23,7 +23,6 @@ class TestMainMenu(unittest.TestCase):
         self.mock_order = mock_order
         self.mock_order.reset_mock()
 
-
     @patch('main.sleep')
     @patch('builtins.print')
     @patch('builtins.input')
@@ -51,8 +50,7 @@ class TestMainMenu(unittest.TestCase):
     @patch('builtins.print')
     @patch('builtins.input')
     def test_product_menu_create(self, mock_input: MagicMock,
-                                 mock_print: MagicMock, mock_sleep: MagicMock,
-                                 ):
+                                 mock_print: MagicMock, mock_sleep: MagicMock):
         mock_input.side_effect = ['1', '0']
         self.testmenu.view_products_menu()
         mock_print.assert_called_with('Exitting products menu...')
