@@ -1,0 +1,6 @@
+.venv
+.env
+GenerationProject.code-workspace
+.dockerignore
+.pytest_cache
+__pycache__

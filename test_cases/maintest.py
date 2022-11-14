@@ -10,6 +10,8 @@ import main
 
 class TestMainMenu(unittest.TestCase):
 
+# MAIN MENU TESTS
+
     @patch('ordermenu.Order_menu')
     @patch('couriermenu.Courier_menu')
     @patch('productmenu.Product_menu')
@@ -33,7 +35,47 @@ class TestMainMenu(unittest.TestCase):
         self.testmenu.main()
         mock_print.assert_called_with('Exitted!')
         self.assertEqual(mock_print.call_count, 3)
-        mock_sleep.assert_not_called()
+
+    @patch('main.Menu.view_products_menu')
+    @patch('main.sleep')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_option_product_menu(self, mock_input: MagicMock,
+                                      mock_print: MagicMock,
+                                      mock_sleep: MagicMock,
+                                      mock_menu: MagicMock):
+        mock_input.side_effect = ['1', '0']
+        self.testmenu.main()
+        mock_print.assert_called_with('Exitted!')
+        mock_menu.assert_called()
+
+    @patch('main.Menu.view_couriers_menu')
+    @patch('main.sleep')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_option_courier_menu(self, mock_input: MagicMock,
+                                      mock_print: MagicMock,
+                                      mock_sleep: MagicMock,
+                                      mock_menu: MagicMock):
+        mock_input.side_effect = ['2', '0']
+        self.testmenu.main()
+        mock_print.assert_called_with('Exitted!')
+        mock_menu.assert_called()
+
+    @patch('main.Menu.view_orders_menu')
+    @patch('main.sleep')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_option_order_menu(self, mock_input: MagicMock,
+                                    mock_print: MagicMock,
+                                    mock_sleep: MagicMock,
+                                    mock_menu: MagicMock):
+        mock_input.side_effect = ['3', '0']
+        self.testmenu.main()
+        mock_print.assert_called_with('Exitted!')
+        mock_menu.assert_called()
+
+# PRODUCT MENU TESTS
 
     @patch('main.sleep')
     @patch('builtins.print')
@@ -56,6 +98,49 @@ class TestMainMenu(unittest.TestCase):
         mock_print.assert_called_with('Exitting products menu...')
         self.assertEqual(self.mock_product.mock_calls[0][0],
                          '().set_product_create')
+
+    @patch('main.sleep')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_product_menu_view(self, mock_input: MagicMock,
+                               mock_print: MagicMock, mock_sleep: MagicMock):
+        mock_input.side_effect = ['2', '0']
+        self.testmenu.view_products_menu()
+        mock_print.assert_called_with('Exitting products menu...')
+        self.assertEqual(self.mock_product.mock_calls[0][0],
+                         '().list_products')
+
+    @patch('inputchecker.get_input_index')
+    @patch('main.sleep')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_product_menu_update(self, mock_input: MagicMock,
+                                 mock_print: MagicMock, mock_sleep: MagicMock,
+                                 mock_check: MagicMock):
+        mock_input.side_effect = ['3', '0']
+        mock_check.return_value = 5
+        self.testmenu.view_products_menu()
+        mock_print.assert_called_with('Exitting products menu...')
+        mock_check.assert_called()
+        self.assertEqual(self.mock_product.mock_calls[0][0],
+                         '().list_products')
+        self.assertEqual(self.mock_product.mock_calls[2][0],
+                         '().set_product_update')
+        # Checking the first argument of the 2nd call: set_product_update
+        self.assertEqual(self.mock_product.mock_calls[2][1][0], 5)
+
+    # @patch('inputchecker.get_input_index')
+    # @patch('main.sleep')
+    # @patch('builtins.print')
+    # @patch('builtins.input')
+    # def test_product_menu_remove(self, mock_input: MagicMock,
+    #                              mock_print: MagicMock, mock_sleep: MagicMock,
+    #                              mock_check: MagicMock):
+    #     mock_input.side_effect = ['4', '0']
+    #     self.testmenu.view_products_menu()
+    #     mock_print.assert_called_with('Exitting products menu...')
+    #     self.assertEqual(self.mock_product.mock_calls[0][0],
+    #                      '().set_product_remove')
 
     @patch('main.sleep')
     @patch('builtins.print')

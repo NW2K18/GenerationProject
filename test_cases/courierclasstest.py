@@ -6,8 +6,8 @@ import unittest
 import courierclass as courierclass
 
 
-class TestCourierAttributes(unittest.TestCase):
-    
+class TestCourierObject(unittest.TestCase):
+
     def setUp(self) -> None:
         self.test_courier = courierclass.Courier('Nate', '0800001066')
 

@@ -6,7 +6,7 @@ import unittest
 import orderclass as orderclass
 
 
-class TestOrderAttributes(unittest.TestCase):
+class TestOrderClass(unittest.TestCase):
 
     def setUp(self) -> None:
         self.test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')

@@ -110,3 +110,5 @@ class Product_menu():
         except ValueError:
             print('Input cannot be converted into a floating point number.')
         return True
+
+    #def set_product_remove()

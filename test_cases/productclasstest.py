@@ -6,8 +6,8 @@ import unittest
 import productclass as productclass
 
 
-class TestProductAttributes(unittest.TestCase):
-    
+class TestProductClass(unittest.TestCase):
+
     def setUp(self) -> None:
         self.test_product = productclass.Product('Water', 0.75)
 
