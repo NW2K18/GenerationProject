@@ -15,6 +15,7 @@ class Courier:
             name (str): Initial courier name.
             phone (str): Initial courier phone number.
         """
+        self.id = 0
         self.name = name
         self.phone = phone
 
@@ -40,4 +41,5 @@ class Courier:
         Returns:
             Dict: The courier.
         """
-        return vars(self)
+        return {'name': self.name,
+                'phone': self.phone}

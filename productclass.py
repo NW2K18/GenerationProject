@@ -15,6 +15,7 @@ class Product:
             name (str): Initial product name.
             price (float): Initial product price.
         """
+        self.id = 0
         self.name = name
         self.price = price
 
@@ -48,4 +49,5 @@ class Product:
         Returns:
             Dict: The product.
         """
-        return vars(self)
+        return {'name': self.name,
+                'price': self.price}

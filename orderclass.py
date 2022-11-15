@@ -17,6 +17,7 @@ class Order:
             address (str): Initial customer address.
             phone (str): Initial customer phone number.
         """
+        self.id = 0
         self.customer_name = name
         self.customer_address = address
         self.customer_phone = phone
