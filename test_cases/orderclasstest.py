@@ -1,5 +1,6 @@
-# Author: Nathan
-# Unit tests for orderclass.py
+"""Author: Nathan \n
+Unit tests for orderclass.py
+"""
 
 import unittest
 

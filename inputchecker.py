@@ -1,5 +1,6 @@
-# Author: Nathan
-# Contains functions to validate input.
+"""Author: Nathan \n
+Contains functions to validate input.
+"""
 
 
 from typing import Union

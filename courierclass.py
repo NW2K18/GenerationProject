@@ -1,8 +1,9 @@
-# Author: Nathan
-# This is an courier object for the cafe menu application, contains various
-# information about the courier.
+"""Author: Nathan \n
+This is an courier object for the cafe menu application, contains various
+information about the courier.
+"""
 
-from typing import Dict, Union
+from typing import Dict
 
 
 class Courier:

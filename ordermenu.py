@@ -1,5 +1,6 @@
-# Author: Nathan
-# This is the order menu for the cafe application.
+"""Author: Nathan \n
+This is the order menu for the cafe application.
+"""
 
 from time import sleep
 import csv
@@ -10,8 +11,8 @@ import inputchecker
 
 
 class Order_menu():
-
     """Class used as the interface for handling orders."""
+
     def __init__(self) -> None:
         """Initialise order menu object and loads data."""
         # List of orders with a sample order.
@@ -156,8 +157,9 @@ class Order_menu():
         itemstring = ''
         while True:
             userinput_items = input(
-                'Input index of product to assign to order \
-(Valid input needs at least one product, blank input to exit): ')
+                'Input index of product to assign to order'
+                '(Valid input needs at least one product,'
+                'blank input to exit): ')
             if userinput_items.strip() != '':
                 if inputchecker.check_index(list_length, userinput_items):
                     itemstring += f'{userinput_items},'
@@ -173,11 +175,16 @@ class Order_menu():
         self.orders.append(new_order)
         return True
 
-    def set_order_update(self, index: int) -> bool:
+    # region <ORDER UPDATE FUNCTIONS>
+
+    def set_order_update(self, index: int,
+                         list_couriers, list_products) -> bool:
         """Asks for user input to update an order.
 
         Args:
             index (int): List index of the order to be updated.
+            list_couriers (function): List couriers function.
+            list_products (function): List products function.
 
         Returns:
             bool: True if function successful, False if not.
@@ -192,10 +199,9 @@ class Order_menu():
         userinput = input('Input customer phone number: ')
         if userinput.strip() != '':
             self.orders[index].customer_phone = userinput
-        # TODO items
-        pass
-        # TODO courier
-        pass
+
+        self.set_order_update_courier(index, list_couriers)
+        self.set_order_update_items(index, list_products)
         return True
 
     def set_order_update_courier(self, index: int, list_couriers) -> None:
@@ -225,8 +231,8 @@ class Order_menu():
         itemstring = ''
         list_length = list_products()
         while True:
-            userinput = input('Input index of product to assign to order \
-(Blank input to exit): ')
+            userinput = input('Input index of product to assign to order '
+                              '(Blank input to exit): ')
             if userinput.strip() != '':
                 if inputchecker.check_index(list_length, userinput):
                     itemstring += f'{userinput},'
@@ -253,3 +259,18 @@ class Order_menu():
 """)
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
+
+    # endregion
+
+    def set_order_remove(self, index: int) -> str:
+        """Removes the order at the specified index of the list.
+
+        Args:
+            index (int): List index of the order to be removed.
+
+        Returns:
+            str: Customer name of the removed order.
+        """
+        removed_order = self.orders[index].customer_name
+        self.orders.pop(index)
+        return f'{removed_order}\'s order'

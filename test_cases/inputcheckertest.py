@@ -1,5 +1,6 @@
-# Author: Nathan
-# Unit tests for input_checker.py
+"""Author: Nathan \n
+Unit tests for input_checker.py
+"""
 
 import unittest
 from unittest.mock import patch

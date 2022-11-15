@@ -1,6 +1,7 @@
-# Author: Nathan
-# This is an order object for the cafe menu application, contains various
-# information about the order.
+"""Author: Nathan \n
+This is an order object for the cafe menu application, contains various
+information about the order.
+"""
 
 from typing import Dict
 from typing import Union
@@ -77,10 +78,10 @@ class Order:
             return 'None'
 
     def set_order_status(self, option: str) -> bool:
-        """Set order's status from a list of options.
-        0 = Preparing
-        1 = Awaiting pickup
-        2 = Out for delivery
+        """Set order's status from a list of options. \n
+        0 = Preparing \n
+        1 = Awaiting pickup \n
+        2 = Out for delivery \n
         3 = Delivered
 
         Args:

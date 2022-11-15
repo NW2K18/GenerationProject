@@ -1,5 +1,6 @@
-# Author: Nathan
-# This is the main program of the cafe program.
+"""Author: Nathan \n
+This is the main module of the cafe program and contains the menus.
+"""
 
 from time import sleep
 
@@ -16,6 +17,8 @@ class Menu():
         self.products = productmenu.Product_menu()
         self.orders = ordermenu.Order_menu()
         self.couriers = couriermenu.Courier_menu()
+
+    # region <MAIN MENU>
 
     def main(self) -> None:
         """This contains the main menu loop."""
@@ -51,6 +54,9 @@ class Menu():
         self.orders.save_orders()
         self.couriers.save_couriers()
         print('Exitted!')
+
+    # endregion
+    # region <PRODUCTS MENU>
 
     def view_products_menu(self) -> None:
         """This contains the product menu loop."""
@@ -98,12 +104,14 @@ class Menu():
                     if index is None:
                         print('Selected 0, moving back to product menu.')
                         break
-                    print('Removing product...')
                     sleep(1)
                     print(f'You have removed: \
-                        {self.products.products.pop(index)}.')
+                        {self.products.set_product_remove(index)}')
                 case _:  # Default
                     print('No option selected.')
+
+    # endregion
+    # region <COURIER MENU>
 
     def view_couriers_menu(self) -> None:
         """This contains the courier menu loop."""
@@ -151,12 +159,14 @@ class Menu():
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
-                    print('Removing courier...')
                     sleep(1)
                     print(f'You have removed: \
-                    {self.couriers.couriers.pop(index)}.')
+                        {self.couriers.set_courier_remove(index)}')
                 case _:  # Default case
                     print('No option selected.')
+
+    # endregion
+    # region <ORDER MENU>
 
     def view_orders_menu(self):
         """This contains the order menu loop."""
@@ -219,11 +229,9 @@ class Menu():
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
-                    self.orders.set_order_update(index)
-                    self.orders.set_order_update_courier(
-                        index, self.couriers.list_couriers)
-                    self.orders.set_order_update_items(
-                        index, self.products.list_products)
+                    self.orders.set_order_update(
+                        index, self.couriers.list_couriers,
+                        self.products.list_products)
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove
@@ -233,12 +241,13 @@ class Menu():
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
-                    print('Removing order...')
                     sleep(1)
                     print(f'You have removed: \
-                    {self.orders.orders.pop(index).customer_name}.')
+                        {self.orders.set_order_remove(index)}')
                 case _:  # Default
                     print('No option selected.')
+
+# endregion
 
 
 # Call main function

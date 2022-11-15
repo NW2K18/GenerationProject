@@ -1,5 +1,6 @@
-# Author: Nathan
-# This is the product menu for the cafe application.
+"""Author: Nathan \n
+This is the product menu for the cafe application.
+"""
 
 from time import sleep
 import csv
@@ -9,6 +10,7 @@ import productclass
 
 class Product_menu():
     """Class used as the interface for handling products."""
+
     def __init__(self) -> None:
         """Initialise product menu object and loads data."""
         # Initialise product list.
@@ -111,4 +113,15 @@ class Product_menu():
             print('Input cannot be converted into a floating point number.')
         return True
 
-    #def set_product_remove()
+    def set_product_remove(self, index: int) -> str:
+        """Removes the product at the specified index of the list.
+
+        Args:
+            index (int): List index of the product to be removed.
+
+        Returns:
+            str: Name of the removed product.
+        """
+        removed_product = self.products[index].name
+        self.products.pop(index)
+        return removed_product

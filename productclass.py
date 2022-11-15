@@ -1,6 +1,7 @@
-# Author: Nathan
-# This is an product object for the cafe menu application, contains various
-# information about the product.
+"""Author: Nathan \n
+This is an product object for the cafe menu application, contains various
+information about the product.
+"""
 
 from typing import Dict
 

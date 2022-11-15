@@ -1,5 +1,6 @@
-# Author: Nathan
-# This is the courier menu for the cafe application.
+"""Author: Nathan \n
+This is the courier menu for the cafe application.
+"""
 
 from time import sleep
 import csv
@@ -9,6 +10,7 @@ import courierclass
 
 class Courier_menu():
     """Class used as the interface for handling couriers."""
+
     def __init__(self) -> None:
         """Initialise courier menu object and loads data."""
         # Initialise courier list.
@@ -103,3 +105,16 @@ class Courier_menu():
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
         return True
+
+    def set_courier_remove(self, index: int) -> str:
+        """Removes the courier at the specified index of the list.
+
+        Args:
+            index (int): List index of the courier to be removed.
+
+        Returns:
+            str: Name of the removed courier.
+        """
+        removed_courier = self.couriers[index].name
+        self.couriers.pop(index)
+        return removed_courier

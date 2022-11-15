@@ -1,5 +1,6 @@
-# Author: Nathan
-# Unit tests for courierclass.py
+"""Author: Nathan \n
+Unit tests for courierclass.py
+"""
 
 import unittest
 
