@@ -68,6 +68,8 @@ class Menu():
         3. Update Product
         4. Remove Product
 ---------------------""")
+
+            # self.products.load_products_database()
             option = input('Choose command: ')
 
             match option:

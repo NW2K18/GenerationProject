@@ -6,6 +6,7 @@ from time import sleep
 import csv
 
 import productclass
+import database
 
 
 class Product_menu():
@@ -15,6 +16,7 @@ class Product_menu():
         """Initialise product menu object and loads data."""
         # Initialise product list.
         self.products = [productclass.Product('Pepsi', 1.00)]
+        self.database = database.Database()
 
         self.load_products()
 
@@ -69,6 +71,9 @@ class Product_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    def load_products_database(self) -> None:
+        self.database.load_products()
 
     def set_product_create(self) -> bool:
         """Asks for user input to create an product.
