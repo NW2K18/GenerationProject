@@ -44,8 +44,8 @@ class Product_menu():
         """
         try:
             with open('data/productdata.csv', 'r') as file:
-                self.products.clear()
                 reader = csv.DictReader(file, delimiter=',')
+                self.products.clear()
                 for row in reader:
                     newproduct = productclass.Product(row['name'],
                                                       float(row['price']))
@@ -97,26 +97,22 @@ class Product_menu():
         self.products.append(new_product)
         return True
 
-    def set_product_update(self, index: int) -> bool:
+    def set_product_update(self, index: int) -> None:
         """Asks for user input to update an product.
 
         Args:
             index (int): List index of the product to be updated.
-
-        Returns:
-            bool: True if function successful, False if not.
         """
         # If input is blank, continue but don't update the product.
         userinput = input('Input product name: ')
         if userinput.strip() != '':
             self.products[index].name = userinput
         try:
-            userinput = float(input('Input product price: '))
+            userinput = input('Input product price: ')
             if userinput.strip() != '':
-                self.products[index].price = userinput
+                self.products[index].price = float(userinput)
         except ValueError:
             print('Input cannot be converted into a floating point number.')
-        return True
 
     def set_product_remove(self, index: int) -> str:
         """Removes the product at the specified index of the list.

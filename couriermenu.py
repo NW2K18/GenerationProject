@@ -42,8 +42,8 @@ class Courier_menu():
         """
         try:
             with open('data/courierdata.csv', 'r') as file:
-                self.couriers.clear()
                 reader = csv.DictReader(file, delimiter=',')
+                self.couriers.clear()
                 for row in reader:
                     newcourier = courierclass.Courier(row['name'],
                                                       row['phone'])
@@ -88,14 +88,11 @@ class Courier_menu():
         self.couriers.append(new_courier)
         return True
 
-    def set_courier_update(self, index: int) -> bool:
+    def set_courier_update(self, index: int) -> None:
         """Asks for user input to update an courier.
 
         Args:
             index (int): List index of the courier to be updated.
-
-        Returns:
-            bool: True if function successful, False if not.
         """
         # If input is blank, continue but don't update the courier.
         userinput = input('Input courier name: ')
@@ -104,7 +101,6 @@ class Courier_menu():
         userinput = input('Input courier phone number: ')
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
-        return True
 
     def set_courier_remove(self, index: int) -> str:
         """Removes the courier at the specified index of the list.

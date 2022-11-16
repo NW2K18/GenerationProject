@@ -19,7 +19,7 @@ class Database():
 
     @contextmanager
     def _connect(self):
-        data_base_connection = pymysql.connect(
+        database_connection = pymysql.connect(
             self.host,
             self.user,
             self.password,
@@ -27,9 +27,9 @@ class Database():
             cursorclass=pymysql.cursors.DictCursor
         )
         try:
-            yield data_base_connection
+            yield database_connection
         finally:
-            data_base_connection.close()
+            database_connection.close()
 
     # region <PRODUCTS>
 

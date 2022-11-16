@@ -86,8 +86,8 @@ class Order_menu():
         """
         try:
             with open('data/orderdata.csv', 'r') as file:
-                self.orders.clear()
                 reader = csv.DictReader(file, delimiter=',')
+                self.orders.clear()
                 for row in reader:
                     neworder = orderclass.Order(row['customer_name'],
                                                 row['customer_address'],
