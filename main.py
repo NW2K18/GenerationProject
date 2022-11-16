@@ -9,6 +9,8 @@ import couriermenu
 import ordermenu
 import inputchecker
 
+from productclass import Product
+
 
 class Menu():
 
@@ -30,6 +32,12 @@ class Menu():
             2. Couriers
             3. Orders
 -------------------""")
+
+            # self.products.load_products_database()
+            # testproduct = Product('Water', 1.00)
+            # testproduct = self.products.database.load_product_id(testproduct)
+            # print(testproduct.id)
+
             option = input('Choose command: ')
             match option:
                 case '0':  # Exit
@@ -69,7 +77,6 @@ class Menu():
         4. Remove Product
 ---------------------""")
 
-            # self.products.load_products_database()
             option = input('Choose command: ')
 
             match option:
