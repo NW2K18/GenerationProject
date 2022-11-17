@@ -18,6 +18,7 @@ class Product_menu():
         self.products = [productclass.Product('Pepsi', 1.00)]
         self.database = database.Database()
 
+        # self.load_products_csv()
         self.load_products_database()
 
     def list_products(self) -> int:
@@ -145,7 +146,7 @@ class Product_menu():
             str: Name of the removed product.
         """
         removed_product = self.products[index].name
-        self.database.remove_product(removed_product)
+        self.database.remove_product(self.products[index])
         self.products.pop(index)
         return removed_product
 

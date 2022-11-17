@@ -6,6 +6,7 @@ from time import sleep
 import csv
 
 import courierclass
+import database
 
 
 class Courier_menu():
@@ -15,8 +16,10 @@ class Courier_menu():
         """Initialise courier menu object and loads data."""
         # Initialise courier list.
         self.couriers = [courierclass.Courier('Larry', '9812734656')]
+        self.database = database.Database()
 
-        self.load_couriers()
+        # self.load_couriers_csv()
+        self.load_couriers_database()
 
     def list_couriers(self) -> int:
         """Prints out courier list.
@@ -26,7 +29,7 @@ class Courier_menu():
         """
         i = 1
         for courier in self.couriers:
-            print(f"""Courier No.{i}:
+            print(f"""Courier No.{i} ({courier.id}):
             Courier name: {courier.name}
             Courier phone: {courier.phone}
             """)
@@ -36,7 +39,7 @@ class Courier_menu():
 
     # region <SAVE AND LOAD>
 
-    def load_couriers(self) -> None:
+    def load_couriers_csv(self) -> None:
         """Loads courier data from csv file.
 
         Raises:
@@ -55,7 +58,7 @@ class Courier_menu():
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-    def save_couriers(self) -> None:
+    def save_couriers_csv(self) -> None:
         """Saves courier data to a csv file.
 
         Raises:
@@ -71,6 +74,23 @@ class Courier_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    def load_couriers_database(self) -> None:
+        """Loads courier data from database.
+        """
+        rows = self.database.load_couriers()
+        self.couriers.clear()
+        for row in rows:
+            newcourier = courierclass.Courier(row['name'],
+                                              (row['phone']))
+            newcourier.id = row['id']
+            self.couriers.append(newcourier)
+        print('LOADED COURIERS FROM DATABASE')
+
+    def save_couriers_database(self) -> None:
+        """Saves courier data to database.
+        """
+        self.database.save_couriers(self.couriers)
 
     # endregion
     # region <MODIFY COURIERS>
@@ -90,6 +110,7 @@ class Courier_menu():
             return False
         # If the inputs are valid, add a new entry.
         new_courier = courierclass.Courier(userinput_name, userinput_phone)
+        self.database.insert_courier(new_courier)
         self.couriers.append(new_courier)
         return True
 
@@ -106,6 +127,7 @@ class Courier_menu():
         userinput = input('Input courier phone number: ')
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
+        self.database.update_courier(self.couriers[index])
 
     def set_courier_remove(self, index: int) -> str:
         """Removes the courier at the specified index of the list.
@@ -117,6 +139,7 @@ class Courier_menu():
             str: Name of the removed courier.
         """
         removed_courier = self.couriers[index].name
+        self.database.remove_courier(self.couriers[index])
         self.couriers.pop(index)
         return removed_courier
 

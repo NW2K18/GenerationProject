@@ -41,5 +41,6 @@ class Courier:
         Returns:
             Dict: The courier.
         """
-        return {'name': self.name,
+        return {'id': self.id,
+                'name': self.name,
                 'phone': self.phone}
