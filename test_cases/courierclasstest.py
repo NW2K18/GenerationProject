@@ -13,6 +13,7 @@ class TestCourierObject(unittest.TestCase):
         self.test_courier = courierclass.Courier('Nate', '0800001066')
 
     def test_create_product(self):
+        self.assertEqual(self.test_courier.id, 0)
         self.assertEqual(self.test_courier.name, 'Nate')
         self.assertEqual(self.test_courier.phone, '0800001066')
 
@@ -25,8 +26,9 @@ class TestCourierObject(unittest.TestCase):
 
     def test_get_courier(self):
         self.assertEqual(self.test_courier.get_courier(),
-                         {'name': 'Nate',
-                         'phone': '0800001066'})
+                         {'id': 0,
+                          'name': 'Nate',
+                          'phone': '0800001066'})
 
 
 if __name__ == '__main__':
