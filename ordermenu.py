@@ -78,6 +78,8 @@ class Order_menu():
             i += 1
         return len(self.orders)
 
+    # region <SAVE AND LOAD>
+
     def load_orders(self) -> None:
         """Loads orders from a csv file.
 
@@ -119,6 +121,8 @@ class Order_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    # endregion
 
     def set_order_create(self, list_couriers, list_products) -> bool:
         """Asks for user input to create an order.

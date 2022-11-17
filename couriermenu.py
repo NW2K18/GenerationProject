@@ -34,6 +34,8 @@ class Courier_menu():
             i += 1
         return len(self.couriers)
 
+    # region <SAVE AND LOAD>
+
     def load_couriers(self) -> None:
         """Loads courier data from csv file.
 
@@ -69,6 +71,9 @@ class Courier_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    # endregion
+    # region <MODIFY COURIERS>
 
     def set_courier_create(self) -> bool:
         """Asks for user input to create an courier.
@@ -114,3 +119,5 @@ class Courier_menu():
         removed_courier = self.couriers[index].name
         self.couriers.pop(index)
         return removed_courier
+
+    # endregion

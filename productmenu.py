@@ -36,6 +36,8 @@ class Product_menu():
             i += 1
         return len(self.products)
 
+    # region <SAVE AND LOAD>
+
     def load_products(self) -> None:
         """Loads product data from csv file.
 
@@ -74,6 +76,9 @@ class Product_menu():
 
     def load_products_database(self) -> None:
         self.database.load_products()
+
+    # endregion
+    # region <MODIFY PRODUCTS>
 
     def set_product_create(self) -> bool:
         """Asks for user input to create an product.
@@ -126,3 +131,5 @@ class Product_menu():
         removed_product = self.products[index].name
         self.products.pop(index)
         return removed_product
+
+    # endregion
