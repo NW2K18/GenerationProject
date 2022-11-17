@@ -54,7 +54,7 @@ class Database():
 
     def load_product_id(self, product: Product) -> Product:
         """Searches the database for the product, and appends the database's
-        key id to the produce if there is a match.
+        key id to the product if there is a match.
 
         Args:
             product (Product): The product.
@@ -162,13 +162,124 @@ class Database():
 
     # region <COURIERS>
 
-    def load_couriers(self):
+    def load_couriers(self) -> List:
+        """Loads the data from couriers table.
+
+        Returns:
+            List: The data.
+        """
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT id, name, price '
+                cursor.execute('SELECT id, name, phone '
                                'FROM couriers')
                 rows = cursor.fetchall()
         return rows
+
+    def load_courier_id(self, courier: Courier) -> Courier:
+        """Searches the database for the courier, and appends the database's
+        key id to the courier if there is a match.
+
+        Args:
+            courier (Courier): The courier.
+
+        Returns:
+            courier: Courier with the id appended.
+        """
+        name = courier.name
+        phone = courier.phone
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = 'SELECT id FROM couriers WHERE name = %s AND phone = %s'
+                adr = (name, phone)
+                cursor.execute(sql, adr)
+
+                row = cursor.fetchone()
+        if row is None:
+            raise Exception(f'Could not find id for {name}')
+        courier.id = row['id']
+        return courier
+
+    def save_couriers(self, couriers: List) -> None:
+        """Iterates through list of couriers, if one doesn't have an ID, add it
+        to the database.
+
+        Args:
+            couriers (List): List of couriers.
+        """
+        for courier in couriers:
+            if courier.id == 0:
+                self.insert_courier(courier)
+            else:
+                self.update_courier(courier)
+
+    def insert_courier(self, courier: Courier) -> Courier:
+        """Inserts a courier into the database while also grabbing the ID from
+        the database and applying it to the courier object. \n
+        Call this before appending your courier to the list.
+
+        Args:
+            courier (Courier): The courier to be inserted.
+
+        Returns:
+            Courier: The courier, now with the database id appended.
+        """
+        name = courier.name
+        phone = courier.phone
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = ('INSERT INTO couriers (name, phone) \
+                VALUES (%s, %s)')
+                adr = (name, phone)
+                cursor.execute(sql, adr)
+                connection.commit()
+        self.load_courier_id(courier)
+        return courier
+
+    def update_courier(self, courier: Courier) -> bool:
+        """Updates the courier in the database with the attributes from the
+        courier in the program.
+
+        Args:
+            courier (Courier): Courier that will update the database
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        name = courier.name
+        phone = courier.phone
+        if courier.id == 0:
+            return False
+        id = courier.id
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = ('UPDATE couriers \
+                SET name = %s, phone = %s \
+                WHERE id = %s')
+                adr = (name, phone, id)
+                cursor.execute(sql, adr)
+                connection.commit()
+        return True
+
+    def remove_courier(self, courier: Courier) -> bool:
+        """Removes the input courier from the database.
+
+        Args:
+            courier (Courier): Courier that will be removed from the database.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        if courier.id == 0:
+            return False
+        id = courier.id
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = ('DELETE FROM couriers \
+                WHERE id = %s')
+                adr = (id)
+                cursor.execute(sql, adr)
+                connection.commit()
+        return True
 
     # endregion
 
