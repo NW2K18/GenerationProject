@@ -13,6 +13,7 @@ class TestProductClass(unittest.TestCase):
         self.test_product = productclass.Product('Water', 0.75)
 
     def test_create_product(self):
+        self.assertEqual(self.test_product.id, 0)
         self.assertEqual(self.test_product.name, 'Water')
         self.assertEqual(self.test_product.price, 0.75)
 
@@ -42,8 +43,9 @@ class TestProductClass(unittest.TestCase):
 
     def test_get_product(self):
         self.assertEqual(self.test_product.get_product(),
-                         {'name': 'Water',
-                         'price': 0.75})
+                         {'id': 0,
+                          'name': 'Water',
+                          'price': 0.75})
 
 
 if __name__ == '__main__':

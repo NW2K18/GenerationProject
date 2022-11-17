@@ -49,5 +49,6 @@ class Product:
         Returns:
             Dict: The product.
         """
-        return {'name': self.name,
+        return {'id': self.id,
+                'name': self.name,
                 'price': self.price}

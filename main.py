@@ -58,7 +58,7 @@ class Menu():
                 case _:  # Default
                     print('No option selected.')
         # End of loop, save data.
-        self.products.save_products()
+        self.products.save_products_database()
         self.orders.save_orders()
         self.couriers.save_couriers()
         print('Exitted!')

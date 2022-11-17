@@ -76,9 +76,23 @@ class Database():
         product.id = row['id']
         return product
 
+    def save_products(self, products: List) -> None:
+        """Iterates through list of products, if one doesn't have an ID, add it
+        to the database.
+
+        Args:
+            products (List): List of products.
+        """
+        for product in products:
+            if product.id == 0:
+                self.insert_product(product)
+            else:
+                self.update_product(product)
+
     def insert_product(self, product: Product) -> Product:
         """Inserts a product into the database while also grabbing the ID from
-        the database and applying it to the product object.
+        the database and applying it to the product object. \n
+        Call this before appending your product to the list.
 
         Args:
             product (Product): The product to be inserted.
@@ -91,7 +105,7 @@ class Database():
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = ('INSERT INTO products (name, price) \
-                VALUES %s, %s')
+                VALUES (%s, %s)')
                 adr = (name, price)
                 cursor.execute(sql, adr)
                 connection.commit()

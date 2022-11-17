@@ -18,7 +18,7 @@ class Product_menu():
         self.products = [productclass.Product('Pepsi', 1.00)]
         self.database = database.Database()
 
-        self.load_products()
+        self.load_products_database()
 
     def list_products(self) -> int:
         """Prints out product list.
@@ -28,7 +28,7 @@ class Product_menu():
         """
         i = 1
         for product in self.products:
-            print(f"""Product No.{i}:
+            print(f"""Product No.{i} ({product.id}):
             Product name: {product.name}
             Product price: {product.get_product_price()}
             """)
@@ -38,7 +38,7 @@ class Product_menu():
 
     # region <SAVE AND LOAD>
 
-    def load_products(self) -> None:
+    def load_products_csv(self) -> None:
         """Loads product data from csv file.
 
         Raises:
@@ -57,7 +57,7 @@ class Product_menu():
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-    def save_products(self) -> None:
+    def save_products_csv(self) -> None:
         """Saves product data to a csv file.
 
         Raises:
@@ -75,7 +75,21 @@ class Product_menu():
             raise Exception  # Raise exception for debugging.
 
     def load_products_database(self) -> None:
-        self.database.load_products()
+        """Loads product data from database.
+        """
+        rows = self.database.load_products()
+        self.products.clear()
+        for row in rows:
+            newproduct = productclass.Product(row['name'],
+                                              float(row['price']))
+            newproduct.id = row['id']
+            self.products.append(newproduct)
+        print('LOADED PRODUCTS FROM DATABASE')
+
+    def save_products_database(self) -> None:
+        """Saves product data to database.
+        """
+        self.database.save_products(self.products)
 
     # endregion
     # region <MODIFY PRODUCTS>
@@ -99,6 +113,7 @@ class Product_menu():
             return False
         # If the inputs are valid, add a new entry.
         new_product = productclass.Product(userinput_name, userinput_price)
+        new_product = self.database.insert_product(new_product)
         self.products.append(new_product)
         return True
 
@@ -118,6 +133,7 @@ class Product_menu():
                 self.products[index].price = float(userinput)
         except ValueError:
             print('Input cannot be converted into a floating point number.')
+        self.database.update_product(self.products[index])
 
     def set_product_remove(self, index: int) -> str:
         """Removes the product at the specified index of the list.
@@ -129,6 +145,7 @@ class Product_menu():
             str: Name of the removed product.
         """
         removed_product = self.products[index].name
+        self.database.remove_product(removed_product)
         self.products.pop(index)
         return removed_product
 
