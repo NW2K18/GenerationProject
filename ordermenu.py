@@ -148,15 +148,44 @@ class Order_menu():
         new_order = orderclass.Order(userinput_name, userinput_address,
                                      userinput_phone)
         # Adding courier
-        list_length = list_couriers()
+        userinput_courier = self.set_order_create_courier(list_couriers)
+        if userinput_courier.strip() != '':
+            new_order.set_courier(userinput_courier)
+        else:
+            return False
+        # Adding items
+        itemstring = self.set_order_create_items(list_products)
+        if itemstring.strip() != '':
+            new_order.set_items(itemstring)
+        else:
+            return False
+        # If all inputs are valid, append the new entry.
+        self.orders.append(new_order)
+        return True
+
+    def set_order_create_courier(self, list_couriers) -> str:
+        """Takes in user input and returns courier ID.
+
+        Args:
+            list_couriers (function): List couriers function.
+
+        Returns:
+            str: String of courier ID.
+        """
+        list_couriers()
         userinput_courier = input(
             'Input index of courier to assign to order: ')
-        if userinput_courier.strip() != '':
-            if inputchecker.check_index(list_length, userinput_courier):
-                new_order.set_courier()
-            else:
-                return False
-        # Adding items
+        return userinput_courier
+
+    def set_order_create_items(self, list_products) -> str:
+        """Takes in user input and returns string of items to append to order.
+
+        Args:
+            list_products (function): List products function.
+
+        Returns:
+            str: String of item IDs.
+        """
         list_length = list_products()
         itemstring = ''
         while True:
@@ -171,13 +200,7 @@ class Order_menu():
             else:
                 itemstring = itemstring[:-1]
                 break
-        if itemstring.strip() != '':
-            new_order.set_items(itemstring)
-        else:
-            return False
-        # If all inputs are valid, append the new entry.
-        self.orders.append(new_order)
-        return True
+        return itemstring
 
     # region <ORDER UPDATE FUNCTIONS>
 
