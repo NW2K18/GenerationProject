@@ -29,10 +29,10 @@ class Courier_menu():
         """
         i = 1
         for courier in self.couriers:
-            print(f"""Courier No.{i} ({courier.id}):
-            Courier name: {courier.name}
-            Courier phone: {courier.phone}
-            """)
+            print(
+                f'Courier No.{i} ({courier.id}):'
+                f'\n\tCourier name: {courier.name}'
+                f'\n\tCourier phone: {courier.phone}')
             sleep(0.3)
             i += 1
         return len(self.couriers)
