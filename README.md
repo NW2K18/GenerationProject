@@ -23,3 +23,9 @@ inputchecker.py: Validates list indices
 FILES THAT YOU WILL NEED TO CREATE TO RUN THIS:
 
 .env file with mysql host, user, pass and db variables.
+
+Set up your database with docker-compose.yml with the following:
+
+table: products, columns: id, name, price
+
+table: couriers, columns: id, name, phone

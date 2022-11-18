@@ -29,10 +29,10 @@ class Product_menu():
         """
         i = 1
         for product in self.products:
-            print(f"""Product No.{i} ({product.id}):
-            Product name: {product.name}
-            Product price: {product.get_product_price()}
-            """)
+            print(
+                f'Product No.{i} ({product.id}):'
+                f'\n\tProduct name: {product.name}'
+                f'\n\tProduct price: {product.get_product_price()}')
             sleep(0.3)
             i += 1
         return len(self.products)

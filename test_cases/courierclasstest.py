@@ -12,7 +12,7 @@ class TestCourierObject(unittest.TestCase):
     def setUp(self) -> None:
         self.test_courier = courierclass.Courier('Nate', '0800001066')
 
-    def test_create_product(self):
+    def test_setUp(self):
         self.assertEqual(self.test_courier.id, 0)
         self.assertEqual(self.test_courier.name, 'Nate')
         self.assertEqual(self.test_courier.phone, '0800001066')

@@ -12,7 +12,7 @@ class TestOrderClass(unittest.TestCase):
     def setUp(self) -> None:
         self.test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
 
-    def test_create_order(self):
+    def test_setUp(self):
         self.assertEqual(self.test_order.id, 0)
         self.assertEqual(self.test_order.customer_name, 'Johnny')
         self.assertEqual(self.test_order.customer_address, 'Everytown')

@@ -12,7 +12,7 @@ class TestProductClass(unittest.TestCase):
     def setUp(self) -> None:
         self.test_product = productclass.Product('Water', 0.75)
 
-    def test_create_product(self):
+    def test_setUp(self):
         self.assertEqual(self.test_product.id, 0)
         self.assertEqual(self.test_product.name, 'Water')
         self.assertEqual(self.test_product.price, 0.75)
