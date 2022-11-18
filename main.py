@@ -224,7 +224,7 @@ class Menu():
                     option = input('Input number for order status: ')
                     match option:
                         case '0':  # Normal
-                            self.orders.list_orders()
+                            self.orders.list_orders(self.orders.orders)
                         case '1':  # Courier sort
                             self.orders.list_sorted_orders('courier')
                         case '2':  # Status sort
@@ -233,7 +233,7 @@ class Menu():
                             print('Invalid input.')
                     sleep(1)
                 case '3':  # Update status
-                    self.orders.list_orders()
+                    self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
                         'order', 'update', len(self.orders.orders))
                     if index is None:
@@ -243,7 +243,7 @@ class Menu():
                     sleep(1)
                     print('Updated order.')
                 case '4':  # Update
-                    self.orders.list_orders()
+                    self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
                         'order', 'update', len(self.orders.orders))
                     if index is None:
@@ -255,7 +255,7 @@ class Menu():
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove
-                    self.orders.list_orders()
+                    self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
                         'order', 'remove', len(self.orders.orders))
                     if index is None:

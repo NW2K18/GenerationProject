@@ -31,16 +31,19 @@ class TestOrderMenu(unittest.TestCase):
     @patch('ordermenu.sleep')
     @patch('builtins.print')
     def test_list_orders(self, mock_print: MagicMock, mock_sleep: MagicMock):
-        self.assertEqual(self.test_ordermenu.list_orders(), 3)
+        self.assertEqual(
+            self.test_ordermenu.list_orders(self.test_ordermenu.orders), 3)
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(mock_sleep.call_count, 3)
 
         self.test_ordermenu.orders.pop()
-        self.assertEqual(self.test_ordermenu.list_orders(), 2)
+        self.assertEqual(
+            self.test_ordermenu.list_orders(self.test_ordermenu.orders), 2)
 
         self.test_ordermenu.orders.pop()
         self.test_ordermenu.orders.pop()
-        self.assertEqual(self.test_ordermenu.list_orders(), 0)
+        self.assertEqual(
+            self.test_ordermenu.list_orders(self.test_ordermenu.orders), 0)
 
 
 if __name__ == '__main__':

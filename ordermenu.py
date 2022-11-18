@@ -4,9 +4,9 @@ This is the order menu for the cafe application.
 
 from time import sleep
 import csv
-# import json
+from typing import List
 
-import orderclass
+from orderclass import Order
 from productmenu import Product_menu
 from couriermenu import Courier_menu
 import inputchecker
@@ -18,28 +18,29 @@ class Order_menu():
     def __init__(self) -> None:
         """Initialise order menu object and loads data."""
         # List of orders with a sample order.
-        self.orders = [orderclass.Order('John', 'Planet Earth',
-                                        '1439280432')]
+        self.orders = [Order(
+            'John', 'Planet Earth', '1439280432')]
         self.load_orders()
-        # Debug stuff to check if it has loaded properly.
-        # self.list_orders()
 
-    def list_orders(self) -> int:
+    def list_orders(self, orderlist: List[Order]) -> int:
         """Prints out order list.
+
+        Args:
+            orderlist (List[Order]): List of orders to be listed.
 
         Returns:
             int: Size of order list
         """
         i = 1
-        for order in self.orders:
-            print(f"""Order No.{i}:
-            Customer name: {order.customer_name}
-            Customer address: {order.customer_address}
-            Customer phone number: {order.customer_phone}
-            Courier: {order.get_courier()}
-            Order status: {order.status}
-            Items: {order.get_items()}
-            """)
+        for order in orderlist:
+            print(
+                f'Order No.{i}:'
+                f'Customer name: {order.customer_name}'
+                f'Customer address: {order.customer_address}'
+                f'Customer phone number: {order.customer_phone}'
+                f'Courier: {order.get_courier()}'
+                f'Order status: {order.status}'
+                f'Items: {order.get_items()}')
             sleep(0.5)
             i += 1
         return len(self.orders)
@@ -66,18 +67,7 @@ class Order_menu():
                     self.orders, key=lambda order: order.statuscode)
             case _:
                 raise Exception('Invalid option passed to list_orders_custom')
-        i = 1
-        for order in sorted_list:
-            print(f"""Order No.{i}:
-            Customer name: {order.customer_name}
-            Customer address: {order.customer_address}
-            Customer phone number: {order.customer_phone}
-            Courier: {order.get_courier()}
-            Order status: {order.status}
-            Items: {order.get_items()}
-            """)
-            sleep(0.5)
-            i += 1
+        self.list_orders(sorted_list)
         return len(self.orders)
 
     # region <SAVE AND LOAD>
@@ -93,9 +83,9 @@ class Order_menu():
                 reader = csv.DictReader(file, delimiter=',')
                 self.orders.clear()
                 for row in reader:
-                    neworder = orderclass.Order(row['customer_name'],
-                                                row['customer_address'],
-                                                row['customer_phone'])
+                    neworder = Order(
+                        row['customer_name'], row['customer_address'],
+                        row['customer_phone'])
                     # Load ID from database.
                     neworder.status = row['status']
                     neworder.set_courier(row['courier'])
@@ -150,8 +140,8 @@ class Order_menu():
         if userinput_phone.strip() == '':
             return False
         # If the inputs are valid, add a new entry.
-        new_order = orderclass.Order(userinput_name, userinput_address,
-                                     userinput_phone)
+        new_order = Order(
+            userinput_name, userinput_address, userinput_phone)
         # Adding courier
         userinput_courier = self.set_order_get_courier(couriermenu)
         if userinput_courier != 0:
