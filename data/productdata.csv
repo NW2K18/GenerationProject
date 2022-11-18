@@ -1,4 +1,4 @@
-name,price
-Pepsi,1.0
-Coca cola,1.5
-Dr Pepper,0.8
+id,name,price
+2,Pepsi,1.0
+3,Coca cola,1.5
+4,Dr Pepper,0.8

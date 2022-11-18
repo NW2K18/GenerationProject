@@ -13,6 +13,7 @@ class TestOrderClass(unittest.TestCase):
         self.test_order = orderclass.Order('Johnny', 'Everytown', '0800001066')
 
     def test_create_order(self):
+        self.assertEqual(self.test_order.id, 0)
         self.assertEqual(self.test_order.customer_name, 'Johnny')
         self.assertEqual(self.test_order.customer_address, 'Everytown')
         self.assertEqual(self.test_order.customer_phone, '0800001066')
@@ -75,7 +76,8 @@ class TestOrderClass(unittest.TestCase):
 
     def test_get_order(self):
         self.assertEqual(self.test_order.get_order(),
-                         {'customer_name': 'Johnny',
+                         {'id': 0,
+                          'customer_name': 'Johnny',
                           'customer_address': 'Everytown',
                           'customer_phone': '0800001066',
                           'courier': None,

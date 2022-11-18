@@ -138,7 +138,8 @@ class Order:
         Returns:
             Dict: The order.
         """
-        return {'customer_name': self.customer_name,
+        return {'id': self.id,
+                'customer_name': self.customer_name,
                 'customer_address': self.customer_address,
                 'customer_phone': self.customer_phone,
                 'courier': self.courier,

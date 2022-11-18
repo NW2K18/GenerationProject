@@ -66,7 +66,7 @@ class Product_menu():
         """
         try:
             with open('data/productdata.csv', 'w', newline='') as file:
-                fieldnames = ['name', 'price']
+                fieldnames = ['id', 'name', 'price']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for product in self.products:

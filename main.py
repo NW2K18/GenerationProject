@@ -17,8 +17,8 @@ class Menu():
     def __init__(self) -> None:
         """Initialise main menu."""
         self.products = productmenu.Product_menu()
-        self.orders = ordermenu.Order_menu()
         self.couriers = couriermenu.Courier_menu()
+        self.orders = ordermenu.Order_menu()
 
     # region <MAIN MENU>
 
@@ -30,7 +30,9 @@ class Menu():
             0. Exit
             1. Products
             2. Couriers
-            3. Orders\n-------------------
+            3. Orders
+            4. Export csv file
+            5. Import csv file\n-------------------
             """)
 
             option = input('Choose command: ')
@@ -50,12 +52,26 @@ class Menu():
                     print('Entering orders menu...')
                     sleep(1)
                     self.view_orders_menu()
+                case '4':  # Export
+                    sleep(1)
+                    option = input('Are you sure you wish to export? (y/n): ')
+                    if option == 'y':
+                        self.products.save_products_csv()
+                        self.couriers.save_couriers_csv()
+                        self.orders.save_orders()
+                case '5':  # Import
+                    sleep(1)
+                    # option = input('Are you sure you wish to export? (y/n): ')
+                    # if option == 'y':
+                    #     self.products.load_products_csv()
+                    #     self.couriers.load_couriers_csv()
+                    #     self.orders.load_orders()
                 case _:  # Default
                     print('No option selected.')
         # End of loop, save data.
         self.products.save_products_database()
-        self.orders.save_orders()
         self.couriers.save_couriers_database()
+        self.orders.save_orders()
         print('Exitted!')
 
     # endregion

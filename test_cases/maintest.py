@@ -317,10 +317,12 @@ class TestMainMenu(unittest.TestCase):
         self.assertEqual(self.mock_order.mock_calls[2][0],
                          '().set_order_update')
         self.assertEqual(self.mock_order.mock_calls[2][1][0], 5)
-        self.assertEqual(self.mock_order.mock_calls[2][1][1]._extract_mock_name(),
-                         'Courier_menu().list_couriers')
-        self.assertEqual(self.mock_order.mock_calls[2][1][2]._extract_mock_name(),
-                         'Product_menu().list_products')
+        self.assertEqual(
+            self.mock_order.mock_calls[2][1][1]._extract_mock_name(),
+            'Courier_menu()')
+        self.assertEqual(
+            self.mock_order.mock_calls[2][1][2]._extract_mock_name(),
+            'Product_menu()')
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')

@@ -113,9 +113,10 @@ class Order_menu():
         """
         try:
             with open('data/orderdata.csv', 'w', newline='') as file:
-                fieldnames = ['customer_name', 'customer_address',
-                              'customer_phone', 'courier',
-                              'status', 'items']
+                fieldnames = [
+                    'id', 'customer_name', 'customer_address',
+                    'customer_phone', 'courier',
+                    'status', 'items']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for order in self.orders:

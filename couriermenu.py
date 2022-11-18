@@ -66,7 +66,7 @@ class Courier_menu():
         """
         try:
             with open('data/courierdata.csv', 'w', newline='') as file:
-                fieldnames = ['name', 'phone']
+                fieldnames = ['id', 'name', 'phone']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for courier in self.couriers:
