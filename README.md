@@ -4,11 +4,11 @@ Cafe menu project code
 
 main.py: Main project
 
-productmenu.py: Product menu
+productmenu.py: Product menu functions
 
-couriermenu.py: Courier menu
+couriermenu.py: Courier menu functions
 
-ordermenu.py: Order menu
+ordermenu.py: Order menu functions
 
 productclass.py: Product class
 

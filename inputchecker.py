@@ -3,10 +3,13 @@ Contains functions to validate input.
 """
 
 
-from typing import Union
+from typing import List, Union
+
+from productclass import Product
+from courierclass import Courier
 
 
-def check_index(list_length: int, input: str) -> bool:
+def check_index(list_length: int, user_input: str) -> bool:
     """Validates the input as an index and returns an appropriate boolean
 
     Args:
@@ -17,7 +20,7 @@ def check_index(list_length: int, input: str) -> bool:
         bool: True if the index is valid, False if not.
     """
     try:
-        index = int(input)
+        index = int(user_input)
         if index <= 0 or index > list_length:
             print('This index does not exist.')
             return False
@@ -50,3 +53,32 @@ def get_input_index(option: str, action: str,
             return int(index) - 1
         else:
             continue
+
+
+def get_courier_id(couriers: List[Courier]):
+    userinput_courier = input(
+            'Input index of courier to assign to order: ')
+    try:  # Checking the list to see if input equals a database id.
+        userinput_courier = int(userinput_courier)
+        for courier in couriers:
+            if userinput_courier == courier.id:
+                return userinput_courier
+        print('Could not find ID')
+        return 0
+    except ValueError:
+        print('Could not convert to integer')
+        return 0
+
+
+def get_item_id(
+        products: List[Product], userinput_items: str) -> Union[str, None]:
+    try:  # Checking the list to see if input equals a database id.
+        userinput_items = int(userinput_items)
+        for product in products:
+            if userinput_items == product.id:
+                return str(userinput_items)
+        print('Could not find ID')
+        return None
+    except ValueError:
+        print('Could not convert to integer')
+        return None

@@ -30,13 +30,8 @@ class Menu():
             0. Exit
             1. Products
             2. Couriers
-            3. Orders
--------------------""")
-
-            # self.products.load_products_database()
-            # testproduct = Product('Water', 1.00)
-            # testproduct = self.products.database.load_product_id(testproduct)
-            # print(testproduct.id)
+            3. Orders\n-------------------
+            """)
 
             option = input('Choose command: ')
             match option:
@@ -74,8 +69,8 @@ class Menu():
         1. Create Product
         2. View Product List
         3. Update Product
-        4. Remove Product
----------------------""")
+        4. Remove Product\n---------------------
+        """)
 
             option = input('Choose command: ')
 
@@ -130,8 +125,8 @@ class Menu():
         1. Add Courier
         2. View Courier List
         3. Update Courier
-        4. Remove Courier
----------------------""")
+        4. Remove Courier\n
+        ---------------------""")
             option = input('Choose command: ')
 
             match option:
@@ -186,8 +181,8 @@ class Menu():
         2. View Order List
         3. Update an order's status
         4. Update an order
-        5. Remove an order
----------------------""")
+        5. Remove an order\n---------------------
+        """)
             option = input('Choose command: ')
             match option:
                 case '0':  # Exit
@@ -196,8 +191,8 @@ class Menu():
                     break
                 case '1':  # Create
                     if self.orders.set_order_create(
-                        self.couriers.list_couriers,
-                        self.products.list_products
+                        self.couriers,
+                        self.products
                     ):
                         sleep(1)
                         print('Created a new order.')
@@ -209,7 +204,7 @@ class Menu():
             0. Normal
             1. Sort by courier
             2. Sort by status
-""")
+            """)
                     option = input('Input number for order status: ')
                     match option:
                         case '0':  # Normal
@@ -239,8 +234,8 @@ class Menu():
                         print('Selected 0, moving back to order menu.')
                         break
                     self.orders.set_order_update(
-                        index, self.couriers.list_couriers,
-                        self.products.list_products)
+                        index, self.couriers,
+                        self.products)
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove
@@ -256,7 +251,7 @@ class Menu():
                 case _:  # Default
                     print('No option selected.')
 
-# endregion
+    # endregion
 
 
 # Call main function

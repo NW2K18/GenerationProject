@@ -7,6 +7,8 @@ import csv
 # import json
 
 import orderclass
+from productmenu import Product_menu
+from couriermenu import Courier_menu
 import inputchecker
 
 
@@ -124,12 +126,13 @@ class Order_menu():
 
     # endregion
 
-    def set_order_create(self, list_couriers, list_products) -> bool:
+    def set_order_create(self, couriermenu: Courier_menu,
+                         productmenu: Product_menu) -> bool:
         """Asks for user input to create an order.
 
         Args:
-            list_couriers (function): List couriers function
-            list_products (function): List products function
+            couriermenu (Courier_menu): Object.
+            productmenu (Product_menu): Object.
 
         Returns:
             bool: True if function successful, False if not.
@@ -148,13 +151,13 @@ class Order_menu():
         new_order = orderclass.Order(userinput_name, userinput_address,
                                      userinput_phone)
         # Adding courier
-        userinput_courier = self.set_order_create_courier(list_couriers)
-        if userinput_courier.strip() != '':
+        userinput_courier = self.set_order_get_courier(couriermenu)
+        if userinput_courier != 0:
             new_order.set_courier(userinput_courier)
         else:
             return False
         # Adding items
-        itemstring = self.set_order_create_items(list_products)
+        itemstring = self.set_order_get_items(productmenu)
         if itemstring.strip() != '':
             new_order.set_items(itemstring)
         else:
@@ -163,30 +166,29 @@ class Order_menu():
         self.orders.append(new_order)
         return True
 
-    def set_order_create_courier(self, list_couriers) -> str:
+    def set_order_get_courier(self, couriermenu: Courier_menu) -> int:
         """Takes in user input and returns courier ID.
 
         Args:
-            list_couriers (function): List couriers function.
+            couriermenu (Courier_menu): Object.
 
         Returns:
-            str: String of courier ID.
+            int: Integer of courier ID.
         """
-        list_couriers()
-        userinput_courier = input(
-            'Input index of courier to assign to order: ')
+        couriermenu.list_couriers()
+        userinput_courier = inputchecker.get_courier_id(couriermenu.couriers)
         return userinput_courier
 
-    def set_order_create_items(self, list_products) -> str:
+    def set_order_get_items(self, productmenu: Product_menu) -> str:
         """Takes in user input and returns string of items to append to order.
 
         Args:
-            list_products (function): List products function.
+            productmenu (Product_menu): Object.
 
         Returns:
             str: String of item IDs.
         """
-        list_length = list_products()
+        productmenu.list_products()
         itemstring = ''
         while True:
             userinput_items = input(
@@ -194,24 +196,26 @@ class Order_menu():
                 '(Valid input needs at least one product,'
                 'blank input to exit): ')
             if userinput_items.strip() != '':
-                if inputchecker.check_index(list_length, userinput_items):
-                    itemstring += f'{userinput_items},'
-                list_products()
+                itemstring += inputchecker.get_item_id(
+                    productmenu.products, userinput_items)
+                itemstring += ','
+                productmenu.list_products()
             else:
                 itemstring = itemstring[:-1]
                 break
+            productmenu.list_products()
         return itemstring
 
     # region <ORDER UPDATE FUNCTIONS>
 
-    def set_order_update(self, index: int,
-                         list_couriers, list_products) -> bool:
+    def set_order_update(self, index: int, couriermenu: Courier_menu,
+                         productmenu: Product_menu) -> bool:
         """Asks for user input to update an order.
 
         Args:
             index (int): List index of the order to be updated.
-            list_couriers (function): List couriers function.
-            list_products (function): List products function.
+            couriermenu (Courier_menu): Object.
+            productmenu (Product_menu): Object.
 
         Returns:
             bool: True if function successful, False if not.
@@ -227,47 +231,14 @@ class Order_menu():
         if userinput.strip() != '':
             self.orders[index].customer_phone = userinput
 
-        self.set_order_update_courier(index, list_couriers)
-        self.set_order_update_items(index, list_products)
+        userinput_courier = self.set_order_get_courier(couriermenu)
+        if userinput_courier != 0:
+            self.orders[index].set_courier(userinput_courier)
+
+        itemstring = self.set_order_get_items(productmenu)
+        if itemstring.strip() != '':
+            self.orders[index].set_items(itemstring)
         return True
-
-    def set_order_update_courier(self, index: int, list_couriers) -> None:
-        """Updates the assigned courier on an order.
-
-        Args:
-            index (int): Index of the order.
-            list_couriers (function): List couriers function.
-        """
-        list_length = list_couriers()
-        while True:
-            userinput = input('Input index of courier to assign to order: ')
-            if userinput.strip() != '':
-                if inputchecker.check_index(list_length, userinput):
-                    self.orders[index].set_courier(int(userinput))
-                    break
-            else:
-                break
-
-    def set_order_update_items(self, index: int, list_products) -> None:
-        """Updates the assigned items on an order.
-
-        Args:
-            index (int): Index of the order.
-            list_products (function): List products function.
-        """
-        itemstring = ''
-        list_length = list_products()
-        while True:
-            userinput = input('Input index of product to assign to order '
-                              '(Blank input to exit): ')
-            if userinput.strip() != '':
-                if inputchecker.check_index(list_length, userinput):
-                    itemstring += f'{userinput},'
-                list_products()
-            else:
-                itemstring = itemstring[:-1]
-                break
-        self.orders[index].set_items(itemstring)
 
     def set_order_update_status(self, index: int) -> bool:
         """Asks for user input to update an order's status.
@@ -283,7 +254,7 @@ class Order_menu():
             1. Awaiting pickup
             2. Out for delivery
             3. Delivered
-""")
+            """)
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
 
