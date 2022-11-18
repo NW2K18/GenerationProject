@@ -96,6 +96,7 @@ class Order_menu():
                     neworder = orderclass.Order(row['customer_name'],
                                                 row['customer_address'],
                                                 row['customer_phone'])
+                    # Load ID from database.
                     neworder.status = row['status']
                     neworder.set_courier(row['courier'])
                     neworder.set_items(row['items'])

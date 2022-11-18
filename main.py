@@ -61,11 +61,11 @@ class Menu():
                         self.orders.save_orders()
                 case '5':  # Import
                     sleep(1)
-                    # option = input('Are you sure you wish to export? (y/n): ')
-                    # if option == 'y':
-                    #     self.products.load_products_csv()
-                    #     self.couriers.load_couriers_csv()
-                    #     self.orders.load_orders()
+                    option = input('Are you sure you wish to import? (y/n): ')
+                    if option == 'y':
+                        self.products.load_products_csv()
+                        self.couriers.load_couriers_csv()
+                        self.orders.load_orders()
                 case _:  # Default
                     print('No option selected.')
         # End of loop, save data.

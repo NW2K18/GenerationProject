@@ -52,6 +52,7 @@ class Courier_menu():
                 for row in reader:
                     newcourier = courierclass.Courier(row['name'],
                                                       row['phone'])
+                    self.database.load_courier_id(newcourier)
                     self.couriers.append(newcourier)
             print('LOADED COURIERS SUCCESSFULLY')
         except Exception as e:
