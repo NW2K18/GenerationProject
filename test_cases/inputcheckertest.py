@@ -59,6 +59,17 @@ order you wish to update: ')
         self.assertEqual(
             inputchecker.get_input_index('', '', 10), 9)
 
+    def test_validate_phone(
+            self):
+        result = inputchecker.validate_phone('1122334455')
+        self.assertEqual(result, '1122334455')
+
+        result = inputchecker.validate_phone('11223344556')
+        self.assertEqual(result, '11223344556')
+
+        result = inputchecker.validate_phone('112233445')
+        self.assertEqual(result, '')
+
     def test_get_courier_id(
             self):
         '''With valid input.'''

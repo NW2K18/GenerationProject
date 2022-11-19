@@ -45,8 +45,8 @@ def get_input_index(option: str, action: str,
         None: If the input is zero.
     """
     while True:  # Doesn't break from loop until valid input.
-        index = (input(f'Type the index of the \
-{option} you wish to {action}: '))
+        index = (input(
+            f'Type the index of the {option} you wish to {action}: '))
         if index == '0':
             return None
         elif check_index(list_length, index):
@@ -65,7 +65,9 @@ def validate_phone(userinput_phone: str) -> str:
     Returns:
         str: Returns the string back if valid, or blank string if invalid.
     """
-    pass  # TODO
+    if len(userinput_phone) >= 10:
+        return userinput_phone
+    return ''
 
 
 def get_courier_id(

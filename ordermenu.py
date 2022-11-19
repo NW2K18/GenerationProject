@@ -138,6 +138,7 @@ class Order_menu():
         if userinput_address.strip() == '':
             return False
         userinput_phone = input('Input customer phone number: ')
+        userinput_phone = inputchecker.validate_phone(userinput_phone)
         if userinput_phone.strip() == '':
             return False
         # If the inputs are valid, add a new entry.
@@ -223,6 +224,7 @@ class Order_menu():
         if userinput.strip() != '':
             self.orders[index].customer_address = userinput
         userinput = input('Input customer phone number: ')
+        userinput = inputchecker.validate_phone(userinput)
         if userinput.strip() != '':
             self.orders[index].customer_phone = userinput
 

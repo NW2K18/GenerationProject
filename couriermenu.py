@@ -6,6 +6,7 @@ from time import sleep
 import csv
 from typing import Union
 
+import inputchecker
 from courierclass import Courier
 from database import Database
 
@@ -108,6 +109,7 @@ class Courier_menu():
         if userinput_name.strip() == '':
             return False
         userinput_phone = input('Input courier phone number: ')
+        userinput_phone = inputchecker.validate_phone(userinput_phone)
         if userinput_phone.strip() == '':
             return False
         # If the inputs are valid, add a new entry.
@@ -127,6 +129,7 @@ class Courier_menu():
         if userinput.strip() != '':
             self.couriers[index].name = userinput
         userinput = input('Input courier phone number: ')
+        userinput = inputchecker.validate_phone(userinput)
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
         self.database.update_courier(self.couriers[index])
