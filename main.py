@@ -207,9 +207,7 @@ class Menu():
                     break
                 case '1':  # Create
                     if self.orders.set_order_create(
-                        self.couriers,
-                        self.products
-                    ):
+                            self.products, self.couriers):
                         sleep(1)
                         print('Created a new order.')
                     else:
@@ -250,8 +248,7 @@ class Menu():
                         print('Selected 0, moving back to order menu.')
                         break
                     self.orders.set_order_update(
-                        index, self.couriers,
-                        self.products)
+                        index, self.products, self.couriers)
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove

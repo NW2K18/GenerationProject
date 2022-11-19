@@ -299,6 +299,12 @@ class TestMainMenu(unittest.TestCase):
         mock_print.assert_called_with('Exitting orders menu...')
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().set_order_create')
+        self.assertEqual(
+            self.mock_order.mock_calls[0][1][0]._extract_mock_name(),
+            'Product_menu()')
+        self.assertEqual(
+            self.mock_order.mock_calls[0][1][1]._extract_mock_name(),
+            'Courier_menu()')
 
     @patch('main.sleep')
     @patch('builtins.print')
@@ -366,10 +372,10 @@ class TestMainMenu(unittest.TestCase):
         self.assertEqual(self.mock_order.mock_calls[2][1][0], 5)
         self.assertEqual(
             self.mock_order.mock_calls[2][1][1]._extract_mock_name(),
-            'Courier_menu()')
+            'Product_menu()')
         self.assertEqual(
             self.mock_order.mock_calls[2][1][2]._extract_mock_name(),
-            'Product_menu()')
+            'Courier_menu()')
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')

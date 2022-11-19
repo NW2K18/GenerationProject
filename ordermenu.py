@@ -34,13 +34,13 @@ class Order_menu():
         i = 1
         for order in orderlist:
             print(
-                f'Order No.{i}:'
-                f'Customer name: {order.customer_name}'
-                f'Customer address: {order.customer_address}'
-                f'Customer phone number: {order.customer_phone}'
-                f'Courier: {order.get_courier()}'
-                f'Order status: {order.status}'
-                f'Items: {order.get_items()}')
+                f'Order No.{i} ({order.id}):'
+                f'\n\tCustomer name: {order.customer_name}'
+                f'\n\tCustomer address: {order.customer_address}'
+                f'\n\tCustomer phone number: {order.customer_phone}'
+                f'\n\tCourier: {order.get_courier()} - COURIER HERE'
+                f'\n\tOrder status: {order.status}'
+                f'\n\tItems: {order.get_items()}')
             sleep(0.5)
             i += 1
         return len(self.orders)
@@ -118,13 +118,14 @@ class Order_menu():
 
     # endregion
 
-    def set_order_create(self, couriermenu: Courier_menu,
-                         productmenu: Product_menu) -> bool:
+    def set_order_create(
+            self, productmenu: Product_menu,
+            couriermenu: Courier_menu) -> bool:
         """Asks for user input to create an order.
 
         Args:
-            couriermenu (Courier_menu): Object.
             productmenu (Product_menu): Object.
+            couriermenu (Courier_menu): Object.
 
         Returns:
             bool: True if function successful, False if not.
@@ -167,8 +168,11 @@ class Order_menu():
         Returns:
             int: Integer of courier ID.
         """
+        userinput_courier = input(
+            'Input index of courier to assign to order: ')
         couriermenu.list_couriers()
-        userinput_courier = inputchecker.get_courier_id(couriermenu.couriers)
+        userinput_courier = inputchecker.get_courier_id(
+            couriermenu.couriers, userinput_courier)
         return userinput_courier
 
     def set_order_get_items(self, productmenu: Product_menu) -> str:
@@ -200,8 +204,8 @@ class Order_menu():
 
     # region <ORDER UPDATE FUNCTIONS>
 
-    def set_order_update(self, index: int, couriermenu: Courier_menu,
-                         productmenu: Product_menu) -> bool:
+    def set_order_update(self, index: int, productmenu: Product_menu,
+                         couriermenu: Courier_menu,) -> bool:
         """Asks for user input to update an order.
 
         Args:

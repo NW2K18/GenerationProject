@@ -55,30 +55,47 @@ def get_input_index(option: str, action: str,
             continue
 
 
-def get_courier_id(couriers: List[Courier]):
-    userinput_courier = input(
-            'Input index of courier to assign to order: ')
+def get_courier_id(
+        couriers: List[Courier], userinput_courier: str) -> int:
+    """Checks the list of couriers for id, returns the id if there is a match.
+
+    Args:
+        couriers (List[Courier]): To be checked.
+        userinput_courier (str): Used to check the list.
+
+    Returns:
+        int: The database id as an integer, or 0 if
+        there is no match.
+    """
     try:  # Checking the list to see if input equals a database id.
         userinput_courier = int(userinput_courier)
         for courier in couriers:
             if userinput_courier == courier.id:
                 return userinput_courier
         print('Could not find ID')
-        return 0
     except ValueError:
         print('Could not convert to integer')
-        return 0
+    return 0
 
 
 def get_item_id(
         products: List[Product], userinput_items: str) -> Union[str, None]:
+    """Checks the list of product for id, returns the id if there is a match.
+
+    Args:
+        products (List[Product]): To be checked.
+        userinput_items (str): Used to check the list.
+
+    Returns:
+        Union[str, None]: The database id as a string, or none if there is no
+        match.
+    """
     try:  # Checking the list to see if input equals a database id.
         userinput_items = int(userinput_items)
         for product in products:
             if userinput_items == product.id:
                 return str(userinput_items)
         print('Could not find ID')
-        return None
     except ValueError:
         print('Could not convert to integer')
-        return None
+    return None
