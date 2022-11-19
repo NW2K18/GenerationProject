@@ -4,6 +4,7 @@ This is the product menu for the cafe application.
 
 from time import sleep
 import csv
+from typing import Union
 
 from productclass import Product
 from database import Database
@@ -137,18 +138,24 @@ class Product_menu():
             print('Input cannot be converted into a floating point number.')
         self.database.update_product(self.products[index])
 
-    def set_product_remove(self, index: int) -> str:
-        """Removes the product at the specified index of the list.
+    def set_product_remove(self, index: int) -> Union[str, None]:
+        """Asks the user to confirm their choice, then removes the product at
+        the specified index of the list.
 
         Args:
             index (int): List index of the product to be removed.
 
         Returns:
-            str: Name of the removed product.
+            Union[str, None]: Name of the removed product. None if not
+            removed.
         """
         removed_product = self.products[index].name
-        self.database.remove_product(self.products[index])
-        self.products.pop(index)
-        return removed_product
+        option = input(
+            f'Do you really wish to remove {removed_product}? (y/n): ')
+        if option == 'y':
+            self.database.remove_product(self.products[index])
+            self.products.pop(index)
+            return removed_product
+        return None
 
     # endregion

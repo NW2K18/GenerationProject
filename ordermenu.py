@@ -262,14 +262,6 @@ class Order_menu():
         Returns:
             Union[str, None]: Customer name of the removed order. None if not
             removed.
-        """        
-        """Removes the order at the specified index of the list.
-
-        Args:
-            index (int): List index of the order to be removed.
-
-        Returns:
-            str: Customer name of the removed order.
         """
         removed_order = self.orders[index].customer_name
         option = input(

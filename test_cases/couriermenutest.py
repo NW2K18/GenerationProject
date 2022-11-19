@@ -127,16 +127,27 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(self.testmenu.couriers[1].name, 'Test5')
         self.assertEqual(self.testmenu.couriers[1].phone, '6601000080')
 
+    @patch('builtins.input')
     def test_set_courier_remove(
-            self):
-        removed_courier = self.testmenu.couriers[1]
+            self, mock_input: MagicMock):
+        '''Test when user selects y.'''
+        mock_input.side_effect = ['y']
 
-        self.testmenu.set_courier_remove(1)
+        result = self.testmenu.set_courier_remove(1)
         self.assertEqual(
             self.mock_database.mock_calls[0][0], '().remove_courier')
-        self.assertEqual(
-            self.mock_database.mock_calls[0][1][0], removed_courier)
         self.assertEqual(len(self.testmenu.couriers), 2)
+        self.assertEqual(result, 'Test2')
+
+    @patch('builtins.input')
+    def test_set_courier_remove2(
+            self, mock_input: MagicMock):
+        '''Test when user doesn't select y.'''
+        mock_input.side_effect = ['n']
+
+        result = self.testmenu.set_courier_remove(1)
+        self.assertEqual(len(self.testmenu.couriers), 3)
+        self.assertEqual(result, None)
 
 
 if __name__ == '__main__':

@@ -35,23 +35,8 @@ class TestOrderMenu(unittest.TestCase):
         self.test_ordermenu.orders[2].set_items('4,5,8')
         self.test_ordermenu.orders[2].set_order_status('2')
 
-        self.products = [
-            Product('Test1', 0.75), Product('Test2', 1.00),
-            Product('Test3', 1.50)]
-        self.products[0].id = 3
-        self.products[1].id = 5
-        self.products[2].id = 8
-
-        self.couriers = [
-            Courier('TestA', '0800001066'), Courier('TestB', '6601000080'),
-            Courier('TestC', '0080006610')]
-        self.couriers[0].id = 5
-        self.couriers[1].id = 7
-        self.couriers[2].id = 11
-
         self.mock_productmenu = MagicMock()
         self.mock_couriermenu = MagicMock()
-        self.mock_couriermenu.__str__ = 'CourierWoah'
 
     def test_setUp(
             self):

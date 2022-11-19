@@ -4,6 +4,7 @@ This is the courier menu for the cafe application.
 
 from time import sleep
 import csv
+from typing import Union
 
 from courierclass import Courier
 from database import Database
@@ -130,18 +131,24 @@ class Courier_menu():
             self.couriers[index].phone = userinput
         self.database.update_courier(self.couriers[index])
 
-    def set_courier_remove(self, index: int) -> str:
-        """Removes the courier at the specified index of the list.
+    def set_courier_remove(self, index: int) -> Union[str, None]:
+        """Asks the user to confirm their choice, then removes the courier at
+        the specified index of the list.
 
         Args:
             index (int): List index of the courier to be removed.
 
         Returns:
-            str: Name of the removed courier.
+            Union[str, None]: Name of the removed courier. None if not
+            removed.
         """
         removed_courier = self.couriers[index].name
-        self.database.remove_courier(self.couriers[index])
-        self.couriers.pop(index)
-        return removed_courier
+        option = input(
+            f'Do you really wish to remove {removed_courier}? (y/n): ')
+        if option == 'y':
+            self.database.remove_courier(self.couriers[index])
+            self.couriers.pop(index)
+            return removed_courier
+        return None
 
     # endregion

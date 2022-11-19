@@ -127,16 +127,27 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(self.testmenu.products[1].name, 'Test5')
         self.assertEqual(self.testmenu.products[1].price, 1.00)
 
+    @patch('builtins.input')
     def test_set_product_remove(
-            self):
-        removed_product = self.testmenu.products[1]
+            self, mock_input: MagicMock):
+        '''Test when user selects y.'''
+        mock_input.side_effect = ['y']
 
-        self.testmenu.set_product_remove(1)
+        result = self.testmenu.set_product_remove(1)
         self.assertEqual(
             self.mock_database.mock_calls[0][0], '().remove_product')
-        self.assertEqual(
-            self.mock_database.mock_calls[0][1][0], removed_product)
         self.assertEqual(len(self.testmenu.products), 2)
+        self.assertEqual(result, 'Test2')
+
+    @patch('builtins.input')
+    def test_set_product_remove2(
+            self, mock_input: MagicMock):
+        '''Test when user doesn't select y.'''
+        mock_input.side_effect = ['n']
+
+        result = self.testmenu.set_product_remove(1)
+        self.assertEqual(len(self.testmenu.products), 3)
+        self.assertEqual(result, None)
 
 
 if __name__ == '__main__':
