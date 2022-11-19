@@ -385,5 +385,243 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(mock_checker.call_count, 0)
         self.assertEqual(test_return, '')
 
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when all inputs are valid.'''
+        mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '1122334455')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update2(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when name is blank'''
+        mock_input.side_effect = ['', 'Testplanet', '1122334455']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Testname2')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '1122334455')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update3(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when address is blank'''
+        mock_input.side_effect = ['Test4', '', '1122334455']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testcity')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '1122334455')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update4(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when phone is blank'''
+        mock_input.side_effect = ['Test4', 'Testplanet', '']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '6601000080')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update5(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when courier ID is blank'''
+        mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
+        mock_get_courier.return_value = 0
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '1122334455')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 7)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update6(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when item IDs are blank'''
+        mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = ''
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '1122334455')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '5')
+    
+    @patch('ordermenu.Order_menu.set_order_get_items')
+    @patch('ordermenu.Order_menu.set_order_get_courier')
+    @patch('builtins.input')
+    def test_set_order_update7(
+            self, mock_input: MagicMock, mock_get_courier: MagicMock,
+            mock_get_items: MagicMock):
+        '''Test when phone is invalid'''
+        mock_input.side_effect = ['Test4', 'Testplanet', 'foobar']
+        mock_get_courier.return_value = 55
+        mock_get_items.return_value = '1,3,2'
+
+        self.test_ordermenu.set_order_update(
+            1, self.mock_productmenu, self.mock_couriermenu)
+        mock_get_courier.assert_called_once_with(self.mock_couriermenu)
+        mock_get_items.assert_called_once_with(self.mock_productmenu)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_name, 'Test4')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_address, 'Testplanet')
+        self.assertEqual(
+            self.test_ordermenu.orders[1].customer_phone, '6601000080')
+        self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
+        self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+
+    @patch('builtins.input')
+    def test_set_order_update_status(
+            self, mock_input: MagicMock):
+        mock_input.return_value = '0'
+        self.test_ordermenu.set_order_update_status(1)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].status, 'Preparing')
+
+        mock_input.return_value = '1'
+        self.test_ordermenu.set_order_update_status(1)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].status, 'Awaiting pickup')
+
+        mock_input.return_value = '2'
+        self.test_ordermenu.set_order_update_status(1)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].status, 'Out for delivery')
+
+        mock_input.return_value = '3'
+        self.test_ordermenu.set_order_update_status(1)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].status, 'Delivered')
+
+        mock_input.return_value = 'foobar'
+        self.test_ordermenu.set_order_update_status(1)
+        self.assertEqual(
+            self.test_ordermenu.orders[1].status, 'Delivered')
+
+    @patch('builtins.input')
+    def test_set_order_remove(
+            self, mock_input: MagicMock):
+        '''Test when user selects y'''
+        mock_input.return_value = 'y'
+        result = self.test_ordermenu.set_order_remove(1)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 2)
+        self.assertEqual(result, 'Testname2\'s order')
+
+    @patch('builtins.input')
+    def test_set_order_remove2(
+            self, mock_input: MagicMock):
+        '''Test when user doesn't select y'''
+        mock_input.return_value = 'n'
+        result = self.test_ordermenu.set_order_remove(1)
+
+        self.assertEqual(len(self.test_ordermenu.orders), 3)
+        self.assertEqual(result, None)
+
+
 if __name__ == '__main__':
     unittest.main()

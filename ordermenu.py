@@ -4,7 +4,7 @@ This is the order menu for the cafe application.
 
 from time import sleep
 import csv
-from typing import List
+from typing import List, Union
 
 from orderclass import Order
 from productmenu import Product_menu
@@ -235,14 +235,11 @@ class Order_menu():
             self.orders[index].set_items(itemstring)
         return True
 
-    def set_order_update_status(self, index: int) -> bool:
+    def set_order_update_status(self, index: int) -> None:
         """Asks for user input to update an order's status.
 
         Args:
             index (int): List index of the order to be updated.
-
-        Returns:
-            bool: True if function successful, False if not.
         """
         print("""
             0. Preparing
@@ -255,7 +252,17 @@ class Order_menu():
 
     # endregion
 
-    def set_order_remove(self, index: int) -> str:
+    def set_order_remove(self, index: int) -> Union[str, None]:
+        """Asks the user to confirm their choice, then removes the order at
+        the specified index of the list.
+
+        Args:
+            index (int): List index of the order to be removed.
+
+        Returns:
+            Union[str, None]: Customer name of the removed order. None if not
+            removed.
+        """        
         """Removes the order at the specified index of the list.
 
         Args:
@@ -265,5 +272,9 @@ class Order_menu():
             str: Customer name of the removed order.
         """
         removed_order = self.orders[index].customer_name
-        self.orders.pop(index)
-        return f'{removed_order}\'s order'
+        option = input(
+            f'Do you really wish to remove {removed_order}\'s order? (y/n): ')
+        if option == 'y':
+            self.orders.pop(index)
+            return f'{removed_order}\'s order'
+        return None
