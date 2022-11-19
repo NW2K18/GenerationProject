@@ -5,8 +5,8 @@ This is the courier menu for the cafe application.
 from time import sleep
 import csv
 
-import courierclass
-import database
+from courierclass import Courier
+from database import Database
 
 
 class Courier_menu():
@@ -15,8 +15,8 @@ class Courier_menu():
     def __init__(self) -> None:
         """Initialise courier menu object and loads data."""
         # Initialise courier list.
-        self.couriers = [courierclass.Courier('Larry', '9812734656')]
-        self.database = database.Database()
+        self.couriers = [Courier('Larry', '9812734656')]
+        self.database = Database()
 
         # self.load_couriers_csv()
         self.load_couriers_database()
@@ -50,9 +50,9 @@ class Courier_menu():
                 reader = csv.DictReader(file, delimiter=',')
                 self.couriers.clear()
                 for row in reader:
-                    newcourier = courierclass.Courier(row['name'],
-                                                      row['phone'])
-                    self.database.load_courier_id(newcourier)
+                    newcourier = Courier(
+                        row['name'], row['phone'])
+                    newcourier.id = self.database.load_courier_id(newcourier)
                     self.couriers.append(newcourier)
             print('LOADED COURIERS SUCCESSFULLY')
         except Exception as e:
@@ -82,8 +82,8 @@ class Courier_menu():
         rows = self.database.load_couriers()
         self.couriers.clear()
         for row in rows:
-            newcourier = courierclass.Courier(row['name'],
-                                              (row['phone']))
+            newcourier = Courier(
+                row['name'], (row['phone']))
             newcourier.id = row['id']
             self.couriers.append(newcourier)
         print('LOADED COURIERS FROM DATABASE')
@@ -110,8 +110,8 @@ class Courier_menu():
         if userinput_phone.strip() == '':
             return False
         # If the inputs are valid, add a new entry.
-        new_courier = courierclass.Courier(userinput_name, userinput_phone)
-        self.database.insert_courier(new_courier)
+        new_courier = Courier(userinput_name, userinput_phone)
+        new_courier.id = self.database.insert_courier(new_courier)
         self.couriers.append(new_courier)
         return True
 

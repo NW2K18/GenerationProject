@@ -4,9 +4,9 @@ This is the main module of the cafe program and contains the menus.
 
 from time import sleep
 
-import productmenu
-import couriermenu
-import ordermenu
+from productmenu import Product_menu
+from couriermenu import Courier_menu
+from ordermenu import Order_menu
 import inputchecker
 
 from productclass import Product
@@ -16,9 +16,9 @@ class Menu():
 
     def __init__(self) -> None:
         """Initialise main menu."""
-        self.products = productmenu.Product_menu()
-        self.couriers = couriermenu.Courier_menu()
-        self.orders = ordermenu.Order_menu()
+        self.products = Product_menu()
+        self.couriers = Courier_menu()
+        self.orders = Order_menu()
 
     # region <MAIN MENU>
 

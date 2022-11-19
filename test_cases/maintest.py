@@ -10,9 +10,9 @@ import main
 
 class TestMainMenu(unittest.TestCase):
 
-    @patch('ordermenu.Order_menu')
-    @patch('couriermenu.Courier_menu')
-    @patch('productmenu.Product_menu')
+    @patch('main.Order_menu')
+    @patch('main.Courier_menu')
+    @patch('main.Product_menu')
     def setUp(
             self, mock_product: MagicMock, mock_courier: MagicMock,
             mock_order: MagicMock):

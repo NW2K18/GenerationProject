@@ -53,8 +53,8 @@ class Database():
         return rows
 
     def load_product_id(self, product: Product) -> Product:
-        """Searches the database for the product, and appends the database's
-        key id to the product if there is a match.
+        """Searches the database for the product, and returns the database id
+        if there is a match.
 
         Args:
             product (Product): The product.
@@ -73,8 +73,7 @@ class Database():
                 row = cursor.fetchone()
         if row is None:
             raise Exception(f'Could not find id for {name}')
-        product.id = row['id']
-        return product
+        return row['id']
 
     def save_products(self, products: List) -> None:
         """Iterates through list of products, if one doesn't have an ID, add it
@@ -90,8 +89,8 @@ class Database():
                 self.update_product(product)
 
     def insert_product(self, product: Product) -> Product:
-        """Inserts a product into the database while also grabbing the ID from
-        the database and applying it to the product object. \n
+        """Inserts a product into the database while also returning the
+        newly generated product ID.\n
         Call this before appending your product to the list.
 
         Args:
@@ -109,8 +108,8 @@ class Database():
                 adr = (name, price)
                 cursor.execute(sql, adr)
                 connection.commit()
-        self.load_product_id(product)
-        return product
+        product_id = self.load_product_id(product)
+        return product_id
 
     def update_product(self, product: Product) -> bool:
         """Updates the product in the database with the attributes from the
@@ -176,8 +175,8 @@ class Database():
         return rows
 
     def load_courier_id(self, courier: Courier) -> Courier:
-        """Searches the database for the courier, and appends the database's
-        key id to the courier if there is a match.
+        """Searches the database for the courier, and returns the database id
+        if there is a match.
 
         Args:
             courier (Courier): The courier.
@@ -196,8 +195,7 @@ class Database():
                 row = cursor.fetchone()
         if row is None:
             raise Exception(f'Could not find id for {name}')
-        courier.id = row['id']
-        return courier
+        return row['id']
 
     def save_couriers(self, couriers: List) -> None:
         """Iterates through list of couriers, if one doesn't have an ID, add it
@@ -213,8 +211,8 @@ class Database():
                 self.update_courier(courier)
 
     def insert_courier(self, courier: Courier) -> Courier:
-        """Inserts a courier into the database while also grabbing the ID from
-        the database and applying it to the courier object. \n
+        """Inserts a courier into the database while also returning the
+        newly generated courier ID.\n
         Call this before appending your courier to the list.
 
         Args:
@@ -232,8 +230,8 @@ class Database():
                 adr = (name, phone)
                 cursor.execute(sql, adr)
                 connection.commit()
-        self.load_courier_id(courier)
-        return courier
+        courier_id = self.load_courier_id(courier)
+        return courier_id
 
     def update_courier(self, courier: Courier) -> bool:
         """Updates the courier in the database with the attributes from the

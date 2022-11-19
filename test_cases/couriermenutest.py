@@ -1,5 +1,5 @@
 """Author: Nathan \n
-Unit tests for productmenu.py
+Unit tests for couriermenu.py
 """
 import unittest
 from unittest.mock import patch
@@ -12,12 +12,13 @@ from courierclass import Courier
 class TestCourierMenu(unittest.TestCase):
 
     @patch('couriermenu.Courier_menu.load_couriers_database')
-    @patch('database.Database')
+    @patch('couriermenu.Database')
     def setUp(
-            self, mock_database: MagicMock, mock_load_database: MagicMock):
+            self, mock_database: MagicMock, mock_database_load: MagicMock):
         self.testmenu = Courier_menu()
-        self.testdatabase = mock_database
-        self.load_on_startup = mock_load_database
+        self.mock_database = mock_database
+        mock_database.reset_mock()
+        self.database_load = mock_database_load
         self.testmenu.couriers.clear()
         self.testmenu.couriers = [
             Courier('Test1', 'phone1'), Courier('Test2', 'phone2'),
@@ -25,7 +26,7 @@ class TestCourierMenu(unittest.TestCase):
 
     def test_setUp(
             self):
-        self.load_on_startup.assert_called()
+        self.database_load.assert_called()
 
 
 if __name__ == '__main__':

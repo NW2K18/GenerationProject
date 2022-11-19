@@ -52,7 +52,7 @@ class Product_menu():
                 for row in reader:
                     newproduct = Product(row['name'],
                                          float(row['price']))
-                    self.database.load_product_id(newproduct)
+                    newproduct.id = self.database.load_product_id(newproduct)
                     self.products.append(newproduct)
             print('LOADED PRODUCTS SUCCESSFULLY')
         except Exception as e:
@@ -82,8 +82,8 @@ class Product_menu():
         rows = self.database.load_products()
         self.products.clear()
         for row in rows:
-            newproduct = Product(row['name'],
-                                 float(row['price']))
+            newproduct = Product(
+                row['name'], float(row['price']))
             newproduct.id = row['id']
             self.products.append(newproduct)
         print('LOADED PRODUCTS FROM DATABASE')
@@ -115,7 +115,7 @@ class Product_menu():
             return False
         # If the inputs are valid, add a new entry.
         new_product = Product(userinput_name, userinput_price)
-        new_product = self.database.insert_product(new_product)
+        new_product.id = self.database.insert_product(new_product)
         self.products.append(new_product)
         return True
 
