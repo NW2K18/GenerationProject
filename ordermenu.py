@@ -168,9 +168,9 @@ class Order_menu():
         Returns:
             int: Integer of courier ID.
         """
+        couriermenu.list_couriers()
         userinput_courier = input(
             'Input index of courier to assign to order: ')
-        couriermenu.list_couriers()
         userinput_courier = inputchecker.get_courier_id(
             couriermenu.couriers, userinput_courier)
         return userinput_courier
@@ -199,7 +199,6 @@ class Order_menu():
             else:
                 itemstring = itemstring[:-1]
                 break
-            productmenu.list_products()
         return itemstring
 
     # region <ORDER UPDATE FUNCTIONS>

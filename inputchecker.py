@@ -55,6 +55,19 @@ def get_input_index(option: str, action: str,
             continue
 
 
+def validate_phone(userinput_phone: str) -> str:
+    """Validates the passed in string as a phone number, returns it back if it
+    is valid, or a blank string if it is invalid.
+
+    Args:
+        userinput_phone (str): String to be validated as a phone number.
+
+    Returns:
+        str: Returns the string back if valid, or blank string if invalid.
+    """
+    pass  # TODO
+
+
 def get_courier_id(
         couriers: List[Courier], userinput_courier: str) -> int:
     """Checks the list of couriers for id, returns the id if there is a match.
