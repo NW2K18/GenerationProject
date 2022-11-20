@@ -110,7 +110,7 @@ class Menu():
                 case '3':  # Update
                     self.products.list_products()
                     index = inputchecker.get_input_index(
-                        'product', 'update', len(self.products.products))
+                        'product', 'update', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
                         break
@@ -120,7 +120,7 @@ class Menu():
                 case '4':  # Remove
                     self.products.list_products()
                     index = inputchecker.get_input_index(
-                        'product', 'remove', len(self.products.products))
+                        'product', 'remove', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
                         break
@@ -166,7 +166,7 @@ class Menu():
                 case '3':  # Update
                     self.couriers.list_couriers()
                     index = inputchecker.get_input_index(
-                        'courier', 'update', len(self.couriers.couriers))
+                        'courier', 'update', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
@@ -176,7 +176,7 @@ class Menu():
                 case '4':  # Remove
                     self.couriers.list_couriers()
                     index = inputchecker.get_input_index(
-                        'courier', 'remove', len(self.couriers.couriers))
+                        'courier', 'remove', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
                         break
@@ -216,12 +216,11 @@ class Menu():
                         sleep(1)
                         print('Did not create a new order.')
                 case "2":  # View
-                    print("""
-            0. Normal
-            1. Sort by courier
-            2. Sort by status
-            """)
-                    option = input('Input number for order status: ')
+                    print(
+                        '0. Normal\n\t'
+                        '1. Sort by courier\n\t'
+                        '2. Sort by status')
+                    option = input('Input number for order list type: ')
                     match option:
                         case '0':  # Normal
                             self.orders.list_orders(self.orders.orders)
@@ -235,7 +234,7 @@ class Menu():
                 case '3':  # Update status
                     self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
-                        'order', 'update', len(self.orders.orders))
+                        'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
@@ -245,7 +244,7 @@ class Menu():
                 case '4':  # Update
                     self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
-                        'order', 'update', len(self.orders.orders))
+                        'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break
@@ -256,7 +255,7 @@ class Menu():
                 case '5':  # Remove
                     self.orders.list_orders(self.orders.orders)
                     index = inputchecker.get_input_index(
-                        'order', 'remove', len(self.orders.orders))
+                        'order', 'remove', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
                         break

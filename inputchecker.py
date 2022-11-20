@@ -7,6 +7,7 @@ from typing import List, Union
 
 from productclass import Product
 from courierclass import Courier
+from orderclass import Order
 
 
 def check_index(list_length: int, user_input: str) -> bool:
@@ -31,28 +32,34 @@ def check_index(list_length: int, user_input: str) -> bool:
 
 
 def get_input_index(option: str, action: str,
-                    list_length: int) -> Union[int, None]:
+                    checked_list: List) -> Union[int, None]:
     """Contains a while loop with an input function that asks for user input,
     and returns an index once you input a valid index.
 
     Args:
         option (str): The object type that the user wants to modify.
         action (str): What the user wants to do to the object.
-        list_length (int): Length of the list to be checked against.
+        checked_list (List): List to be checked.
 
     Returns:
         int: The index of the list object, e.g Item No.1 = Index 0
         None: If the input is zero.
     """
     while True:  # Doesn't break from loop until valid input.
-        index = (input(
-            f'Type the index of the {option} you wish to {action}: '))
-        if index == '0':
+        database_id = (input(
+            f'Type the ID of the {option} you wish to {action}'
+            '(0 to exit): '))
+        if database_id == '0':
             return None
-        elif check_index(list_length, index):
-            return int(index) - 1
-        else:
-            continue
+        match option:
+            case 'product':
+                return get_product_index(checked_list, database_id)
+            case 'courier':
+                return get_courier_index(checked_list, database_id)
+            case 'order':
+                return get_order_index(checked_list, database_id)
+            case _:
+                raise Exception('Invalid option passed in as arg')
 
 
 def validate_phone(userinput_phone: str) -> str:
@@ -93,29 +100,6 @@ def get_courier_id(
     return 0
 
 
-def get_courier_index(
-        couriers: List[Courier], database_id: str) -> Union[int, None]:
-    """Checks the list of couriers for id, returns the list index if there
-    is a match.
-
-    Args:
-        couriers (List[Courier]): To be checked.
-        userinput_courier (str): Used to check the list.
-
-    Returns:
-        Union[int, None]: The list index, or None if there is no match.
-    """
-    try:
-        database_id = int(database_id)
-        for courier in couriers:
-            if database_id == courier.id:
-                return database_id
-        print('Could not find ID')
-    except ValueError:
-        print('Could not convert to integer')
-    return None
-
-
 def get_item_id(
         products: List[Product], userinput_items: str) -> Union[str, None]:
     """Checks the list of product for id, returns the id if there is a match.
@@ -139,23 +123,75 @@ def get_item_id(
     return None
 
 
-def get_item_index(
+def get_product_index(
         products: List[Product], database_id: str) -> Union[int, None]:
     """Checks the list of products for id, returns the list index if there
     is a match.
 
     Args:
         products (List[Product]): To be checked.
-        userinput_product (str): Used to check the list.
+        database_id (str): Used to check the list.
 
     Returns:
         Union[int, None]: The list index, or None if there is no match.
     """
     try:
         database_id = int(database_id)
+        index = 0
         for product in products:
             if database_id == product.id:
-                return database_id
+                return index
+            index += 1
+        print('Could not find ID')
+    except ValueError:
+        print('Could not convert to integer')
+    return None
+
+
+def get_courier_index(
+        couriers: List[Courier], database_id: str) -> Union[int, None]:
+    """Checks the list of couriers for id, returns the list index if there
+    is a match.
+
+    Args:
+        couriers (List[Courier]): To be checked.
+        database_id (str): Used to check the list.
+
+    Returns:
+        Union[int, None]: The list index, or None if there is no match.
+    """
+    try:
+        database_id = int(database_id)
+        index = 0
+        for courier in couriers:
+            if database_id == courier.id:
+                return index
+            index += 1
+        print('Could not find ID')
+    except ValueError:
+        print('Could not convert to integer')
+    return None
+
+
+def get_order_index(
+        orders: List[Order], database_id: str) -> Union[int, None]:
+    """Checks the list of orders for id, returns the list index if there
+    is a match.
+
+    Args:
+        orders (List[Order]): To be checked.
+        database_id (str): Used to check the list.
+
+    Returns:
+        Union[int, None]: The list index, or None if there is no match.
+    """
+    try:
+        database_id = int(database_id)
+        index = 0
+        for order in orders:
+            if database_id == order.id:
+                return index
+            index += 1
         print('Could not find ID')
     except ValueError:
         print('Could not convert to integer')

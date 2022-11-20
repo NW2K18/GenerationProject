@@ -1,4 +1,4 @@
 id,customer_name,customer_address,customer_phone,courier,statuscode,items
-0,John,Planet Earth,1439280432,3,1,"2,4"
-0,Jimmy,Bermuda Triangle,0800001066,2,1,"2,3,4"
-0,Nathan,Leeds,121233234232234,1,4,3
+4,John,Planet Earth,1439280432,3,1,"2,4"
+8,Jimmy,Bermuda Triangle,0800001066,2,1,"2,3,4"
+12,Nathan,Leeds,121233234232234,1,4,3

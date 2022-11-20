@@ -164,13 +164,14 @@ class TestMainMenu(unittest.TestCase):
         mock_check.return_value = 5
         self.testmenu.view_products_menu()
         mock_print.assert_called_with('Exitting products menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'product', 'update', self.testmenu.products.products)
         self.assertEqual(self.mock_product.mock_calls[0][0],
                          '().list_products')
-        self.assertEqual(self.mock_product.mock_calls[2][0],
+        self.assertEqual(self.mock_product.mock_calls[1][0],
                          '().set_product_update')
         # Checking the first argument of the 2nd call: set_product_update
-        self.assertEqual(self.mock_product.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_product.mock_calls[1].args, (5,))
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')
@@ -183,12 +184,13 @@ class TestMainMenu(unittest.TestCase):
         mock_check.return_value = 5
         self.testmenu.view_products_menu()
         mock_print.assert_called_with('Exitting products menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'product', 'remove', self.testmenu.products.products)
         self.assertEqual(self.mock_product.mock_calls[0][0],
                          '().list_products')
-        self.assertEqual(self.mock_product.mock_calls[2][0],
+        self.assertEqual(self.mock_product.mock_calls[1][0],
                          '().set_product_remove')
-        self.assertEqual(self.mock_product.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_product.mock_calls[1].args, (5,))
 
     # endregion
     # region <COURIER MENU TESTS>
@@ -244,13 +246,14 @@ class TestMainMenu(unittest.TestCase):
 
         self.testmenu.view_couriers_menu()
         mock_print.assert_called_with('Exitting couriers menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'courier', 'update', self.testmenu.couriers.couriers)
         self.assertEqual(self.mock_courier.mock_calls[0][0],
                          '().list_couriers')
-        self.assertEqual(self.mock_courier.mock_calls[2][0],
+        self.assertEqual(self.mock_courier.mock_calls[1][0],
                          '().set_courier_update')
         # Checking the first argument of the 2nd call: set_product_update
-        self.assertEqual(self.mock_courier.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_courier.mock_calls[1].args, (5,))
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')
@@ -264,12 +267,13 @@ class TestMainMenu(unittest.TestCase):
 
         self.testmenu.view_couriers_menu()
         mock_print.assert_called_with('Exitting couriers menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'courier', 'remove', self.testmenu.couriers.couriers)
         self.assertEqual(self.mock_courier.mock_calls[0][0],
                          '().list_couriers')
-        self.assertEqual(self.mock_courier.mock_calls[2][0],
+        self.assertEqual(self.mock_courier.mock_calls[1][0],
                          '().set_courier_remove')
-        self.assertEqual(self.mock_courier.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_courier.mock_calls[1].args, (5,))
 
     # endregion
     # region <ORDER MENU TESTS>
@@ -345,12 +349,13 @@ class TestMainMenu(unittest.TestCase):
 
         self.testmenu.view_orders_menu()
         mock_print.assert_called_with('Exitting orders menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'order', 'update', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
-        self.assertEqual(self.mock_order.mock_calls[2][0],
+        self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_update_status')
-        self.assertEqual(self.mock_order.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_order.mock_calls[1].args, (5,))
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')
@@ -364,18 +369,14 @@ class TestMainMenu(unittest.TestCase):
 
         self.testmenu.view_orders_menu()
         mock_print.assert_called_with('Exitting orders menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'order', 'update', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
-        self.assertEqual(self.mock_order.mock_calls[2][0],
+        self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_update')
-        self.assertEqual(self.mock_order.mock_calls[2][1][0], 5)
-        self.assertEqual(
-            self.mock_order.mock_calls[2][1][1]._extract_mock_name(),
-            'Product_menu()')
-        self.assertEqual(
-            self.mock_order.mock_calls[2][1][2]._extract_mock_name(),
-            'Courier_menu()')
+        self.assertEqual(self.mock_order.mock_calls[1].args, (
+            5, self.testmenu.products, self.testmenu.couriers))
 
     @patch('inputchecker.get_input_index')
     @patch('main.sleep')
@@ -389,12 +390,13 @@ class TestMainMenu(unittest.TestCase):
 
         self.testmenu.view_orders_menu()
         mock_print.assert_called_with('Exitting orders menu...')
-        mock_check.assert_called()
+        mock_check.assert_called_once_with(
+            'order', 'remove', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
-        self.assertEqual(self.mock_order.mock_calls[2][0],
+        self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_remove')
-        self.assertEqual(self.mock_order.mock_calls[2][1][0], 5)
+        self.assertEqual(self.mock_order.mock_calls[1].args, (5,))
 
     # endregion
 
