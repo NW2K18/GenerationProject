@@ -126,6 +126,7 @@ class Product_menu():
         Args:
             index (int): List index of the product to be updated.
         """
+        print(f'Updating {self.products[index].name}')
         # If input is blank, continue but don't update the product.
         userinput = input('Input product name: ')
         if userinput.strip() != '':

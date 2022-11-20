@@ -124,6 +124,7 @@ class Courier_menu():
         Args:
             index (int): List index of the courier to be updated.
         """
+        print(f'Updating {self.couriers[index].name}')
         # If input is blank, continue but don't update the courier.
         userinput = input('Input courier name: ')
         if userinput.strip() != '':

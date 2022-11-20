@@ -39,6 +39,7 @@ class Order_menu():
         """
         i = 1
         for order in orderlist:
+            # Create a string to print.
             print_list = (
                 f'Order No.{i}, ID = ({order.id}):'
                 f'\n\tCustomer name: {order.customer_name}'
@@ -113,6 +114,7 @@ class Order_menu():
                         row['customer_name'], row['customer_address'],
                         row['customer_phone'])
                     # Load ID from database.
+                    neworder.id = int((row['id']))  # Temporary
                     neworder.set_order_status(row['statuscode'])
                     neworder.set_courier(row['courier'])
                     neworder.set_items(row['items'])
@@ -242,6 +244,7 @@ class Order_menu():
         Returns:
             bool: True if function successful, False if not.
         """
+        print(f'Updating {self.orders[index].customer_name}\'s order')
         # If input is blank, continue but don't update the order.
         userinput = input('Input customer name: ')
         if userinput.strip() != '':
@@ -269,6 +272,7 @@ class Order_menu():
         Args:
             index (int): List index of the order to be updated.
         """
+        print(f'Updating {self.orders[index].customer_name}\'s order')
         print("""
             0. Preparing
             1. Awaiting pickup
