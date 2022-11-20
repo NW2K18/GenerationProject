@@ -67,16 +67,16 @@ class Order:
         else:
             return False
 
-    def get_courier(self) -> Union[int, str]:
+    def get_courier(self) -> Union[int, None]:
         """Returns the assigned courier index.
 
         Returns:
-            str: The courier index, None if courier is blank.
+            Union[int, None]: The courier index, None if courier is blank.
         """
         if self.courier is not None:
             return self.courier
         else:
-            return 'None'
+            return None
 
     def set_order_status(self, option: str) -> bool:
         """Set order's status from a list of options. \n
@@ -121,16 +121,17 @@ class Order:
         else:
             return
 
-    def get_items(self) -> str:
+    def get_items(self) -> Union[str, None]:
         """Returns the item indices as a comma-seperated string.
 
         Returns:
-            str: The item indices as a comma-seperated string.
+            Union[str, None]: The item indices as a comma-seperated string, or
+            None if it is blank.
         """
         if self.items != '':
             return self.items
         else:
-            return 'None'
+            return None
 
     def get_order(self) -> Dict:
         """Returns the order as a dictionary.

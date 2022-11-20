@@ -9,6 +9,8 @@ from typing import List, Union
 from orderclass import Order
 from productmenu import Product_menu
 from couriermenu import Courier_menu
+from productclass import Product
+from courierclass import Courier
 import inputchecker
 
 
@@ -22,34 +24,58 @@ class Order_menu():
             'John', 'Planet Earth', '1439280432')]
         self.load_orders()
 
-    def list_orders(self, orderlist: List[Order]) -> int:
+    def list_orders(
+            self, orderlist: List[Order], productlist: List[Product],
+            courierlist: List[Courier]) -> int:
         """Prints out order list.
 
         Args:
             orderlist (List[Order]): List of orders to be listed.
+            productlist (List[Product]): Used to print out item info.
+            courierlist (List[Courier]): Used to print out courier info.
 
         Returns:
             int: Size of order list
         """
         i = 1
         for order in orderlist:
-            print(
-                f'Order No.{i} ({order.id}):'
+            print_list = (
+                f'Order No.{i}, ID = ({order.id}):'
                 f'\n\tCustomer name: {order.customer_name}'
                 f'\n\tCustomer address: {order.customer_address}'
-                f'\n\tCustomer phone number: {order.customer_phone}'
-                f'\n\tCourier: {order.get_courier()} - COURIER HERE'
-                f'\n\tOrder status: {order.status}'
-                f'\n\tItems: {order.get_items()}')
+                f'\n\tCustomer phone number: {order.customer_phone}')
+            # Adding the courier.
+            if order.get_courier() is not None:
+                courier_index = inputchecker.get_courier_index(
+                    courierlist, order.get_courier())
+                print_list += (
+                    f'\n\tCourier: {order.get_courier()} - '
+                    f'{courierlist[courier_index].name}')
+            print_list += (
+                f'\n\tOrder status: {order.status}')
+            # Adding the products.
+            if order.get_items() is not None:
+                print_list += ('\n\tItems:')
+                for item in order.get_items().split(','):
+                    product_index = inputchecker.get_product_index(
+                        productlist, item)
+                    print_list += (
+                        f'\n\t\t{productlist[product_index].name} - '
+                        f'{productlist[product_index].get_product_price()}')
+            print(print_list)
             sleep(0.5)
             i += 1
         return len(self.orders)
 
-    def list_sorted_orders(self, option: str) -> int:
+    def list_sorted_orders(
+            self, option: str, productlist: List[Product],
+            courierlist: List[Courier]) -> int:
         """Prints a list sorted through the specified option
 
         Args:
             option (str): courier, status
+            productlist (List[Product]): Used to print out item info.
+            courierlist (List[Courier]): Used to print out courier info.
 
         Raises:
             Exception: When an invalid option has been passed in.
@@ -67,7 +93,7 @@ class Order_menu():
                     self.orders, key=lambda order: order.statuscode)
             case _:
                 raise Exception('Invalid option passed to list_orders_custom')
-        self.list_orders(sorted_list)
+        self.list_orders(sorted_list, productlist, courierlist)
         return len(self.orders)
 
     # region <SAVE AND LOAD>

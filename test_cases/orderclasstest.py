@@ -42,7 +42,7 @@ class TestOrderClass(unittest.TestCase):
         self.assertEqual(self.test_order.courier, 5)
 
     def test_get_courier(self):
-        self.assertEqual(self.test_order.get_courier(), 'None')
+        self.assertEqual(self.test_order.get_courier(), None)
 
         self.test_order.set_courier('5')
         self.assertEqual(self.test_order.get_courier(), 5)
@@ -69,7 +69,7 @@ class TestOrderClass(unittest.TestCase):
         self.assertEqual(self.test_order.items, '4,5,2')
 
     def test_get_items(self):
-        self.assertEqual(self.test_order.get_items(), 'None')
+        self.assertEqual(self.test_order.get_items(), None)
 
         self.test_order.set_items('4,5,2')
         self.assertEqual(self.test_order.get_items(), '4,5,2')

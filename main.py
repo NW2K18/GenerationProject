@@ -217,22 +217,30 @@ class Menu():
                         print('Did not create a new order.')
                 case "2":  # View
                     print(
-                        '0. Normal\n\t'
-                        '1. Sort by courier\n\t'
-                        '2. Sort by status')
-                    option = input('Input number for order list type: ')
+                        '\t0. Normal'
+                        '\n\t1. Sort by courier'
+                        '\n\t2. Sort by status')
+                    option = input('Input choice for sorting through orders. ')
                     match option:
                         case '0':  # Normal
-                            self.orders.list_orders(self.orders.orders)
+                            self.orders.list_orders(
+                                self.orders.orders, self.products.products,
+                                self.couriers.couriers)
                         case '1':  # Courier sort
-                            self.orders.list_sorted_orders('courier')
+                            self.orders.list_sorted_orders(
+                                'courier', self.products.products,
+                                self.couriers.couriers)
                         case '2':  # Status sort
-                            self.orders.list_sorted_orders('status')
+                            self.orders.list_sorted_orders(
+                                'status', self.products.products,
+                                self.couriers.couriers)
                         case _:
                             print('Invalid input.')
                     sleep(1)
                 case '3':  # Update status
-                    self.orders.list_orders(self.orders.orders)
+                    self.orders.list_orders(
+                        self.orders.orders, self.products.products,
+                        self.couriers.couriers)
                     index = inputchecker.get_input_index(
                         'order', 'update', self.orders.orders)
                     if index is None:
@@ -242,7 +250,9 @@ class Menu():
                     sleep(1)
                     print('Updated order.')
                 case '4':  # Update
-                    self.orders.list_orders(self.orders.orders)
+                    self.orders.list_orders(
+                        self.orders.orders, self.products.products,
+                        self.couriers.couriers)
                     index = inputchecker.get_input_index(
                         'order', 'update', self.orders.orders)
                     if index is None:
@@ -253,7 +263,9 @@ class Menu():
                     sleep(1)
                     print('Updated order.')
                 case '5':  # Remove
-                    self.orders.list_orders(self.orders.orders)
+                    self.orders.list_orders(
+                        self.orders.orders, self.products.products,
+                        self.couriers.couriers)
                     index = inputchecker.get_input_index(
                         'order', 'remove', self.orders.orders)
                     if index is None:

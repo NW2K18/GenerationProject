@@ -38,118 +38,98 @@ class TestOrderMenu(unittest.TestCase):
         self.mock_productmenu = MagicMock()
         self.mock_couriermenu = MagicMock()
 
+        self.couriers = [
+            Courier('TestA', '0800001066'), Courier('TestB', '6601000080'),
+            Courier('TestC', '0080006610')]
+
+        self.products = [
+            Product('Test1', 0.75), Product('Test2', 1.00),
+            Product('Test3', 1.50), Product('Test4', 2.50),
+            Product('Test5', 3.50), Product('Test6', 5.00)]
+
     def test_setUp(
             self):
         self.mock_load.assert_called()
 
+    @patch('inputchecker.get_product_index')
+    @patch('inputchecker.get_courier_index')
     @patch('ordermenu.sleep')
     @patch('builtins.print')
     def test_list_orders(
-            self, mock_print: MagicMock, mock_sleep: MagicMock):
+            self, mock_print: MagicMock, mock_sleep: MagicMock,
+            mock_ccheck: MagicMock, mock_pcheck: MagicMock):
+        mock_ccheck.side_effect = [2, 1, 0]
+        mock_pcheck.side_effect = [0, 1, 3, 2, 4, 5]
+
         list_length = self.test_ordermenu.list_orders(
-            self.test_ordermenu.orders)
+            self.test_ordermenu.orders, self.products,
+            self.couriers)
 
         self.assertEqual(list_length, 3)
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(
             mock_print.mock_calls[0][1][0],
-            'Order No.1 (0):'
+            'Order No.1, ID = (0):'
             '\n\tCustomer name: Testname'
             '\n\tCustomer address: Testtown'
             '\n\tCustomer phone number: 0800001066'
-            '\n\tCourier: 11 - COURIER HERE'
+            '\n\tCourier: 11 - TestC'
             '\n\tOrder status: Delivered'
-            '\n\tItems: 2,3')
+            '\n\tItems:'
+            '\n\t\tTest1 - £0.75'
+            '\n\t\tTest2 - £1.00')
         self.assertEqual(
             mock_print.mock_calls[1][1][0],
-            'Order No.2 (0):'
+            'Order No.2, ID = (0):'
             '\n\tCustomer name: Testname2'
             '\n\tCustomer address: Testcity'
             '\n\tCustomer phone number: 6601000080'
-            '\n\tCourier: 7 - COURIER HERE'
+            '\n\tCourier: 7 - TestB'
             '\n\tOrder status: Awaiting pickup'
-            '\n\tItems: 5')
+            '\n\tItems:'
+            '\n\t\tTest4 - £2.50')
         self.assertEqual(
             mock_print.mock_calls[2][1][0],
-            'Order No.3 (0):'
+            'Order No.3, ID = (0):'
             '\n\tCustomer name: Testname3'
             '\n\tCustomer address: Testcountry'
             '\n\tCustomer phone number: 1066080000'
-            '\n\tCourier: 5 - COURIER HERE'
+            '\n\tCourier: 5 - TestA'
             '\n\tOrder status: Out for delivery'
-            '\n\tItems: 4,5,8')
+            '\n\tItems:'
+            '\n\t\tTest3 - £1.50'
+            '\n\t\tTest5 - £3.50'
+            '\n\t\tTest6 - £5.00')
 
+    @patch('ordermenu.Order_menu.list_orders')
     @patch('ordermenu.sleep')
     @patch('builtins.print')
     def test_list_sorted_orders(
-            self, mock_print: MagicMock, mock_sleep: MagicMock):
+            self, mock_print: MagicMock, mock_sleep: MagicMock,
+            mock_list: MagicMock):
         '''Test when option is courier.'''
-        self.test_ordermenu.list_sorted_orders('courier')
+        self.test_ordermenu.list_sorted_orders(
+            'courier', MagicMock, MagicMock)
+        sorted_list = mock_list.mock_calls[0].args[0]
 
-        self.assertEqual(mock_print.call_count, 3)
-        self.assertEqual(
-            mock_print.mock_calls[0][1][0],
-            'Order No.1 (0):'
-            '\n\tCustomer name: Testname3'
-            '\n\tCustomer address: Testcountry'
-            '\n\tCustomer phone number: 1066080000'
-            '\n\tCourier: 5 - COURIER HERE'
-            '\n\tOrder status: Out for delivery'
-            '\n\tItems: 4,5,8')
-        self.assertEqual(
-            mock_print.mock_calls[1][1][0],
-            'Order No.2 (0):'
-            '\n\tCustomer name: Testname2'
-            '\n\tCustomer address: Testcity'
-            '\n\tCustomer phone number: 6601000080'
-            '\n\tCourier: 7 - COURIER HERE'
-            '\n\tOrder status: Awaiting pickup'
-            '\n\tItems: 5')
-        self.assertEqual(
-            mock_print.mock_calls[2][1][0],
-            'Order No.3 (0):'
-            '\n\tCustomer name: Testname'
-            '\n\tCustomer address: Testtown'
-            '\n\tCustomer phone number: 0800001066'
-            '\n\tCourier: 11 - COURIER HERE'
-            '\n\tOrder status: Delivered'
-            '\n\tItems: 2,3')
+        self.assertEqual(sorted_list[0], self.test_ordermenu.orders[2])
+        self.assertEqual(sorted_list[1], self.test_ordermenu.orders[1])
+        self.assertEqual(sorted_list[2], self.test_ordermenu.orders[0])
 
+    @patch('ordermenu.Order_menu.list_orders')
     @patch('ordermenu.sleep')
     @patch('builtins.print')
     def test_list_sorted_orders2(
-            self, mock_print: MagicMock, mock_sleep: MagicMock):
+            self, mock_print: MagicMock, mock_sleep: MagicMock,
+            mock_list: MagicMock):
         '''Test when option is status.'''
-        self.test_ordermenu.list_sorted_orders('status')
+        self.test_ordermenu.list_sorted_orders(
+            'status', MagicMock, MagicMock)
+        sorted_list = mock_list.mock_calls[0].args[0]
 
-        self.assertEqual(mock_print.call_count, 3)
-        self.assertEqual(
-            mock_print.mock_calls[0][1][0],
-            'Order No.1 (0):'
-            '\n\tCustomer name: Testname2'
-            '\n\tCustomer address: Testcity'
-            '\n\tCustomer phone number: 6601000080'
-            '\n\tCourier: 7 - COURIER HERE'
-            '\n\tOrder status: Awaiting pickup'
-            '\n\tItems: 5')
-        self.assertEqual(
-            mock_print.mock_calls[1][1][0],
-            'Order No.2 (0):'
-            '\n\tCustomer name: Testname3'
-            '\n\tCustomer address: Testcountry'
-            '\n\tCustomer phone number: 1066080000'
-            '\n\tCourier: 5 - COURIER HERE'
-            '\n\tOrder status: Out for delivery'
-            '\n\tItems: 4,5,8')
-        self.assertEqual(
-            mock_print.mock_calls[2][1][0],
-            'Order No.3 (0):'
-            '\n\tCustomer name: Testname'
-            '\n\tCustomer address: Testtown'
-            '\n\tCustomer phone number: 0800001066'
-            '\n\tCourier: 11 - COURIER HERE'
-            '\n\tOrder status: Delivered'
-            '\n\tItems: 2,3')
+        self.assertEqual(sorted_list[0], self.test_ordermenu.orders[1])
+        self.assertEqual(sorted_list[1], self.test_ordermenu.orders[2])
+        self.assertEqual(sorted_list[2], self.test_ordermenu.orders[0])
 
     @patch('ordermenu.sleep')
     @patch('builtins.print')
@@ -169,7 +149,8 @@ class TestOrderMenu(unittest.TestCase):
             self, mock_print: MagicMock, mock_sleep: MagicMock,
             mock_list: MagicMock):
         '''Test to see if list_orders is called.'''
-        self.test_ordermenu.list_sorted_orders('courier')
+        self.test_ordermenu.list_sorted_orders(
+            'courier', MagicMock, MagicMock)
         mock_list.assert_called_once()
 
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -531,7 +512,7 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '5')
-    
+
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
