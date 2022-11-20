@@ -32,7 +32,7 @@ class Courier_menu():
         i = 1
         for courier in self.couriers:
             print(
-                f'Courier No.{i} ({courier.id}):'
+                f'Courier No.{i}, ID = ({courier.id}):'
                 f'\n\tCourier name: {courier.name}'
                 f'\n\tCourier phone: {courier.phone}')
             sleep(0.3)

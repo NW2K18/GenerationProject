@@ -21,16 +21,19 @@ class TestOrderMenu(unittest.TestCase):
         self.test_ordermenu.orders.clear()
         self.test_ordermenu.orders.append(Order('Testname', 'Testtown',
                                           '0800001066'))
+        self.test_ordermenu.orders[0].id = 6
         self.test_ordermenu.orders[0].set_courier(11)
         self.test_ordermenu.orders[0].set_items('2,3')
         self.test_ordermenu.orders[0].set_order_status('4')
         self.test_ordermenu.orders.append(Order('Testname2', 'Testcity',
                                           '6601000080'))
+        self.test_ordermenu.orders[1].id = 13
         self.test_ordermenu.orders[1].set_courier(7)
         self.test_ordermenu.orders[1].set_items('5')
         self.test_ordermenu.orders[1].set_order_status('2')
         self.test_ordermenu.orders.append(Order('Testname3', 'Testcountry',
                                           '1066080000'))
+        self.test_ordermenu.orders[2].id = 21
         self.test_ordermenu.orders[2].set_courier(5)
         self.test_ordermenu.orders[2].set_items('4,5,8')
         self.test_ordermenu.orders[2].set_order_status('3')
@@ -69,7 +72,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(
             mock_print.mock_calls[0][1][0],
-            'Order No.1, ID = (0):'
+            'Order No.1, ID = (6):'
             '\n\tCustomer name: Testname'
             '\n\tCustomer address: Testtown'
             '\n\tCustomer phone number: 0800001066'
@@ -80,7 +83,7 @@ class TestOrderMenu(unittest.TestCase):
             '\n\t\tTest2 - £1.00')
         self.assertEqual(
             mock_print.mock_calls[1][1][0],
-            'Order No.2, ID = (0):'
+            'Order No.2, ID = (13):'
             '\n\tCustomer name: Testname2'
             '\n\tCustomer address: Testcity'
             '\n\tCustomer phone number: 6601000080'
@@ -90,7 +93,7 @@ class TestOrderMenu(unittest.TestCase):
             '\n\t\tTest4 - £2.50')
         self.assertEqual(
             mock_print.mock_calls[2][1][0],
-            'Order No.3, ID = (0):'
+            'Order No.3, ID = (21):'
             '\n\tCustomer name: Testname3'
             '\n\tCustomer address: Testcountry'
             '\n\tCustomer phone number: 1066080000'
@@ -354,7 +357,7 @@ class TestOrderMenu(unittest.TestCase):
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
-    def test_set_order_update(
+    def test_set_order_update1(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
             mock_get_items: MagicMock):
         '''Test when all inputs are valid.'''
@@ -368,7 +371,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(
@@ -395,7 +397,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Testname2')
         self.assertEqual(
@@ -422,7 +423,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(
@@ -449,7 +449,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(
@@ -476,7 +475,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(
@@ -503,7 +501,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(
@@ -530,7 +527,6 @@ class TestOrderMenu(unittest.TestCase):
         mock_get_items.assert_called_once_with(self.mock_productmenu)
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(self.test_ordermenu.orders[1].id, 0)
         self.assertEqual(
             self.test_ordermenu.orders[1].customer_name, 'Test4')
         self.assertEqual(

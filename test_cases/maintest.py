@@ -322,13 +322,18 @@ class TestMainMenu(unittest.TestCase):
         mock_print.assert_called_with('Exitting orders menu...')
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
+        self.assertEqual(self.mock_order.mock_calls[0].args,
+                         (self.testmenu.orders.orders,
+                         self.testmenu.products.products,
+                         self.testmenu.couriers.couriers))
 
         mock_input.side_effect = ['2', '1', '0']
         self.testmenu.view_orders_menu()
         self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().list_sorted_orders')
-        self.assertEqual(self.mock_order.mock_calls[1][1][0],
-                         'courier')
+        self.assertEqual(self.mock_order.mock_calls[1].args,
+                         ('courier', self.testmenu.products.products,
+                         self.testmenu.couriers.couriers))
 
         mock_input.side_effect = ['2', '2', '0']
         self.testmenu.view_orders_menu()
@@ -353,6 +358,10 @@ class TestMainMenu(unittest.TestCase):
             'order', 'update', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
+        self.assertEqual(self.mock_order.mock_calls[0].args,
+                         (self.testmenu.orders.orders,
+                         self.testmenu.products.products,
+                         self.testmenu.couriers.couriers))
         self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_update_status')
         self.assertEqual(self.mock_order.mock_calls[1].args, (5,))
@@ -373,6 +382,10 @@ class TestMainMenu(unittest.TestCase):
             'order', 'update', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
+        self.assertEqual(self.mock_order.mock_calls[0].args,
+                         (self.testmenu.orders.orders,
+                         self.testmenu.products.products,
+                         self.testmenu.couriers.couriers))
         self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_update')
         self.assertEqual(self.mock_order.mock_calls[1].args, (
@@ -394,6 +407,10 @@ class TestMainMenu(unittest.TestCase):
             'order', 'remove', self.testmenu.orders.orders)
         self.assertEqual(self.mock_order.mock_calls[0][0],
                          '().list_orders')
+        self.assertEqual(self.mock_order.mock_calls[0].args,
+                         (self.testmenu.orders.orders,
+                         self.testmenu.products.products,
+                         self.testmenu.couriers.couriers))
         self.assertEqual(self.mock_order.mock_calls[1][0],
                          '().set_order_remove')
         self.assertEqual(self.mock_order.mock_calls[1].args, (5,))

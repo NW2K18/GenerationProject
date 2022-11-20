@@ -38,17 +38,17 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(
             mock_print.mock_calls[0][1][0],
-            'Product No.1 (0):'
+            'Product No.1, ID = (0):'
             '\n\tProduct name: Test1'
             '\n\tProduct price: £0.75')
         self.assertEqual(
             mock_print.mock_calls[1][1][0],
-            'Product No.2 (0):'
+            'Product No.2, ID = (0):'
             '\n\tProduct name: Test2'
             '\n\tProduct price: £1.00')
         self.assertEqual(
             mock_print.mock_calls[2][1][0],
-            'Product No.3 (0):'
+            'Product No.3, ID = (0):'
             '\n\tProduct name: Test3'
             '\n\tProduct price: £1.50')
 
