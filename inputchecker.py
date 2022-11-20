@@ -93,6 +93,29 @@ def get_courier_id(
     return 0
 
 
+def get_courier_index(
+        couriers: List[Courier], database_id: str) -> Union[int, None]:
+    """Checks the list of couriers for id, returns the list index if there
+    is a match.
+
+    Args:
+        couriers (List[Courier]): To be checked.
+        userinput_courier (str): Used to check the list.
+
+    Returns:
+        Union[int, None]: The list index, or None if there is no match.
+    """
+    try:
+        database_id = int(database_id)
+        for courier in couriers:
+            if database_id == courier.id:
+                return database_id
+        print('Could not find ID')
+    except ValueError:
+        print('Could not convert to integer')
+    return None
+
+
 def get_item_id(
         products: List[Product], userinput_items: str) -> Union[str, None]:
     """Checks the list of product for id, returns the id if there is a match.
@@ -110,6 +133,29 @@ def get_item_id(
         for product in products:
             if userinput_items == product.id:
                 return str(userinput_items)
+        print('Could not find ID')
+    except ValueError:
+        print('Could not convert to integer')
+    return None
+
+
+def get_item_index(
+        products: List[Product], database_id: str) -> Union[int, None]:
+    """Checks the list of products for id, returns the list index if there
+    is a match.
+
+    Args:
+        products (List[Product]): To be checked.
+        userinput_product (str): Used to check the list.
+
+    Returns:
+        Union[int, None]: The list index, or None if there is no match.
+    """
+    try:
+        database_id = int(database_id)
+        for product in products:
+            if database_id == product.id:
+                return database_id
         print('Could not find ID')
     except ValueError:
         print('Could not convert to integer')

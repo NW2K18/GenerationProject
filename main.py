@@ -9,8 +9,6 @@ from couriermenu import Courier_menu
 from ordermenu import Order_menu
 import inputchecker
 
-from productclass import Product
-
 
 class Menu():
 
@@ -26,14 +24,15 @@ class Menu():
         """This contains the main menu loop."""
 
         while True:
-            print("""-----MAIN MENU-----
-            0. Exit
-            1. Products
-            2. Couriers
-            3. Orders
-            4. Export csv file
-            5. Import csv file\n-------------------
-            """)
+            print(
+                '-----MAIN MENU-----\n\t'
+                '0. Exit\n\t'
+                '1. Products\n\t'
+                '2. Couriers\n\t'
+                '3. Orders\n\t'
+                '4. Export csv file\n\t'
+                '5. Import csv file\n'
+                '-------------------')
 
             option = input('Choose command: ')
             match option:
@@ -80,13 +79,14 @@ class Menu():
     def view_products_menu(self) -> None:
         """This contains the product menu loop."""
         while True:
-            print("""-----PRODUCTS-----
-        0. Exit
-        1. Create Product
-        2. View Product List
-        3. Update Product
-        4. Remove Product\n---------------------
-        """)
+            print(
+                '-----PRODUCTS-----\n\t'
+                '0. Exit\n\t'
+                '1. Create Product\n\t'
+                '2. View Product List\n\t'
+                '3. Update Product\n\t'
+                '4. Remove Product\n'
+                '---------------------')
 
             option = input('Choose command: ')
 
@@ -136,13 +136,14 @@ class Menu():
     def view_couriers_menu(self) -> None:
         """This contains the courier menu loop."""
         while True:
-            print("""-----COURIERS-----
-        0. Exit
-        1. Add Courier
-        2. View Courier List
-        3. Update Courier
-        4. Remove Courier\n
-        ---------------------""")
+            print(
+                '-----COURIERS-----\n\t'
+                '0. Exit\n\t'
+                '1. Add Courier\n\t'
+                '2. View Courier List\n\t'
+                '3. Update Courier\n\t'
+                '4. Remove Courier\n'
+                '---------------------')
             option = input('Choose command: ')
 
             match option:
@@ -191,14 +192,15 @@ class Menu():
     def view_orders_menu(self):
         """This contains the order menu loop."""
         while True:
-            print("""-----ORDERS-----
-        0. Exit
-        1. Create an order
-        2. View Order List
-        3. Update an order's status
-        4. Update an order
-        5. Remove an order\n---------------------
-        """)
+            print(
+                '-----ORDERS-----\n\t'
+                '0. Exit\n\t'
+                '1. Create an order\n\t'
+                '2. View Order List\n\t'
+                '3. Update an order\'s status\n\t'
+                '4. Update an order\n\t'
+                '5. Remove an order\n'
+                '---------------------')
             option = input('Choose command: ')
             match option:
                 case '0':  # Exit
