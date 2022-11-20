@@ -22,7 +22,7 @@ class Order:
         self.customer_address = address
         self.customer_phone = phone
         self.courier = None
-        self.statuscode = 0
+        self.statuscode = 1
         self.status = 'Preparing'
         self.items = ''
 
@@ -80,10 +80,10 @@ class Order:
 
     def set_order_status(self, option: str) -> bool:
         """Set order's status from a list of options. \n
-        0 = Preparing \n
-        1 = Awaiting pickup \n
-        2 = Out for delivery \n
-        3 = Delivered
+        1 = Preparing \n
+        2 = Awaiting pickup \n
+        3 = Out for delivery \n
+        4 = Delivered
 
         Args:
             option (str): The index for the replacement status.
@@ -92,17 +92,17 @@ class Order:
             bool: True if function successful, False if not.
         """
         match option:
-            case '0':  # Preparing
-                self.statuscode = 0
-                self.status = 'Preparing'
-            case '1':  # Awaiting pickup
+            case '1':  # Preparing
                 self.statuscode = 1
-                self.status = 'Awaiting pickup'
-            case '2':  # Out for delivery
+                self.status = 'Preparing'
+            case '2':  # Awaiting pickup
                 self.statuscode = 2
-                self.status = 'Out for delivery'
-            case '3':  # Delivered
+                self.status = 'Awaiting pickup'
+            case '3':  # Out for delivery
                 self.statuscode = 3
+                self.status = 'Out for delivery'
+            case '4':  # Delivered
+                self.statuscode = 4
                 self.status = 'Delivered'
             case _:  # Invalid input
                 print('Invalid update status entered, status unchanged.')
@@ -143,5 +143,5 @@ class Order:
                 'customer_address': self.customer_address,
                 'customer_phone': self.customer_phone,
                 'courier': self.courier,
-                'status': self.status,
+                'statuscode': self.statuscode,
                 'items': self.items}

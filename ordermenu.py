@@ -87,7 +87,7 @@ class Order_menu():
                         row['customer_name'], row['customer_address'],
                         row['customer_phone'])
                     # Load ID from database.
-                    neworder.status = row['status']
+                    neworder.set_order_status(row['statuscode'])
                     neworder.set_courier(row['courier'])
                     neworder.set_items(row['items'])
                     self.orders.append(neworder)
@@ -107,7 +107,7 @@ class Order_menu():
                 fieldnames = [
                     'id', 'customer_name', 'customer_address',
                     'customer_phone', 'courier',
-                    'status', 'items']
+                    'statuscode', 'items']
                 writer = csv.DictWriter(file, fieldnames)
                 writer.writeheader()
                 for order in self.orders:

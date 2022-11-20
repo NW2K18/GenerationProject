@@ -18,7 +18,7 @@ class TestOrderClass(unittest.TestCase):
         self.assertEqual(self.test_order.customer_address, 'Everytown')
         self.assertEqual(self.test_order.customer_phone, '0800001066')
         self.assertEqual(self.test_order.courier, None)
-        self.assertEqual(self.test_order.statuscode, 0)
+        self.assertEqual(self.test_order.statuscode, 1)
         self.assertEqual(self.test_order.status, 'Preparing')
         self.assertEqual(self.test_order.items, '')
 
@@ -48,20 +48,20 @@ class TestOrderClass(unittest.TestCase):
         self.assertEqual(self.test_order.get_courier(), 5)
 
     def test_status_update(self):
-        self.test_order.set_order_status('0')
-        self.assertEqual(self.test_order.statuscode, 0)
-        self.assertEqual(self.test_order.status, 'Preparing')
-
         self.test_order.set_order_status('1')
         self.assertEqual(self.test_order.statuscode, 1)
-        self.assertEqual(self.test_order.status, 'Awaiting pickup')
+        self.assertEqual(self.test_order.status, 'Preparing')
 
         self.test_order.set_order_status('2')
         self.assertEqual(self.test_order.statuscode, 2)
-        self.assertEqual(self.test_order.status, 'Out for delivery')
+        self.assertEqual(self.test_order.status, 'Awaiting pickup')
 
         self.test_order.set_order_status('3')
         self.assertEqual(self.test_order.statuscode, 3)
+        self.assertEqual(self.test_order.status, 'Out for delivery')
+
+        self.test_order.set_order_status('4')
+        self.assertEqual(self.test_order.statuscode, 4)
         self.assertEqual(self.test_order.status, 'Delivered')
 
     def test_set_items(self):
@@ -81,7 +81,7 @@ class TestOrderClass(unittest.TestCase):
                           'customer_address': 'Everytown',
                           'customer_phone': '0800001066',
                           'courier': None,
-                          'status': 'Preparing',
+                          'statuscode': 1,
                           'items': ''})
 
 

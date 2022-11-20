@@ -23,17 +23,17 @@ class TestOrderMenu(unittest.TestCase):
                                           '0800001066'))
         self.test_ordermenu.orders[0].set_courier(11)
         self.test_ordermenu.orders[0].set_items('2,3')
-        self.test_ordermenu.orders[0].set_order_status('3')
+        self.test_ordermenu.orders[0].set_order_status('4')
         self.test_ordermenu.orders.append(Order('Testname2', 'Testcity',
                                           '6601000080'))
         self.test_ordermenu.orders[1].set_courier(7)
         self.test_ordermenu.orders[1].set_items('5')
-        self.test_ordermenu.orders[1].set_order_status('1')
+        self.test_ordermenu.orders[1].set_order_status('2')
         self.test_ordermenu.orders.append(Order('Testname3', 'Testcountry',
                                           '1066080000'))
         self.test_ordermenu.orders[2].set_courier(5)
         self.test_ordermenu.orders[2].set_items('4,5,8')
-        self.test_ordermenu.orders[2].set_order_status('2')
+        self.test_ordermenu.orders[2].set_order_status('3')
 
         self.mock_productmenu = MagicMock()
         self.mock_couriermenu = MagicMock()
@@ -562,22 +562,22 @@ class TestOrderMenu(unittest.TestCase):
     @patch('builtins.input')
     def test_set_order_update_status(
             self, mock_input: MagicMock):
-        mock_input.return_value = '0'
+        mock_input.return_value = '1'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Preparing')
 
-        mock_input.return_value = '1'
+        mock_input.return_value = '2'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Awaiting pickup')
 
-        mock_input.return_value = '2'
+        mock_input.return_value = '3'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Out for delivery')
 
-        mock_input.return_value = '3'
+        mock_input.return_value = '4'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Delivered')
