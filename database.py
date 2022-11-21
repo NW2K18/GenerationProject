@@ -66,7 +66,8 @@ class Database():
         price = product.price
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = 'SELECT id FROM products WHERE name = %s AND price = %s'
+                sql = (
+                    'SELECT id FROM products WHERE name = %s AND price = %s')
                 adr = (name, price)
                 cursor.execute(sql, adr)
 
@@ -103,8 +104,8 @@ class Database():
         price = product.price
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('INSERT INTO products (name, price) \
-                VALUES (%s, %s)')
+                sql = (
+                    'INSERT INTO products (name, price) VALUES (%s, %s)')
                 adr = (name, price)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -128,9 +129,8 @@ class Database():
         id = product.id
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('UPDATE products \
-                SET name = %s, price = %s \
-                WHERE id = %s')
+                sql = (
+                    'UPDATE products SET name = %s, price = %s WHERE id = %s')
                 adr = (name, price, id)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -150,8 +150,8 @@ class Database():
         id = product.id
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('DELETE FROM products \
-                WHERE id = %s')
+                sql = (
+                    'DELETE FROM products WHERE id = %s')
                 adr = (id)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -187,7 +187,8 @@ class Database():
         phone = courier.phone
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = 'SELECT id FROM couriers WHERE name = %s AND phone = %s'
+                sql = (
+                    'SELECT id FROM couriers WHERE name = %s AND phone = %s')
                 adr = (name, phone)
                 cursor.execute(sql, adr)
 
@@ -224,8 +225,8 @@ class Database():
         phone = courier.phone
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('INSERT INTO couriers (name, phone) \
-                VALUES (%s, %s)')
+                sql = (
+                    'INSERT INTO couriers (name, phone) VALUES (%s, %s)')
                 adr = (name, phone)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -249,9 +250,8 @@ class Database():
         id = courier.id
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('UPDATE couriers \
-                SET name = %s, phone = %s \
-                WHERE id = %s')
+                sql = (
+                    'UPDATE couriers SET name = %s, phone = %s WHERE id = %s')
                 adr = (name, phone, id)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -271,8 +271,8 @@ class Database():
         id = courier.id
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                sql = ('DELETE FROM couriers \
-                WHERE id = %s')
+                sql = (
+                    'DELETE FROM couriers WHERE id = %s')
                 adr = (id)
                 cursor.execute(sql, adr)
                 connection.commit()
@@ -298,18 +298,133 @@ class Database():
         return rows
 
     def load_order_id(self, order: Order) -> int:
-        pass
+        """Searches the database for the order, and returns the database id
+        if there is a match.
+
+        Args:
+            order (Order): The order.
+
+        Returns:
+            int: Order id.
+        """
+        customer_name = order.customer_name
+        customer_address = order.customer_address
+        customer_phone = order.customer_phone
+        courier = order.courier
+        status = order.statuscode
+        items = order.items
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = (
+                    'SELECT id FROM order WHERE customer_name = %s AND '
+                    'customer_address = %s AND customer_phone = %s AND '
+                    'courier = %s AND status = %s AND items = %s')
+                adr = (
+                    customer_name, customer_address, customer_phone, courier,
+                    status, items)
+                cursor.execute(sql, adr)
+
+                row = cursor.fetchone()
+        if row is None:
+            raise Exception(
+                f'Could not find id for {customer_name}\'s order')
+        return row['id']
 
     def save_orders(self, orders: List[Order]) -> None:
-        pass
+        """Iterates through list of products, if one doesn't have an ID, add it
+        to the database.
+
+        Args:
+            orders (List): List of products.
+        """
+        for order in orders:
+            if order.id == 0:
+                self.insert_order(order)
+            else:
+                self.update_order(order)
 
     def insert_orders(self, order: Order) -> int:
-        pass
+        """Inserts a order into the database while also returning the
+        newly generated order ID.\n
+        Call this before appending your order to the list.
+
+        Args:
+            order (Order): The order to be inserted.
+
+        Returns:
+            int: Order id.
+        """
+        customer_name = order.customer_name
+        customer_address = order.customer_address
+        customer_phone = order.customer_phone
+        courier = order.courier
+        status = order.statuscode
+        items = order.items
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = (
+                    'INSERT INTO orders (customer_name, customer_address,'
+                    'customer_phone, courier, status, items) '
+                    'VALUES (%s, %s, %s, %s, %s, %s)')
+                adr = (
+                    customer_name, customer_address, customer_phone, courier,
+                    status, items)
+                cursor.execute(sql, adr)
+                connection.commit()
+        order_id = self.load_order_id(order)
+        return order_id
 
     def update_orders(self, order: Order) -> bool:
-        pass
+        """Updates the order in the database with the attributes from the
+        order in the program.
+
+        Args:
+            order (Order): Order that will update the database
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        customer_name = order.customer_name
+        customer_address = order.customer_address
+        customer_phone = order.customer_phone
+        courier = order.courier
+        status = order.statuscode
+        items = order.items
+        if order.id == 0:
+            return False
+        id = order.id
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = (
+                    'UPDATE orders SET customer_name = %s, '
+                    'customer_address = %s, customer_phone = %s, '
+                    'courier = %s, status = %s, items = %s WHERE id = %s')
+                adr = (
+                    customer_name, customer_address, customer_phone, courier,
+                    status, items, id)
+                cursor.execute(sql, adr)
+                connection.commit()
+        return True
 
     def remove_orders(self, order: Order) -> bool:
-        pass
+        """Removes the input order from the database.
+
+        Args:
+            order (Order): Order that will be removed from the database.
+
+        Returns:
+            bool: True if function successful, False if not.
+        """
+        if order.id == 0:
+            return False
+        id = order.id
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = (
+                    'DELETE FROM orders WHERE id = %s')
+                adr = (id)
+                cursor.execute(sql, adr)
+                connection.commit()
+        return True
 
     # endregion
