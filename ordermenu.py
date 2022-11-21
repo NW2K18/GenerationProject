@@ -293,21 +293,16 @@ class Order_menu():
 
     # endregion
 
-    def set_order_remove(self, index: int) -> Union[str, None]:
-        """Asks the user to confirm their choice, then removes the order at
-        the specified index of the list.
+    def set_order_remove(self, index: int) -> str:
+        """Removes the order at the specified index of the list.
 
         Args:
             index (int): List index of the order to be removed.
 
         Returns:
-            Union[str, None]: Customer name of the removed order. None if not
+            str: Customer name of the removed order. None if not
             removed.
         """
         removed_order = self.orders[index].customer_name
-        option = input(
-            f'Do you really wish to remove {removed_order}\'s order? (y/n): ')
-        if option == 'y':
-            self.orders.pop(index)
-            return f'{removed_order}\'s order'
-        return None
+        self.orders.pop(index)
+        return f'{removed_order}\'s order'

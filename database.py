@@ -5,8 +5,9 @@ import pymysql
 import os
 from contextlib import contextmanager
 from dotenv import load_dotenv
-from typing import List
+from typing import List, Dict
 
+import inputchecker
 from productclass import Product
 from courierclass import Courier
 from orderclass import Order
@@ -372,6 +373,20 @@ class Database():
         order_id = self.load_order_id(order)
         return order_id
 
+    def insert_order_items(self, order: Order) -> None:
+        id = order.id
+        item_dict = inputchecker.get_item_quantity(order.items)
+        for key in item_dict:
+            with self._connect() as connection:
+                with connection.cursor() as cursor:
+                    sql = (
+                        'INSERT INTO order_items (order_id, product_id, '
+                        'product_quantity) VALUES (%s, %s, %s)')
+                    adr = (
+                        id, key, item_dict[key])
+                    cursor.execute(sql, adr)
+                    connection.commit()
+
     def update_orders(self, order: Order) -> bool:
         """Updates the order in the database with the attributes from the
         order in the program.
@@ -402,6 +417,25 @@ class Database():
                     status, items, id)
                 cursor.execute(sql, adr)
                 connection.commit()
+        return True
+
+    def update_order_items(self, order: Order) -> bool:
+        if order.id == 0:
+            return False
+        id = order.id
+        item_dict = inputchecker.get_item_quantity(order.items)
+        for key in item_dict:
+            with self._connect() as connection:
+                with connection.cursor() as cursor:
+                    # TODO DROP all items related to order id
+                    # INSERT THEM BACK in a new for loop
+                    sql = (
+                        'INSERT INTO order_items (order_id, product_id, '
+                        'product_quantity) VALUES (%s, %s, %s)')
+                    adr = (
+                        id, key, item_dict[key])
+                    cursor.execute(sql, adr)
+                    connection.commit()
         return True
 
     def remove_orders(self, order: Order) -> bool:

@@ -226,6 +226,14 @@ class TestInputChecker(unittest.TestCase):
 
         self.assertEqual(test_id, None)
 
+    def test_get_item_quantity(
+            self):
+        items = '2, 2, 2, 3, 3, 5'
+        result = inputchecker.get_item_quantity(items)
+
+        self.assertEqual(
+            result, {'2': 3, '3': 2, '5': 1})
+
     def test_get_product_index(
             self):
         self.assertEqual(

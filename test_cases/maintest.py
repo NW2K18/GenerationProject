@@ -180,7 +180,7 @@ class TestMainMenu(unittest.TestCase):
     def test_product_menu_remove(
             self, mock_input: MagicMock, mock_print: MagicMock,
             mock_sleep: MagicMock, mock_check: MagicMock):
-        mock_input.side_effect = ['4', '0']
+        mock_input.side_effect = ['4', 'y', '0']
         mock_check.return_value = 5
         self.testmenu.view_products_menu()
         mock_print.assert_called_with('Exitting products menu...')
@@ -188,9 +188,9 @@ class TestMainMenu(unittest.TestCase):
             'product', 'remove', self.testmenu.products.products)
         self.assertEqual(self.mock_product.mock_calls[0][0],
                          '().list_products')
-        self.assertEqual(self.mock_product.mock_calls[1][0],
+        self.assertEqual(self.mock_product.mock_calls[3][0],
                          '().set_product_remove')
-        self.assertEqual(self.mock_product.mock_calls[1].args, (5,))
+        self.assertEqual(self.mock_product.mock_calls[3].args, (5,))
 
     # endregion
     # region <COURIER MENU TESTS>
@@ -262,7 +262,7 @@ class TestMainMenu(unittest.TestCase):
     def test_courier_menu_remove(
             self, mock_input: MagicMock, mock_print: MagicMock,
             mock_sleep: MagicMock, mock_check: MagicMock):
-        mock_input.side_effect = ['4', '0']
+        mock_input.side_effect = ['4', 'y', '0']
         mock_check.return_value = 5
 
         self.testmenu.view_couriers_menu()
@@ -271,9 +271,9 @@ class TestMainMenu(unittest.TestCase):
             'courier', 'remove', self.testmenu.couriers.couriers)
         self.assertEqual(self.mock_courier.mock_calls[0][0],
                          '().list_couriers')
-        self.assertEqual(self.mock_courier.mock_calls[1][0],
+        self.assertEqual(self.mock_courier.mock_calls[3][0],
                          '().set_courier_remove')
-        self.assertEqual(self.mock_courier.mock_calls[1].args, (5,))
+        self.assertEqual(self.mock_courier.mock_calls[3].args, (5,))
 
     # endregion
     # region <ORDER MENU TESTS>
@@ -398,7 +398,7 @@ class TestMainMenu(unittest.TestCase):
     def test_order_menu_remove(
             self, mock_input: MagicMock, mock_print: MagicMock,
             mock_sleep: MagicMock, mock_check: MagicMock):
-        mock_input.side_effect = ['5', '0']
+        mock_input.side_effect = ['5', 'y', '0']
         mock_check.return_value = 5
 
         self.testmenu.view_orders_menu()
@@ -411,9 +411,9 @@ class TestMainMenu(unittest.TestCase):
                          (self.testmenu.orders.orders,
                          self.testmenu.products.products,
                          self.testmenu.couriers.couriers))
-        self.assertEqual(self.mock_order.mock_calls[1][0],
+        self.assertEqual(self.mock_order.mock_calls[3][0],
                          '().set_order_remove')
-        self.assertEqual(self.mock_order.mock_calls[1].args, (5,))
+        self.assertEqual(self.mock_order.mock_calls[3].args, (5,))
 
     # endregion
 

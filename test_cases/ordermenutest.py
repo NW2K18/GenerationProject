@@ -564,25 +564,17 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Delivered')
 
-    @patch('builtins.input')
     def test_set_order_remove(
-            self, mock_input: MagicMock):
-        '''Test when user selects y'''
-        mock_input.return_value = 'y'
-        result = self.test_ordermenu.set_order_remove(1)
+            self):
+        removed_order = self.test_ordermenu.orders[1]
 
+        result = self.test_ordermenu.set_order_remove(1)
+        # self.assertEqual(
+        #     self.mock_database.mock_calls[0][0], '().remove_order')
+        # self.assertEqual(
+        #     self.mock_database.mock_calls[0].args, (removed_order,))
         self.assertEqual(len(self.test_ordermenu.orders), 2)
         self.assertEqual(result, 'Testname2\'s order')
-
-    @patch('builtins.input')
-    def test_set_order_remove2(
-            self, mock_input: MagicMock):
-        '''Test when user doesn't select y'''
-        mock_input.return_value = 'n'
-        result = self.test_ordermenu.set_order_remove(1)
-
-        self.assertEqual(len(self.test_ordermenu.orders), 3)
-        self.assertEqual(result, None)
 
 
 if __name__ == '__main__':

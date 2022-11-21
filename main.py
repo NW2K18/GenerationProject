@@ -125,8 +125,12 @@ class Menu():
                         print('Selected 0, moving back to product menu.')
                         break
                     sleep(1)
-                    print(f'You have removed: \
-                        {self.products.set_product_remove(index)}')
+                    option = input(
+                        'Do you really wish to remove '
+                        f'{self.products.products[index].name}? (y/n): ')
+                    if option == 'y':
+                        print(f'You have removed: \
+                            {self.products.set_product_remove(index)}')
                 case _:  # Default
                     print('No option selected.')
 
@@ -181,8 +185,12 @@ class Menu():
                         print('Selected 0, moving back to courier menu.')
                         break
                     sleep(1)
-                    print(f'You have removed: \
-                        {self.couriers.set_courier_remove(index)}')
+                    option = input(
+                        'Do you really wish to remove '
+                        f'{self.couriers.couriers[index].name}? (y/n): ')
+                    if option == 'y':
+                        print(f'You have removed: \
+                            {self.couriers.set_courier_remove(index)}')
                 case _:  # Default case
                     print('No option selected.')
 
@@ -272,8 +280,13 @@ class Menu():
                         print('Selected 0, moving back to order menu.')
                         break
                     sleep(1)
-                    print(f'You have removed: \
-                        {self.orders.set_order_remove(index)}')
+                    option = input(
+                        'Do you really wish to remove '
+                        f'{self.orders.orders[index].customer_name}\'s order? '
+                        '(y/n): ')
+                    if option == 'y':
+                        print(f'You have removed: \
+                            {self.orders.set_order_remove(index)}')
                 case _:  # Default
                     print('No option selected.')
 

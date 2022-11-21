@@ -78,8 +78,7 @@ class Product_menu():
             raise Exception  # Raise exception for debugging.
 
     def load_products_database(self) -> None:
-        """Loads product data from database.
-        """
+        """Loads product data from database."""
         rows = self.database.load_products()
         self.products.clear()
         for row in rows:
@@ -90,8 +89,7 @@ class Product_menu():
         print('LOADED PRODUCTS FROM DATABASE')
 
     def save_products_database(self) -> None:
-        """Saves product data to database.
-        """
+        """Saves product data to database."""
         self.database.save_products(self.products)
 
     # endregion
@@ -139,24 +137,18 @@ class Product_menu():
             print('Input cannot be converted into a floating point number.')
         self.database.update_product(self.products[index])
 
-    def set_product_remove(self, index: int) -> Union[str, None]:
-        """Asks the user to confirm their choice, then removes the product at
-        the specified index of the list.
+    def set_product_remove(self, index: int) -> str:
+        """Removes the product at the specified index of the list.
 
         Args:
             index (int): List index of the product to be removed.
 
         Returns:
-            Union[str, None]: Name of the removed product. None if not
-            removed.
+            str: Name of the removed product.
         """
-        removed_product = self.products[index].name
-        option = input(
-            f'Do you really wish to remove {removed_product}? (y/n): ')
-        if option == 'y':
-            self.database.remove_product(self.products[index])
-            self.products.pop(index)
-            return removed_product
-        return None
+        removed_product_name = self.products[index].name
+        self.database.remove_product(self.products[index])
+        self.products.pop(index)
+        return removed_product_name
 
     # endregion

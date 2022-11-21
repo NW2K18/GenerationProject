@@ -3,7 +3,7 @@ Contains functions to validate input.
 """
 
 
-from typing import List, Union
+from typing import List, Union, Dict
 
 from productclass import Product
 from courierclass import Courier
@@ -121,6 +121,17 @@ def get_item_id(
     except ValueError:
         print('Could not convert to integer')
     return None
+
+
+def get_item_quantity(items: str) -> Dict[str, int]:
+    item_list = items.split(', ')
+    item_occurences = {}
+    for item in item_list:
+        if item in item_occurences:
+            item_occurences[item] += 1
+        else:
+            item_occurences[item] = 1
+    return item_occurences
 
 
 def get_product_index(

@@ -79,8 +79,7 @@ class Courier_menu():
             raise Exception  # Raise exception for debugging.
 
     def load_couriers_database(self) -> None:
-        """Loads courier data from database.
-        """
+        """Loads courier data from database."""
         rows = self.database.load_couriers()
         self.couriers.clear()
         for row in rows:
@@ -91,8 +90,7 @@ class Courier_menu():
         print('LOADED COURIERS FROM DATABASE')
 
     def save_couriers_database(self) -> None:
-        """Saves courier data to database.
-        """
+        """Saves courier data to database."""
         self.database.save_couriers(self.couriers)
 
     # endregion
@@ -135,24 +133,18 @@ class Courier_menu():
             self.couriers[index].phone = userinput
         self.database.update_courier(self.couriers[index])
 
-    def set_courier_remove(self, index: int) -> Union[str, None]:
-        """Asks the user to confirm their choice, then removes the courier at
-        the specified index of the list.
+    def set_courier_remove(self, index: int) -> str:
+        """Removes the courier at the specified index of the list.
 
         Args:
             index (int): List index of the courier to be removed.
 
         Returns:
-            Union[str, None]: Name of the removed courier. None if not
-            removed.
+            str: Name of the removed product.
         """
-        removed_courier = self.couriers[index].name
-        option = input(
-            f'Do you really wish to remove {removed_courier}? (y/n): ')
-        if option == 'y':
-            self.database.remove_courier(self.couriers[index])
-            self.couriers.pop(index)
-            return removed_courier
-        return None
+        removed_courier_name = self.couriers[index].name
+        self.database.remove_courier(self.couriers[index])
+        self.couriers.pop(index)
+        return removed_courier_name
 
     # endregion
