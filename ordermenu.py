@@ -44,7 +44,7 @@ class Order_menu():
         for order in orderlist:
             # Create a string to print.
             print_list = (
-                f'Order No.{i}, ID = ({order.id}):'
+                f'Order No.{order.id}:'
                 f'\n\tCustomer name: {order.customer_name}'
                 f'\n\tCustomer address: {order.customer_address}'
                 f'\n\tCustomer phone number: {order.customer_phone}')
@@ -232,10 +232,10 @@ class Order_menu():
             if userinput_items.strip() != '':
                 itemstring += inputchecker.get_item_id(
                     productmenu.products, userinput_items)
-                itemstring += ','
+                itemstring += ', '
                 productmenu.list_products()
             else:
-                itemstring = itemstring[:-1]
+                itemstring = itemstring[:-2]
                 break
         return itemstring
 

@@ -71,7 +71,7 @@ class Menu():
         self.products.save_products_database()
         self.couriers.save_couriers_database()
         self.orders.save_orders()
-        print('Exitted!')
+        print('Exited!')
 
     # endregion
     # region <PRODUCTS MENU>

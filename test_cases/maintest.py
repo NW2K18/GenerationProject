@@ -34,7 +34,7 @@ class TestMainMenu(unittest.TestCase):
             mock_sleep: MagicMock):
         mock_input.return_value = '0'
         self.testmenu.main()
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
         self.assertEqual(mock_print.call_count, 3)
 
     @patch('main.Menu.view_products_menu')
@@ -46,7 +46,7 @@ class TestMainMenu(unittest.TestCase):
             mock_sleep: MagicMock, mock_menu: MagicMock):
         mock_input.side_effect = ['1', '0']
         self.testmenu.main()
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
         mock_menu.assert_called()
 
     @patch('main.Menu.view_couriers_menu')
@@ -58,7 +58,7 @@ class TestMainMenu(unittest.TestCase):
             mock_sleep: MagicMock, mock_menu: MagicMock):
         mock_input.side_effect = ['2', '0']
         self.testmenu.main()
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
         mock_menu.assert_called()
 
     @patch('main.Menu.view_orders_menu')
@@ -70,7 +70,7 @@ class TestMainMenu(unittest.TestCase):
             mock_sleep: MagicMock, mock_menu: MagicMock):
         mock_input.side_effect = ['3', '0']
         self.testmenu.main()
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
         mock_menu.assert_called()
 
     @patch('main.sleep')
@@ -82,7 +82,7 @@ class TestMainMenu(unittest.TestCase):
         mock_input.side_effect = ['4', 'y', '0']
         self.testmenu.main()
 
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
         self.assertEqual(
             self.mock_product.mock_calls[0][0],
             '().save_products_csv')
@@ -102,8 +102,8 @@ class TestMainMenu(unittest.TestCase):
         mock_input.side_effect = ['5', 'y', '0']
         self.testmenu.main()
 
-        mock_print.assert_called_with('Exitted!')
-        mock_print.assert_called_with('Exitted!')
+        mock_print.assert_called_with('Exited!')
+        mock_print.assert_called_with('Exited!')
         self.assertEqual(
             self.mock_product.mock_calls[0][0],
             '().load_products_csv')

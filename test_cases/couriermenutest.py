@@ -38,17 +38,17 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(
             mock_print.mock_calls[0][1][0],
-            'Courier No.1, ID = (0):'
+            'Courier No.0:'
             '\n\tCourier name: Test1'
             '\n\tCourier phone: 0800001066')
         self.assertEqual(
             mock_print.mock_calls[1][1][0],
-            'Courier No.2, ID = (0):'
+            'Courier No.0:'
             '\n\tCourier name: Test2'
             '\n\tCourier phone: 6601000080')
         self.assertEqual(
             mock_print.mock_calls[2][1][0],
-            'Courier No.3, ID = (0):'
+            'Courier No.0:'
             '\n\tCourier name: Test3'
             '\n\tCourier phone: 0080006610')
 

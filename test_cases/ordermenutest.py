@@ -72,7 +72,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(mock_print.call_count, 3)
         self.assertEqual(
             mock_print.mock_calls[0][1][0],
-            'Order No.1, ID = (6):'
+            'Order No.6:'
             '\n\tCustomer name: Testname'
             '\n\tCustomer address: Testtown'
             '\n\tCustomer phone number: 0800001066'
@@ -83,7 +83,7 @@ class TestOrderMenu(unittest.TestCase):
             '\n\t\tTest2 - £1.00')
         self.assertEqual(
             mock_print.mock_calls[1][1][0],
-            'Order No.2, ID = (13):'
+            'Order No.13:'
             '\n\tCustomer name: Testname2'
             '\n\tCustomer address: Testcity'
             '\n\tCustomer phone number: 6601000080'
@@ -93,7 +93,7 @@ class TestOrderMenu(unittest.TestCase):
             '\n\t\tTest4 - £2.50')
         self.assertEqual(
             mock_print.mock_calls[2][1][0],
-            'Order No.3, ID = (21):'
+            'Order No.21:'
             '\n\tCustomer name: Testname3'
             '\n\tCustomer address: Testcountry'
             '\n\tCustomer phone number: 1066080000'
@@ -318,7 +318,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_checker.mock_calls[2].args, (
                 self.mock_productmenu.products, '21'))
-        self.assertEqual(test_return, '5,8,21')
+        self.assertEqual(test_return, '5, 8, 21')
 
     @patch('inputchecker.get_item_id')
     @patch('builtins.input')

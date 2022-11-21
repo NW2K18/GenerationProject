@@ -11,8 +11,6 @@ from productclass import Product
 from courierclass import Courier
 from orderclass import Order
 
-# TODO functions to insert data for products and couriers.
-
 
 class Database():
 
