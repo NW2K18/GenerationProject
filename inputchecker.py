@@ -124,6 +124,16 @@ def get_item_id(
 
 
 def get_item_quantity(items: str) -> Dict[str, int]:
+    """Iterates through a string of items, counts number of item occurences,
+    and returns a dictionary where key = item, value = item occurences
+    throughout string.
+
+    Args:
+        items (str): String to be iterated through, seperator is (', ').
+
+    Returns:
+        Dict[str, int]: The dictionary.
+    """    
     item_list = items.split(', ')
     item_occurences = {}
     for item in item_list:

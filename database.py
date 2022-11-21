@@ -370,10 +370,19 @@ class Database():
                     status, items)
                 cursor.execute(sql, adr)
                 connection.commit()
+        # Insert items after inserting the order.
+        self.insert_order_items(order)
+        # Load newly generated ID.
         order_id = self.load_order_id(order)
         return order_id
 
     def insert_order_items(self, order: Order) -> None:
+        """Inserts order items in the order_items table using the order's
+        'items' attribute.
+
+        Args:
+            order (Order): Order with the items.
+        """
         id = order.id
         item_dict = inputchecker.get_item_quantity(order.items)
         for key in item_dict:
@@ -417,26 +426,20 @@ class Database():
                     status, items, id)
                 cursor.execute(sql, adr)
                 connection.commit()
+        self.update_order_items[order]
         return True
 
-    def update_order_items(self, order: Order) -> bool:
-        if order.id == 0:
-            return False
-        id = order.id
-        item_dict = inputchecker.get_item_quantity(order.items)
-        for key in item_dict:
-            with self._connect() as connection:
-                with connection.cursor() as cursor:
-                    # TODO DROP all items related to order id
-                    # INSERT THEM BACK in a new for loop
-                    sql = (
-                        'INSERT INTO order_items (order_id, product_id, '
-                        'product_quantity) VALUES (%s, %s, %s)')
-                    adr = (
-                        id, key, item_dict[key])
-                    cursor.execute(sql, adr)
-                    connection.commit()
-        return True
+    def update_order_items(self, order: Order) -> None:
+        """Updates the order's order_items rows by deleting, then re-inserting
+        item data into the table.
+
+        Args:
+            order (Order): Order with the items.
+        """
+        # First remove the existing rows related to order.
+        self.remove_order_items(order)
+        # Now we can re-insert our item rows into table
+        self.insert_order_items(order)
 
     def remove_orders(self, order: Order) -> bool:
         """Removes the input order from the database.
@@ -450,6 +453,9 @@ class Database():
         if order.id == 0:
             return False
         id = order.id
+        # Remove the items first as it contains foreign keys.
+        self.remove_order_items(order)
+        # Then remove the order proper.
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
@@ -458,5 +464,20 @@ class Database():
                 cursor.execute(sql, adr)
                 connection.commit()
         return True
+
+    def remove_order_items(self, order: Order) -> None:
+        """Removes order's items from the order_items table.
+
+        Args:
+            order (Order): Order with the items.
+        """
+        id = order.id
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                sql = (
+                    'DELETE FROM order_items WHERE id = %s')
+                adr = (id)
+                cursor.execute(sql, adr)
+                connection.commit()
 
     # endregion
