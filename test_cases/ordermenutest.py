@@ -13,10 +13,12 @@ from courierclass import Courier
 
 class TestOrderMenu(unittest.TestCase):
 
-    @patch('ordermenu.Order_menu.load_orders')
+    @patch('ordermenu.Database')
+    @patch('ordermenu.Order_menu.load_orders_database')
     def setUp(
-            self, mock_load: MagicMock):
+            self, mock_load: MagicMock, mock_database: MagicMock):
         self.test_ordermenu = Order_menu()
+        self.mock_database = mock_database
         self.mock_load = mock_load
         self.test_ordermenu.orders.clear()
         self.test_ordermenu.orders.append(Order('Testname', 'Testtown',
@@ -166,6 +168,7 @@ class TestOrderMenu(unittest.TestCase):
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
         mock_get_items.return_value = '1,3,2'
+        self.mock_database.return_value.insert_order.return_value = 0
 
         self.test_ordermenu.set_order_create(
             self.mock_productmenu, self.mock_couriermenu)

@@ -25,7 +25,7 @@ class Order_menu():
             'John', 'Planet Earth', '1439280432')]
         self.database = Database()
 
-        self.load_orders()
+        self.load_orders_database()
 
     def list_orders(
             self, orderlist: List[Order], productlist: List[Product],
@@ -148,10 +148,22 @@ class Order_menu():
             raise Exception  # Raise exception for debugging.
 
     def load_orders_database(self) -> None:
-        pass
+        rows = self.database.load_orders()
+        self.orders.clear()
+        for row in rows:
+            neworder = Order(
+                row['customer_name'], row['customer_address'],
+                row['customer_phone'])
+            # Load ID from database.
+            neworder.id = int((row['id']))  # Temporary
+            neworder.set_order_status(row['statuscode'])
+            neworder.set_courier(row['courier'])
+            neworder.set_items(row['items'])
+            self.orders.append(neworder)
+        print('LOADED PRODUCTS FROM DATABASE')
 
     def save_orders_database(self) -> None:
-        pass
+        self.database.save_orders(self.orders)
 
     # endregion
 
@@ -194,6 +206,7 @@ class Order_menu():
         else:
             return False
         # If all inputs are valid, append the new entry.
+        new_order.id = self.database.insert_order(new_order)
         self.orders.append(new_order)
         return True
 
@@ -242,16 +255,13 @@ class Order_menu():
     # region <ORDER UPDATE FUNCTIONS>
 
     def set_order_update(self, index: int, productmenu: Product_menu,
-                         couriermenu: Courier_menu,) -> bool:
+                         couriermenu: Courier_menu,) -> None:
         """Asks for user input to update an order.
 
         Args:
             index (int): List index of the order to be updated.
             couriermenu (Courier_menu): Object.
             productmenu (Product_menu): Object.
-
-        Returns:
-            bool: True if function successful, False if not.
         """
         print(f'Updating {self.orders[index].customer_name}\'s order')
         # If input is blank, continue but don't update the order.
@@ -273,7 +283,8 @@ class Order_menu():
         itemstring = self.set_order_get_items(productmenu)
         if itemstring.strip() != '':
             self.orders[index].set_items(itemstring)
-        return True
+
+        self.database.update_order(self.orders[index])
 
     def set_order_update_status(self, index: int) -> None:
         """Asks for user input to update an order's status.
@@ -290,6 +301,7 @@ class Order_menu():
             """)
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
+        self.database.update_order(self.orders[index])
 
     # endregion
 
@@ -304,5 +316,6 @@ class Order_menu():
             removed.
         """
         removed_order = self.orders[index].customer_name
+        self.database.remove_order(self.orders[index])
         self.orders.pop(index)
         return f'{removed_order}\'s order'

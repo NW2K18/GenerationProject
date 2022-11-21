@@ -70,7 +70,7 @@ class Menu():
         # End of loop, save data.
         self.products.save_products_database()
         self.couriers.save_couriers_database()
-        self.orders.save_orders()
+        self.orders.save_orders_database()
         print('Exited!')
 
     # endregion

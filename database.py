@@ -291,7 +291,7 @@ class Database():
             with connection.cursor() as cursor:
                 cursor.execute(
                     'SELECT id, customer_name, customer_address, '
-                    'customer_phone, courier, status, items '
+                    'customer_phone, courier, statuscode, items '
                     'FROM orders')
                 rows = cursor.fetchall()
         return rows
@@ -310,17 +310,17 @@ class Database():
         customer_address = order.customer_address
         customer_phone = order.customer_phone
         courier = order.courier
-        status = order.statuscode
+        statuscode = order.statuscode
         items = order.items
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
-                    'SELECT id FROM order WHERE customer_name = %s AND '
+                    'SELECT id FROM orders WHERE customer_name = %s AND '
                     'customer_address = %s AND customer_phone = %s AND '
-                    'courier = %s AND status = %s AND items = %s')
+                    'courier = %s AND statuscode = %s AND items = %s')
                 adr = (
                     customer_name, customer_address, customer_phone, courier,
-                    status, items)
+                    statuscode, items)
                 cursor.execute(sql, adr)
 
                 row = cursor.fetchone()
@@ -330,11 +330,11 @@ class Database():
         return row['id']
 
     def save_orders(self, orders: List[Order]) -> None:
-        """Iterates through list of products, if one doesn't have an ID, add it
+        """Iterates through list of orders, if one doesn't have an ID, add it
         to the database.
 
         Args:
-            orders (List): List of products.
+            orders (List): List of orders.
         """
         for order in orders:
             if order.id == 0:
@@ -342,7 +342,7 @@ class Database():
             else:
                 self.update_order(order)
 
-    def insert_orders(self, order: Order) -> int:
+    def insert_order(self, order: Order) -> int:
         """Inserts a order into the database while also returning the
         newly generated order ID.\n
         Call this before appending your order to the list.
@@ -357,23 +357,24 @@ class Database():
         customer_address = order.customer_address
         customer_phone = order.customer_phone
         courier = order.courier
-        status = order.statuscode
+        statuscode = order.statuscode
         items = order.items
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
                     'INSERT INTO orders (customer_name, customer_address,'
-                    'customer_phone, courier, status, items) '
+                    'customer_phone, courier, statuscode, items) '
                     'VALUES (%s, %s, %s, %s, %s, %s)')
                 adr = (
                     customer_name, customer_address, customer_phone, courier,
-                    status, items)
+                    statuscode, items)
                 cursor.execute(sql, adr)
                 connection.commit()
-        # Insert items after inserting the order.
-        self.insert_order_items(order)
         # Load newly generated ID.
         order_id = self.load_order_id(order)
+        order.id = order_id
+        # Insert items after inserting the order and retrieving ID.
+        self.insert_order_items(order)
         return order_id
 
     def insert_order_items(self, order: Order) -> None:
@@ -396,7 +397,7 @@ class Database():
                     cursor.execute(sql, adr)
                     connection.commit()
 
-    def update_orders(self, order: Order) -> bool:
+    def update_order(self, order: Order) -> bool:
         """Updates the order in the database with the attributes from the
         order in the program.
 
@@ -410,7 +411,7 @@ class Database():
         customer_address = order.customer_address
         customer_phone = order.customer_phone
         courier = order.courier
-        status = order.statuscode
+        statuscode = order.statuscode
         items = order.items
         if order.id == 0:
             return False
@@ -420,13 +421,13 @@ class Database():
                 sql = (
                     'UPDATE orders SET customer_name = %s, '
                     'customer_address = %s, customer_phone = %s, '
-                    'courier = %s, status = %s, items = %s WHERE id = %s')
+                    'courier = %s, statuscode = %s, items = %s WHERE id = %s')
                 adr = (
                     customer_name, customer_address, customer_phone, courier,
-                    status, items, id)
+                    statuscode, items, id)
                 cursor.execute(sql, adr)
                 connection.commit()
-        self.update_order_items[order]
+        self.update_order_items(order)
         return True
 
     def update_order_items(self, order: Order) -> None:
@@ -441,7 +442,7 @@ class Database():
         # Now we can re-insert our item rows into table
         self.insert_order_items(order)
 
-    def remove_orders(self, order: Order) -> bool:
+    def remove_order(self, order: Order) -> bool:
         """Removes the input order from the database.
 
         Args:
@@ -475,7 +476,7 @@ class Database():
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
-                    'DELETE FROM order_items WHERE id = %s')
+                    'DELETE FROM order_items WHERE order_id = %s')
                 adr = (id)
                 cursor.execute(sql, adr)
                 connection.commit()

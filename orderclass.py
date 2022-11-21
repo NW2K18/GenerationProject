@@ -78,7 +78,7 @@ class Order:
         else:
             return None
 
-    def set_order_status(self, option: str) -> bool:
+    def set_order_status(self, option: Union[str, int]) -> bool:
         """Set order's status from a list of options. \n
         1 = Preparing \n
         2 = Awaiting pickup \n
@@ -91,7 +91,7 @@ class Order:
         Returns:
             bool: True if function successful, False if not.
         """
-        match option:
+        match str(option):
             case '1':  # Preparing
                 self.statuscode = 1
                 self.status = 'Preparing'
