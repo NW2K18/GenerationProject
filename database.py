@@ -47,12 +47,12 @@ class Database():
         """
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT id, name, price '
-                               'FROM products')
+                cursor.execute(
+                    'SELECT id, name, price FROM products')
                 rows = cursor.fetchall()
         return rows
 
-    def load_product_id(self, product: Product) -> Product:
+    def load_product_id(self, product: Product) -> int:
         """Searches the database for the product, and returns the database id
         if there is a match.
 
@@ -60,7 +60,7 @@ class Database():
             product (Product): The product.
 
         Returns:
-            Product: Product with the id appended.
+            int: Product id.
         """
         name = product.name
         price = product.price
@@ -75,7 +75,7 @@ class Database():
             raise Exception(f'Could not find id for {name}')
         return row['id']
 
-    def save_products(self, products: List) -> None:
+    def save_products(self, products: List[Product]) -> None:
         """Iterates through list of products, if one doesn't have an ID, add it
         to the database.
 
@@ -88,7 +88,7 @@ class Database():
             else:
                 self.update_product(product)
 
-    def insert_product(self, product: Product) -> Product:
+    def insert_product(self, product: Product) -> int:
         """Inserts a product into the database while also returning the
         newly generated product ID.\n
         Call this before appending your product to the list.
@@ -97,7 +97,7 @@ class Database():
             product (Product): The product to be inserted.
 
         Returns:
-            Product: The product, now with the database id appended.
+            int: Product id.
         """
         name = product.name
         price = product.price
@@ -169,8 +169,7 @@ class Database():
         """
         with self._connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT id, name, phone '
-                               'FROM couriers')
+                cursor.execute('SELECT id, name, phone FROM couriers')
                 rows = cursor.fetchall()
         return rows
 
@@ -182,7 +181,7 @@ class Database():
             courier (Courier): The courier.
 
         Returns:
-            courier: Courier with the id appended.
+            int: Courier id.
         """
         name = courier.name
         phone = courier.phone
@@ -219,7 +218,7 @@ class Database():
             courier (Courier): The courier to be inserted.
 
         Returns:
-            Courier: The courier, now with the database id appended.
+            int: Courier id.
         """
         name = courier.name
         phone = courier.phone
@@ -282,5 +281,35 @@ class Database():
     # endregion
 
     # region <ORDERS>
+
+    def load_orders(self) -> List:
+        """Loads the data from orders table.
+
+        Returns:
+            List: The data.
+        """
+        with self._connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    'SELECT id, customer_name, customer_address, '
+                    'customer_phone, courier, status, items '
+                    'FROM orders')
+                rows = cursor.fetchall()
+        return rows
+
+    def load_order_id(self, order: Order) -> int:
+        pass
+
+    def save_orders(self, orders: List[Order]) -> None:
+        pass
+
+    def insert_orders(self, order: Order) -> int:
+        pass
+
+    def update_orders(self, order: Order) -> bool:
+        pass
+
+    def remove_orders(self, order: Order) -> bool:
+        pass
 
     # endregion

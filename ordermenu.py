@@ -6,12 +6,13 @@ from time import sleep
 import csv
 from typing import List, Union
 
+import inputchecker
 from orderclass import Order
 from productmenu import Product_menu
 from couriermenu import Courier_menu
 from productclass import Product
 from courierclass import Courier
-import inputchecker
+from database import Database
 
 
 class Order_menu():
@@ -22,6 +23,8 @@ class Order_menu():
         # List of orders with a sample order.
         self.orders = [Order(
             'John', 'Planet Earth', '1439280432')]
+        self.database = Database()
+
         self.load_orders()
 
     def list_orders(
@@ -143,6 +146,12 @@ class Order_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+
+    def load_orders_database(self) -> None:
+        pass
+
+    def save_orders_database(self) -> None:
+        pass
 
     # endregion
 
