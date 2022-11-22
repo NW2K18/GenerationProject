@@ -115,10 +115,10 @@ class Order_menu():
                         row['customer_name'], row['customer_address'],
                         row['customer_phone'])
                     # Load ID from database.
-                    neworder.id = int((row['id']))  # Temporary
                     neworder.set_order_status(row['statuscode'])
                     neworder.set_courier(row['courier'])
                     neworder.set_items(row['items'])
+                    neworder.id = self.database.load_order_id(neworder)
                     self.orders.append(neworder)
             print('LOADED ORDERS SUCCESSFULLY')
         except Exception as e:
@@ -153,7 +153,7 @@ class Order_menu():
                 row['customer_name'], row['customer_address'],
                 row['customer_phone'])
             # Load ID from database.
-            neworder.id = self.database.load_order_id(neworder)
+            neworder.id = int((row['id']))
             neworder.set_order_status(row['statuscode'])
             neworder.set_courier(row['courier'])
             neworder.set_items(row['items'])

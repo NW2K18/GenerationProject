@@ -17,9 +17,9 @@ I want to maintain a collection of products and couriers.
 
 # How they were met:
 - Program maintains a collection of:
-1. Products (Product **name** and **price**)
-2. Couriers (Courier **name** and **phone number**)
-3. Orders (Customer **name**, **address**, **phone number**, **assigned courier**, **order status** and ordered **items**)
+    1. Products (Product **name** and **price**)
+    2. Couriers (Courier **name** and **phone number**)
+    3. Orders (Customer **name**, **address**, **phone number**, **assigned courier**, **order status** and ordered **items**)
 - All data can be **updated.**
 - All data is **loaded** from the database upon program start.
 - All data is **saved** to the database upon program exit and when data is created/updated/removed.
