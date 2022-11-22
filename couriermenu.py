@@ -29,14 +29,12 @@ class Courier_menu():
         Returns:
             int: Size of courier list
         """
-        i = 1
         for courier in self.couriers:
             print(
                 f'Courier No.{courier.id}:'
                 f'\n\tCourier name: {courier.name}'
                 f'\n\tCourier phone: {courier.phone}')
             sleep(0.3)
-            i += 1
         return len(self.couriers)
 
     # region <SAVE AND LOAD>

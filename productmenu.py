@@ -28,14 +28,12 @@ class Product_menu():
         Returns:
             int: Size of product list
         """
-        i = 1
         for product in self.products:
             print(
                 f'Product No.{product.id}:'
                 f'\n\tProduct name: {product.name}'
                 f'\n\tProduct price: {product.get_product_price()}')
             sleep(0.3)
-            i += 1
         return len(self.products)
 
     # region <SAVE AND LOAD>

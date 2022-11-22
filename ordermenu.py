@@ -40,7 +40,6 @@ class Order_menu():
         Returns:
             int: Size of order list
         """
-        i = 1
         for order in orderlist:
             # Create a string to print.
             print_list = (
@@ -68,7 +67,6 @@ class Order_menu():
                         f'{productlist[product_index].get_product_price()}')
             print(print_list)
             sleep(0.5)
-            i += 1
         return len(self.orders)
 
     def list_sorted_orders(
@@ -155,7 +153,7 @@ class Order_menu():
                 row['customer_name'], row['customer_address'],
                 row['customer_phone'])
             # Load ID from database.
-            neworder.id = int((row['id']))  # Temporary
+            neworder.id = self.database.load_order_id(neworder)
             neworder.set_order_status(row['statuscode'])
             neworder.set_courier(row['courier'])
             neworder.set_items(row['items'])
