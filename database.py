@@ -362,7 +362,7 @@ class Database():
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
-                    'INSERT INTO orders (customer_name, customer_address,'
+                    'INSERT INTO orders (customer_name, customer_address, '
                     'customer_phone, courier, statuscode, items) '
                     'VALUES (%s, %s, %s, %s, %s, %s)')
                 adr = (

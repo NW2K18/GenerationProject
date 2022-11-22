@@ -2,6 +2,7 @@
 This is the main module of the cafe program and contains the menus.
 """
 
+from pymysql import IntegrityError
 from time import sleep
 
 from productmenu import Product_menu
@@ -129,8 +130,14 @@ class Menu():
                         'Do you really wish to remove '
                         f'{self.products.products[index].name}? (y/n): ')
                     if option == 'y':
-                        print(f'You have removed: \
-                            {self.products.set_product_remove(index)}')
+                        try:
+                            print(
+                                'You have removed: '
+                                f'{self.products.set_product_remove(index)}')
+                        except IntegrityError:
+                            print(
+                                'Error: Can\'t remove a product assigned to '
+                                'an order.')
                 case _:  # Default
                     print('No option selected.')
 
@@ -189,8 +196,14 @@ class Menu():
                         'Do you really wish to remove '
                         f'{self.couriers.couriers[index].name}? (y/n): ')
                     if option == 'y':
-                        print(f'You have removed: \
-                            {self.couriers.set_courier_remove(index)}')
+                        try:
+                            print(
+                                'You have removed: '
+                                f'{self.couriers.set_courier_remove(index)}')
+                        except IntegrityError:
+                            print(
+                                'Error: Can\'t remove a product assigned to '
+                                'an order, remove the order first.')
                 case _:  # Default case
                     print('No option selected.')
 
@@ -285,8 +298,9 @@ class Menu():
                         f'{self.orders.orders[index].customer_name}\'s order? '
                         '(y/n): ')
                     if option == 'y':
-                        print(f'You have removed: \
-                            {self.orders.set_order_remove(index)}')
+                        print(
+                            'You have removed: '
+                            f'{self.orders.set_order_remove(index)}')
                 case _:  # Default
                     print('No option selected.')
 
