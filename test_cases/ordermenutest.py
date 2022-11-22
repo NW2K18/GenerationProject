@@ -158,12 +158,13 @@ class TestOrderMenu(unittest.TestCase):
             'courier', MagicMock, MagicMock)
         mock_list.assert_called_once()
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
-    def test_set_order_create(
+    def test_set_order_create1(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when all inputs are valid.'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -186,13 +187,18 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(self.test_ordermenu.orders[3].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[3].status, 'Preparing')
         self.assertEqual(self.test_ordermenu.orders[3].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_create')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create2(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when name is blank'''
         mock_input.side_effect = ['', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -203,12 +209,13 @@ class TestOrderMenu(unittest.TestCase):
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create3(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when address is blank'''
         mock_input.side_effect = ['Test4', '', '1122334455']
         mock_get_courier.return_value = 55
@@ -219,12 +226,13 @@ class TestOrderMenu(unittest.TestCase):
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create4(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when phone is blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '']
         mock_get_courier.return_value = 55
@@ -235,12 +243,13 @@ class TestOrderMenu(unittest.TestCase):
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create5(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when courier id is blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 0
@@ -251,12 +260,13 @@ class TestOrderMenu(unittest.TestCase):
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create6(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when item IDs are blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -267,12 +277,13 @@ class TestOrderMenu(unittest.TestCase):
 
         self.assertEqual(len(self.test_ordermenu.orders), 3)
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_create7(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when phone is invalid'''
         mock_input.side_effect = ['Test4', 'Testplanet', 'foobar']
         mock_get_courier.return_value = 55
@@ -357,12 +368,13 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(mock_checker.call_count, 0)
         self.assertEqual(test_return, '')
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update1(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when all inputs are valid.'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -382,13 +394,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update2(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when name is blank'''
         mock_input.side_effect = ['', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -408,13 +425,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update3(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when address is blank'''
         mock_input.side_effect = ['Test4', '', '1122334455']
         mock_get_courier.return_value = 55
@@ -434,13 +456,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update4(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when phone is blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '']
         mock_get_courier.return_value = 55
@@ -460,13 +487,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '6601000080')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update5(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when courier ID is blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 0
@@ -486,13 +518,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 7)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update6(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when item IDs are blank'''
         mock_input.side_effect = ['Test4', 'Testplanet', '1122334455']
         mock_get_courier.return_value = 55
@@ -512,13 +549,18 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '1122334455')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '5')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
     @patch('ordermenu.Order_menu.set_order_get_courier')
     @patch('builtins.input')
     def test_set_order_update7(
             self, mock_input: MagicMock, mock_get_courier: MagicMock,
-            mock_get_items: MagicMock):
+            mock_get_items: MagicMock, mock_logger: MagicMock):
         '''Test when phone is invalid'''
         mock_input.side_effect = ['Test4', 'Testplanet', 'foobar']
         mock_get_courier.return_value = 55
@@ -538,46 +580,76 @@ class TestOrderMenu(unittest.TestCase):
             self.test_ordermenu.orders[1].customer_phone, '6601000080')
         self.assertEqual(self.test_ordermenu.orders[1].courier, 55)
         self.assertEqual(self.test_ordermenu.orders[1].items, '1,3,2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4\'s order',))
 
+    @patch('ordermenu.datalogger')
     @patch('builtins.input')
     def test_set_order_update_status(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
         mock_input.return_value = '1'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Preparing')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
 
         mock_input.return_value = '2'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Awaiting pickup')
+        self.assertEqual(
+            mock_logger.mock_calls[1][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[1].args, ('Testname2\'s order',))
 
         mock_input.return_value = '3'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Out for delivery')
+        self.assertEqual(
+            mock_logger.mock_calls[2][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[2].args, ('Testname2\'s order',))
 
         mock_input.return_value = '4'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Delivered')
+        self.assertEqual(
+            mock_logger.mock_calls[3][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[3].args, ('Testname2\'s order',))
 
         mock_input.return_value = 'foobar'
         self.test_ordermenu.set_order_update_status(1)
         self.assertEqual(
             self.test_ordermenu.orders[1].status, 'Delivered')
+        self.assertEqual(
+            mock_logger.mock_calls[4][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[4].args, ('Testname2\'s order',))
 
+    @patch('ordermenu.datalogger')
     def test_set_order_remove(
-            self):
+            self, mock_logger: MagicMock):
         removed_order = self.test_ordermenu.orders[1]
 
         result = self.test_ordermenu.set_order_remove(1)
-        # self.assertEqual(
-        #     self.mock_database.mock_calls[0][0], '().remove_order')
-        # self.assertEqual(
-        #     self.mock_database.mock_calls[0].args, (removed_order,))
+        self.assertEqual(
+            self.mock_database.mock_calls[1][0], '().remove_order')
+        self.assertEqual(
+            self.mock_database.mock_calls[1].args, (removed_order,))
         self.assertEqual(len(self.test_ordermenu.orders), 2)
         self.assertEqual(result, 'Testname2\'s order')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_remove')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
 
 
 if __name__ == '__main__':

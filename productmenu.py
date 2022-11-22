@@ -6,6 +6,7 @@ from time import sleep
 import csv
 from typing import Union
 
+import datalogger
 from productclass import Product
 from database import Database
 
@@ -114,6 +115,8 @@ class Product_menu():
         new_product = Product(userinput_name, userinput_price)
         new_product.id = self.database.insert_product(new_product)
         self.products.append(new_product)
+        # Append to log.
+        datalogger.log_create(new_product.name)
         return True
 
     def set_product_update(self, index: int) -> None:
@@ -134,6 +137,8 @@ class Product_menu():
         except ValueError:
             print('Input cannot be converted into a floating point number.')
         self.database.update_product(self.products[index])
+        # Append to log.
+        datalogger.log_update(self.products[index].name)
 
     def set_product_remove(self, index: int) -> str:
         """Removes the product at the specified index of the list.
@@ -147,6 +152,8 @@ class Product_menu():
         removed_product_name = self.products[index].name
         self.database.remove_product(self.products[index])
         self.products.pop(index)
+        # Append to log.
+        datalogger.log_remove(removed_product_name)
         return removed_product_name
 
     # endregion

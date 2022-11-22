@@ -7,6 +7,7 @@ import csv
 from typing import List, Union
 
 import inputchecker
+import datalogger
 from orderclass import Order
 from productmenu import Product_menu
 from couriermenu import Courier_menu
@@ -206,6 +207,8 @@ class Order_menu():
         # If all inputs are valid, append the new entry.
         new_order.id = self.database.insert_order(new_order)
         self.orders.append(new_order)
+        # Append to log.
+        datalogger.log_create(f'{new_order.customer_name}\'s order')
         return True
 
     def set_order_get_courier(self, couriermenu: Courier_menu) -> int:
@@ -283,6 +286,8 @@ class Order_menu():
             self.orders[index].set_items(itemstring)
 
         self.database.update_order(self.orders[index])
+        # Append to log.
+        datalogger.log_update(f'{self.orders[index].customer_name}\'s order')
 
     def set_order_update_status(self, index: int) -> None:
         """Asks for user input to update an order's status.
@@ -300,6 +305,8 @@ class Order_menu():
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
         self.database.update_order(self.orders[index])
+        # Append to log.
+        datalogger.log_update(f'{self.orders[index].customer_name}\'s order')
 
     # endregion
 
@@ -316,4 +323,6 @@ class Order_menu():
         removed_order = self.orders[index].customer_name
         self.database.remove_order(self.orders[index])
         self.orders.pop(index)
+        # Append to log.
+        datalogger.log_remove(f'{removed_order}\'s order')
         return f'{removed_order}\'s order'

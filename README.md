@@ -24,10 +24,12 @@ I want to maintain a collection of products and couriers.
 - All data is **loaded** from the database upon program start.
 - All data is **saved** to the database upon program exit and when data is created/updated/removed.
 - Data can optionally be **exported** from or **imported** to csv.
+- A log of database transactions is **saved** into a text file.
 - Application has been throughly **tested** (90+ unit tests implemented).
 
 # Action plan for future
 - Visualise data with matplotlib/jupyter.
+- Refactor old code (particularly earlier tests) to be in line with recent code.
 
 # What I enjoyed
 - The problem solving aspect of figuring out how to meet project requirements within a Python program.

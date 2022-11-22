@@ -1,6 +1,7 @@
 """Author: Nathan \n
 Unit tests for couriermenu.py
 """
+import sys
 import unittest
 from unittest.mock import patch
 from unittest.mock import MagicMock
@@ -74,9 +75,10 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             self.mock_database.mock_calls[0][1][0], self.testmenu.couriers)
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_create(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
         mock_input.side_effect = ['Test4', '0900221055']
         self.mock_database.return_value.insert_courier.return_value = 50
 
@@ -84,51 +86,86 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(self.testmenu.couriers[3].id, 50)
         self.assertEqual(self.testmenu.couriers[3].name, 'Test4')
         self.assertEqual(self.testmenu.couriers[3].phone, '0900221055')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_create')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4',))
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_update(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
+        '''Test with all inputs full.'''
         mock_input.side_effect = ['Test4', '0900221055']
 
         self.testmenu.set_courier_update(1)
         self.assertEqual(self.testmenu.couriers[1].name, 'Test4')
         self.assertEqual(self.testmenu.couriers[1].phone, '0900221055')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test4',))
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_update2(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
+        '''Test with name blank.'''
         mock_input.side_effect = ['', '0900221056']
         self.testmenu.set_courier_update(1)
         self.assertEqual(self.testmenu.couriers[1].name, 'Test2')
         self.assertEqual(self.testmenu.couriers[1].phone, '0900221056')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test2',))
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_update3(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
+        '''Test with phone blank.'''
         mock_input.side_effect = ['Test5', '']
         self.testmenu.set_courier_update(1)
         self.assertEqual(self.testmenu.couriers[1].name, 'Test5')
         self.assertEqual(self.testmenu.couriers[1].phone, '6601000080')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test5',))
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_update4(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
+        '''Test with all inputs blank.'''
         mock_input.side_effect = ['', '']
         self.testmenu.set_courier_update(1)
         self.assertEqual(self.testmenu.couriers[1].name, 'Test2')
         self.assertEqual(self.testmenu.couriers[1].phone, '6601000080')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test2',))
 
+    @patch('couriermenu.datalogger')
     @patch('builtins.input')
     def test_set_courier_update5(
-            self, mock_input: MagicMock):
+            self, mock_input: MagicMock, mock_logger: MagicMock):
+        '''Test with invalid phone number.'''
         mock_input.side_effect = ['Test5', 'Test6']
         self.testmenu.set_courier_update(1)
         # self.assertRaises(ValueError)
         self.assertEqual(self.testmenu.couriers[1].name, 'Test5')
         self.assertEqual(self.testmenu.couriers[1].phone, '6601000080')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_update')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test5',))
 
+    @patch('couriermenu.datalogger')
     def test_set_courier_remove(
-            self):
+            self, mock_logger: MagicMock):
         removed_courier = self.testmenu.couriers[1]
 
         result = self.testmenu.set_courier_remove(1)
@@ -138,6 +175,10 @@ class TestCourierMenu(unittest.TestCase):
             self.mock_database.mock_calls[0].args, (removed_courier,))
         self.assertEqual(len(self.testmenu.couriers), 2)
         self.assertEqual(result, 'Test2')
+        self.assertEqual(
+            mock_logger.mock_calls[0][0], 'log_remove')
+        self.assertEqual(
+            mock_logger.mock_calls[0].args, ('Test2',))
 
 
 if __name__ == '__main__':

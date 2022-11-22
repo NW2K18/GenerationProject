@@ -6,6 +6,7 @@ from time import sleep
 import csv
 from typing import Union
 
+import datalogger
 import inputchecker
 from courierclass import Courier
 from database import Database
@@ -112,6 +113,8 @@ class Courier_menu():
         new_courier = Courier(userinput_name, userinput_phone)
         new_courier.id = self.database.insert_courier(new_courier)
         self.couriers.append(new_courier)
+        # Append to log.
+        datalogger.log_create(new_courier.name)
         return True
 
     def set_courier_update(self, index: int) -> None:
@@ -130,6 +133,8 @@ class Courier_menu():
         if userinput.strip() != '':
             self.couriers[index].phone = userinput
         self.database.update_courier(self.couriers[index])
+        # Append to log.
+        datalogger.log_update(self.couriers[index].name)
 
     def set_courier_remove(self, index: int) -> str:
         """Removes the courier at the specified index of the list.
@@ -143,6 +148,8 @@ class Courier_menu():
         removed_courier_name = self.couriers[index].name
         self.database.remove_courier(self.couriers[index])
         self.couriers.pop(index)
+        # Append to log.
+        datalogger.log_remove(removed_courier_name)
         return removed_courier_name
 
     # endregion
