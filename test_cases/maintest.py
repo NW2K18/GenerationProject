@@ -91,7 +91,7 @@ class TestMainMenu(unittest.TestCase):
             '().save_couriers_csv')
         self.assertEqual(
             self.mock_order.mock_calls[0][0],
-            '().save_orders')
+            '().save_orders_csv')
 
     @patch('main.sleep')
     @patch('builtins.print')
@@ -112,7 +112,7 @@ class TestMainMenu(unittest.TestCase):
             '().load_couriers_csv')
         self.assertEqual(
             self.mock_order.mock_calls[0][0],
-            '().load_orders')
+            '().load_orders_csv')
 
     # endregion
     # region <PRODUCT MENU TESTS>
