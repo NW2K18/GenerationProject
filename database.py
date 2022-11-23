@@ -62,7 +62,7 @@ class Database():
             int: Product id.
         """
         name = product.name
-        price = product.price
+        price = round(product.price, 2)
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
@@ -100,7 +100,7 @@ class Database():
             int: Product id.
         """
         name = product.name
-        price = product.price
+        price = round(product.price, 2)
         with self._connect() as connection:
             with connection.cursor() as cursor:
                 sql = (
@@ -122,7 +122,7 @@ class Database():
             bool: True if function successful, False if not.
         """
         name = product.name
-        price = product.price
+        price = round(product.price, 2)
         if product.id == 0:
             return False
         id = product.id

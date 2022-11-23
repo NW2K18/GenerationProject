@@ -114,7 +114,7 @@ class Menu():
                         'product', 'update', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
-                        break
+                        continue
                     self.products.set_product_update(index)
                     sleep(1)
                     print('Updated product.')
@@ -124,7 +124,7 @@ class Menu():
                         'product', 'remove', self.products.products)
                     if index is None:
                         print('Selected 0, moving back to product menu.')
-                        break
+                        continue
                     sleep(1)
                     option = input(
                         'Do you really wish to remove '
@@ -180,7 +180,7 @@ class Menu():
                         'courier', 'update', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
-                        break
+                        continue
                     self.couriers.set_courier_update(index)
                     sleep(1)
                     print('Updated courier.')
@@ -190,7 +190,7 @@ class Menu():
                         'courier', 'remove', self.couriers.couriers)
                     if index is None:
                         print('Selected 0, moving back to courier menu.')
-                        break
+                        continue
                     sleep(1)
                     option = input(
                         'Do you really wish to remove '
@@ -202,7 +202,7 @@ class Menu():
                                 f'{self.couriers.set_courier_remove(index)}')
                         except IntegrityError:
                             print(
-                                'Error: Can\'t remove a product assigned to '
+                                'Error: Can\'t remove a courier assigned to '
                                 'an order, remove the order first.')
                 case _:  # Default case
                     print('No option selected.')
@@ -266,7 +266,7 @@ class Menu():
                         'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
-                        break
+                        continue
                     self.orders.set_order_update_status(index)
                     sleep(1)
                     print('Updated order.')
@@ -278,7 +278,7 @@ class Menu():
                         'order', 'update', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
-                        break
+                        continue
                     self.orders.set_order_update(
                         index, self.products, self.couriers)
                     sleep(1)
@@ -291,7 +291,7 @@ class Menu():
                         'order', 'remove', self.orders.orders)
                     if index is None:
                         print('Selected 0, moving back to order menu.')
-                        break
+                        continue
                     sleep(1)
                     option = input(
                         'Do you really wish to remove '
