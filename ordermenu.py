@@ -305,10 +305,10 @@ class Order_menu():
         """
         print(f'Updating {self.orders[index].customer_name}\'s order')
         print("""
-            0. Preparing
-            1. Awaiting pickup
-            2. Out for delivery
-            3. Delivered
+            1. Preparing
+            2. Awaiting pickup
+            3. Out for delivery
+            4. Delivered
             """)
         new_status = input('Input number for order status: ')
         self.orders[index].set_order_status(new_status)
