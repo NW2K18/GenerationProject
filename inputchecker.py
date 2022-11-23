@@ -2,7 +2,7 @@
 Contains functions to validate input.
 """
 
-
+import html
 from typing import List, Union, Dict
 
 from productclass import Product
@@ -62,6 +62,20 @@ def get_input_index(option: str, action: str,
                 raise Exception('Invalid option passed in as arg')
 
 
+def sanitise_input(userinput: str) -> str:
+    """Takes in user input and sanitises it to prevent potential SQL
+    injections.
+
+    Args:
+        userinput (str): User input
+
+    Returns:
+        str: Sanitised input.
+    """
+    html.escape(userinput)
+    return html.escape(userinput)
+
+
 def validate_phone(userinput_phone: str) -> str:
     """Validates the passed in string as a phone number, returns it back if it
     is valid, or a blank string if it is invalid.
@@ -72,7 +86,8 @@ def validate_phone(userinput_phone: str) -> str:
     Returns:
         str: Returns the string back if valid, or blank string if invalid.
     """
-    if len(userinput_phone) >= 10:
+    userinput_phone = sanitise_input(userinput_phone)
+    if len(userinput_phone) >= 10 and userinput_phone.isdigit():
         return userinput_phone
     return ''
 
@@ -133,7 +148,7 @@ def get_item_quantity(items: str) -> Dict[str, int]:
 
     Returns:
         Dict[str, int]: The dictionary.
-    """    
+    """
     item_list = items.split(', ')
     item_occurences = {}
     for item in item_list:

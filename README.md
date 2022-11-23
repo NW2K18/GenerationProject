@@ -50,6 +50,7 @@ Cafe menu project code
 - orderclass.py: Order class
 - database.py: Class that handles database interactions between menus and mySql.
 - inputchecker.py: Validates list indexes
+- datalogger.py: Inputs a text file with a log of database transactions.
 - \test: Contains unit tests.
 - \data: Contains data.
 

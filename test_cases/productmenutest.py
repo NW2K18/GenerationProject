@@ -88,7 +88,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_create')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4',))
+            mock_logger.mock_calls[0].args, ('Product: Test4',))
 
     @patch('productmenu.datalogger')
     @patch('builtins.input')
@@ -103,7 +103,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4',))
+            mock_logger.mock_calls[0].args, ('Product: Test4',))
 
     @patch('productmenu.datalogger')
     @patch('builtins.input')
@@ -117,7 +117,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Product: Test2',))
 
     @patch('productmenu.datalogger')
     @patch('builtins.input')
@@ -131,7 +131,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test5',))
+            mock_logger.mock_calls[0].args, ('Product: Test5',))
 
     @patch('productmenu.datalogger')
     @patch('builtins.input')
@@ -145,7 +145,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Product: Test2',))
 
     @patch('productmenu.datalogger')
     @patch('builtins.input')
@@ -160,7 +160,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test5',))
+            mock_logger.mock_calls[0].args, ('Product: Test5',))
 
     @patch('productmenu.datalogger')
     def test_set_product_remove(
@@ -177,7 +177,7 @@ class TestProductMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_remove')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Product: Test2',))
 
 
 if __name__ == '__main__':

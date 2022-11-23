@@ -1,7 +1,6 @@
 """Author: Nathan \n
 Unit tests for couriermenu.py
 """
-import sys
 import unittest
 from unittest.mock import patch
 from unittest.mock import MagicMock
@@ -89,7 +88,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_create')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4',))
+            mock_logger.mock_calls[0].args, ('Courier: Test4',))
 
     @patch('couriermenu.datalogger')
     @patch('builtins.input')
@@ -104,7 +103,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4',))
+            mock_logger.mock_calls[0].args, ('Courier: Test4',))
 
     @patch('couriermenu.datalogger')
     @patch('builtins.input')
@@ -118,7 +117,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Courier: Test2',))
 
     @patch('couriermenu.datalogger')
     @patch('builtins.input')
@@ -132,7 +131,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test5',))
+            mock_logger.mock_calls[0].args, ('Courier: Test5',))
 
     @patch('couriermenu.datalogger')
     @patch('builtins.input')
@@ -146,7 +145,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Courier: Test2',))
 
     @patch('couriermenu.datalogger')
     @patch('builtins.input')
@@ -161,7 +160,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test5',))
+            mock_logger.mock_calls[0].args, ('Courier: Test5',))
 
     @patch('couriermenu.datalogger')
     def test_set_courier_remove(
@@ -178,7 +177,7 @@ class TestCourierMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_remove')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test2',))
+            mock_logger.mock_calls[0].args, ('Courier: Test2',))
 
 
 if __name__ == '__main__':

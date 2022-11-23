@@ -180,9 +180,11 @@ class Order_menu():
         """
         # If input is blank, stop function.
         userinput_name = input('Input customer name: ')
+        userinput_name = inputchecker.sanitise_input(userinput_name)
         if userinput_name.strip() == '':
             return False
         userinput_address = input('Input customer address: ')
+        userinput_address = inputchecker.sanitise_input(userinput_address)
         if userinput_address.strip() == '':
             return False
         userinput_phone = input('Input customer phone number: ')
@@ -208,7 +210,7 @@ class Order_menu():
         new_order.id = self.database.insert_order(new_order)
         self.orders.append(new_order)
         # Append to log.
-        datalogger.log_create(f'{new_order.customer_name}\'s order')
+        datalogger.log_create(f'Order: {new_order.customer_name}\'s order')
         return True
 
     def set_order_get_courier(self, couriermenu: Courier_menu) -> int:
@@ -267,9 +269,11 @@ class Order_menu():
         print(f'Updating {self.orders[index].customer_name}\'s order')
         # If input is blank, continue but don't update the order.
         userinput = input('Input customer name: ')
+        userinput = inputchecker.sanitise_input(userinput)
         if userinput.strip() != '':
             self.orders[index].customer_name = userinput
         userinput = input('Input customer address: ')
+        userinput = inputchecker.sanitise_input(userinput)
         if userinput.strip() != '':
             self.orders[index].customer_address = userinput
         userinput = input('Input customer phone number: ')
@@ -287,7 +291,8 @@ class Order_menu():
 
         self.database.update_order(self.orders[index])
         # Append to log.
-        datalogger.log_update(f'{self.orders[index].customer_name}\'s order')
+        datalogger.log_update(
+            f'Order: {self.orders[index].customer_name}\'s order')
 
     def set_order_update_status(self, index: int) -> None:
         """Asks for user input to update an order's status.
@@ -306,7 +311,8 @@ class Order_menu():
         self.orders[index].set_order_status(new_status)
         self.database.update_order(self.orders[index])
         # Append to log.
-        datalogger.log_update(f'{self.orders[index].customer_name}\'s order')
+        datalogger.log_update(
+            f'Order: {self.orders[index].customer_name}\'s order')
 
     # endregion
 
@@ -324,5 +330,6 @@ class Order_menu():
         self.database.remove_order(self.orders[index])
         self.orders.pop(index)
         # Append to log.
-        datalogger.log_remove(f'{removed_order}\'s order')
+        datalogger.log_remove(
+            f'Order: {removed_order}\'s order')
         return f'{removed_order}\'s order'

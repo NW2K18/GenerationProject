@@ -190,7 +190,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_create')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -397,7 +397,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -428,7 +428,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Testname2\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -459,7 +459,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -490,7 +490,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -521,7 +521,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -552,7 +552,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('ordermenu.Order_menu.set_order_get_items')
@@ -583,7 +583,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Test4\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Test4\'s order',))
 
     @patch('ordermenu.datalogger')
     @patch('builtins.input')
@@ -596,7 +596,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Testname2\'s order',))
 
         mock_input.return_value = '2'
         self.test_ordermenu.set_order_update_status(1)
@@ -605,7 +605,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[1][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[1].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[1].args, ('Order: Testname2\'s order',))
 
         mock_input.return_value = '3'
         self.test_ordermenu.set_order_update_status(1)
@@ -614,7 +614,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[2][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[2].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[2].args, ('Order: Testname2\'s order',))
 
         mock_input.return_value = '4'
         self.test_ordermenu.set_order_update_status(1)
@@ -623,7 +623,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[3][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[3].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[3].args, ('Order: Testname2\'s order',))
 
         mock_input.return_value = 'foobar'
         self.test_ordermenu.set_order_update_status(1)
@@ -632,7 +632,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[4][0], 'log_update')
         self.assertEqual(
-            mock_logger.mock_calls[4].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[4].args, ('Order: Testname2\'s order',))
 
     @patch('ordermenu.datalogger')
     def test_set_order_remove(
@@ -649,7 +649,7 @@ class TestOrderMenu(unittest.TestCase):
         self.assertEqual(
             mock_logger.mock_calls[0][0], 'log_remove')
         self.assertEqual(
-            mock_logger.mock_calls[0].args, ('Testname2\'s order',))
+            mock_logger.mock_calls[0].args, ('Order: Testname2\'s order',))
 
 
 if __name__ == '__main__':

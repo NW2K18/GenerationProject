@@ -4,7 +4,6 @@ This is the courier menu for the cafe application.
 
 from time import sleep
 import csv
-from typing import Union
 
 import datalogger
 import inputchecker
@@ -103,6 +102,7 @@ class Courier_menu():
         """
         # If input is blank, stop function.
         userinput_name = input('Input courier name: ')
+        userinput_name = inputchecker.sanitise_input(userinput_name)
         if userinput_name.strip() == '':
             return False
         userinput_phone = input('Input courier phone number: ')
@@ -114,7 +114,7 @@ class Courier_menu():
         new_courier.id = self.database.insert_courier(new_courier)
         self.couriers.append(new_courier)
         # Append to log.
-        datalogger.log_create(new_courier.name)
+        datalogger.log_create(f'Courier: {new_courier.name}')
         return True
 
     def set_courier_update(self, index: int) -> None:
@@ -126,6 +126,7 @@ class Courier_menu():
         print(f'Updating {self.couriers[index].name}')
         # If input is blank, continue but don't update the courier.
         userinput = input('Input courier name: ')
+        userinput = inputchecker.sanitise_input(userinput)
         if userinput.strip() != '':
             self.couriers[index].name = userinput
         userinput = input('Input courier phone number: ')
@@ -134,7 +135,7 @@ class Courier_menu():
             self.couriers[index].phone = userinput
         self.database.update_courier(self.couriers[index])
         # Append to log.
-        datalogger.log_update(self.couriers[index].name)
+        datalogger.log_update(f'Courier: {self.couriers[index].name}')
 
     def set_courier_remove(self, index: int) -> str:
         """Removes the courier at the specified index of the list.
@@ -149,7 +150,7 @@ class Courier_menu():
         self.database.remove_courier(self.couriers[index])
         self.couriers.pop(index)
         # Append to log.
-        datalogger.log_remove(removed_courier_name)
+        datalogger.log_remove(f'Courier: {removed_courier_name}')
         return removed_courier_name
 
     # endregion

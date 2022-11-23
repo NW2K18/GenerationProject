@@ -173,6 +173,19 @@ class TestInputChecker(unittest.TestCase):
             inputchecker.get_input_index(
                 'foobar', 'update', mock_list)
 
+    def test_sanitise_input(self):
+        # Normal input.
+        result = inputchecker.sanitise_input('Test45 Name')
+        self.assertEqual(result, 'Test45 Name')
+
+        # Empty input.
+        result = inputchecker.sanitise_input('')
+        self.assertEqual(result, '')
+
+        # Input with special characters
+        result = inputchecker.sanitise_input('Test/Name.Admin < Something')
+        self.assertEqual(result, 'Test/Name.Admin &lt; Something')
+
     def test_validate_phone(
             self):
         result = inputchecker.validate_phone('1122334455')
@@ -182,6 +195,9 @@ class TestInputChecker(unittest.TestCase):
         self.assertEqual(result, '11223344556')
 
         result = inputchecker.validate_phone('112233445')
+        self.assertEqual(result, '')
+
+        result = inputchecker.validate_phone('1122334455test')
         self.assertEqual(result, '')
 
     def test_get_courier_id(

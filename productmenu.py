@@ -4,9 +4,9 @@ This is the product menu for the cafe application.
 
 from time import sleep
 import csv
-from typing import Union
 
 import datalogger
+import inputchecker
 from productclass import Product
 from database import Database
 
@@ -102,6 +102,7 @@ class Product_menu():
         """
         # If input is blank, stop function.
         userinput_name = input('Input product name: ')
+        userinput_name = inputchecker.sanitise_input(userinput_name)
         if userinput_name.strip() == '':
             return False
         try:
@@ -116,7 +117,7 @@ class Product_menu():
         new_product.id = self.database.insert_product(new_product)
         self.products.append(new_product)
         # Append to log.
-        datalogger.log_create(new_product.name)
+        datalogger.log_create(f'Product: {new_product.name}')
         return True
 
     def set_product_update(self, index: int) -> None:
@@ -128,6 +129,7 @@ class Product_menu():
         print(f'Updating {self.products[index].name}')
         # If input is blank, continue but don't update the product.
         userinput = input('Input product name: ')
+        userinput = inputchecker.sanitise_input(userinput)
         if userinput.strip() != '':
             self.products[index].name = userinput
         try:
@@ -138,7 +140,7 @@ class Product_menu():
             print('Input cannot be converted into a floating point number.')
         self.database.update_product(self.products[index])
         # Append to log.
-        datalogger.log_update(self.products[index].name)
+        datalogger.log_update(f'Product: {self.products[index].name}')
 
     def set_product_remove(self, index: int) -> str:
         """Removes the product at the specified index of the list.
@@ -153,7 +155,7 @@ class Product_menu():
         self.database.remove_product(self.products[index])
         self.products.pop(index)
         # Append to log.
-        datalogger.log_remove(removed_product_name)
+        datalogger.log_remove(f'Product: {removed_product_name}')
         return removed_product_name
 
     # endregion
