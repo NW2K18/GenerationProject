@@ -75,6 +75,7 @@ class Courier_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+        print('EXPORTED COURIERS SUCCESSFULLY')
 
     def load_couriers_database(self) -> None:
         """Loads courier data from database."""

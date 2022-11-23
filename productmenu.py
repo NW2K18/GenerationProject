@@ -75,6 +75,7 @@ class Product_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+        print('EXPORTED PRODUCTS SUCCESSFULLY')
 
     def load_products_database(self) -> None:
         """Loads product data from database."""

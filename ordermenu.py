@@ -101,7 +101,7 @@ class Order_menu():
 
     # region <SAVE AND LOAD>
 
-    def load_orders(self) -> None:
+    def load_orders_csv(self) -> None:
         """Loads orders from a csv file.
 
         Raises:
@@ -126,7 +126,7 @@ class Order_menu():
             print(f'THERE WAS AN ISSUE: {e}')
             raise Exception  # Raise exception for debugging.
 
-    def save_orders(self) -> None:
+    def save_orders_csv(self) -> None:
         """Saves order data to a csv file.
 
         Raises:
@@ -145,8 +145,10 @@ class Order_menu():
         except Exception as e:
             print(f'there was a problem at writing to file. {e}')
             raise Exception  # Raise exception for debugging.
+        print('EXPORTED ORDERS SUCCESSFULLY')
 
     def load_orders_database(self) -> None:
+        """Loads order data from database."""
         rows = self.database.load_orders()
         self.orders.clear()
         for row in rows:
@@ -162,6 +164,7 @@ class Order_menu():
         print('LOADED PRODUCTS FROM DATABASE')
 
     def save_orders_database(self) -> None:
+        """Saves order data to database."""
         self.database.save_orders(self.orders)
 
     # endregion

@@ -58,14 +58,14 @@ class Menu():
                     if option == 'y':
                         self.products.save_products_csv()
                         self.couriers.save_couriers_csv()
-                        self.orders.save_orders()
+                        self.orders.save_orders_csv()
                 case '5':  # Import
                     sleep(1)
                     option = input('Are you sure you wish to import? (y/n): ')
                     if option == 'y':
                         self.products.load_products_csv()
                         self.couriers.load_couriers_csv()
-                        self.orders.load_orders()
+                        self.orders.load_orders_csv()
                 case _:  # Default
                     print('No option selected.')
         # End of loop, save data.
