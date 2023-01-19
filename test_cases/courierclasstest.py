@@ -14,7 +14,7 @@ class TestCourierObject(unittest.TestCase):
 
     def test_setUp(self):
         self.assertEqual(self.test_courier.id, 0)
-        self.assertEqual(self.test_courier.name, 'Nat')
+        self.assertEqual(self.test_courier.name, 'Nate')
         self.assertEqual(self.test_courier.phone, '0800001066')
 
     def test_set_attributes(self):
